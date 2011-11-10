@@ -82,8 +82,8 @@ div#nav-bar a {
 div#cont-variable {
 	margin: 18px 0;
 	background-color: #dedeb9;
-	height: 240px;
-	padding: 60px 0;
+	height: 320px;
+	padding: 20px 0;
 	border-top: 6px solid #bcbc98;
 }
 
@@ -115,6 +115,7 @@ div.secciones a {
 	border: 1px solid #BCBC98;
 	background-color: #EFEFBA;
 	padding: 2px 6px;
+	font-size: 10px;
 }
 
 div#pie {
