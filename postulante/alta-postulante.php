@@ -5,11 +5,16 @@
  */	
 
 		<form action="#" method="post" id="AltaPostulante">
-			
+			//Aca le faltaria algo para ver la nacionalidad
 			<!---->
 			
 			<label>Nombre de Usuario</label>
 			<input type="text" id="txtUsrNomPostulante" />
+			
+			<!---->
+			
+			<label>Mail</label>
+			<input type="email" id="txtMailPostulante"/>
 			
 			<!---->
 			
