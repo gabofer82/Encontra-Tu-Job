@@ -2,7 +2,7 @@
 /**
  * Representa los usuarios del sitio
  */
-class Usuarios {
+class Usuario {
 	
 	private $nombre;
 	private $pass;

@@ -3,7 +3,7 @@
 	/**
 	 *  Clase encargada de representar los Usuarios Postulantes
 	 */
-	class Postulantes extends Usuarios  {
+	class Postulante extends Usuario  {
 		
 		private $sexo;
 		private $fNac;

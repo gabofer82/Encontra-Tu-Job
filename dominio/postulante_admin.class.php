@@ -4,7 +4,7 @@
 	 * todas las cosas tipo alta, baja, modificacion, etc
 	 * Implementa Singleton Pattern
      */
-    class Postulante{
+    class PostulanteAdmin{
     	
       private static $instance;
 	  	  
