@@ -1,10 +1,10 @@
 <?php
 /**
- * Este es el controlador para el postulante, se encarga de
+ * Este es el controlador para el empresa, se encarga de
  * todas las cosas tipo alta, baja, modificacion, etc
  * Implementa Singleton Pattern
  */
-class PostulanteAdmin {
+class EmpresaAdmin {
 
 	private static $instance;
 
@@ -20,16 +20,16 @@ class PostulanteAdmin {
 		return self::$instance;
 	}
 
-	public function alta($objP) {
+	public function alta($objE) {
 
-		$arrP = obtener();
+		$arrE = obtener();
 
-		foreach ($arrP as $key => $value) {
+		foreach ($arrE as $key => $value) {
 
-			if ($objP -> getNom() != $key -> getNom()) {
+			if ($objE -> getNom() != $key -> getNom()) {
 
 				$sentenciaSql = <<<SQL
-insert into postulante('nom','pass','mail','sexo','fNac','localidad')
+insert into postulante('nom','pass','mail','','localidad')
 values($objP->getNom(),$objP->getPass(),
 $objP->getMail(),$objP->getSexo(),
 $objP->getFNac(),$objP->getLoc())
@@ -41,13 +41,13 @@ SQL;
 		}
 	}
 
-	public function baja($objP) {
+	public function baja($objE) {
 
-		$arrP = obtener();
+		$arrE = obtener();
 
-		foreach ($arrP as $key => $value) {
+		foreach ($arrE as $key => $value) {
 
-			if ($objP -> getNom() == $key -> getNom()) {
+			if ($objE -> getNom() == $key -> getNom()) {
 
 				$sentenciaSql = <<<SQL
 delete from postulantes
@@ -61,13 +61,13 @@ SQL;
 		}
 	}
 
-	public function modificar($objP) {
+	public function modificar($objE) {
 
-		$arrP = obtener();
+		$arrE = obtener();
 
-		foreach ($arrP as $key => $value) {
+		foreach ($arrE as $key => $value) {
 
-			if ($objP -> getNom() == $key -> getNom()) {
+			if ($objE -> getNom() == $key -> getNom()) {
 
 				$sentenciaSql = <<<SQL
 delete from postulantes
@@ -94,26 +94,26 @@ SQL;
 	public function obtener() {
 
 		$sentenciaSql = <<<SQL
-select * from Postulantes
+select * from Empresas
 SQL;
 
 		$resQuery = mysql_query($sentenciaSql);
 
 		if ($resQuery) {
 
-			$arrPost;
+			$arrEmp;
 			$cont = 0;
 
 			while ($dato = mysql_fetch_assoc($resQuery)) {
 
-				$objP = $dato['nom'] . "," . $dato['pass'] . "," . $dato['mail'] . "," . $dato['sexo'] . "," . $dato['fNac'] . "," . $dato['localidad'];
+				$objE = $dato['nom'] . "," . $dato['pass'] . "," . $dato['mail'] . "," . $dato['sexo'] . "," . $dato['fNac'] . "," . $dato['localidad'];
 
 				$arrPost[$cont] = $objP;
 				$cont++;
 
 			}
 
-			return $arrPost or die("No existen elementos");
+			return $arrEmp or die("No existen elementos");
 
 		}
 
