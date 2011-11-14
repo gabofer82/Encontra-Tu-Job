@@ -6,6 +6,7 @@
  */
 class PostulanteAdmin {
 
+
 	private static $instance;
 
 	private function __construct($argument) {
@@ -119,5 +120,8 @@ SQL;
 
 	}
 
-}
+	  	  
+    }
+    
+
 ?>
