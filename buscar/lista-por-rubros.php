@@ -13,8 +13,9 @@
 	<div id="cont-variable">
 		<?php
 			while ($row = mysql_fetch_array($result)) {
-			  echo "los datos en una tabla"
+			  echo "los datos en una tabla";
 			}
+			mysql_free_result($result);
 		?>
 	</div>
 </div>
