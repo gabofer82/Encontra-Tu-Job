@@ -66,7 +66,7 @@ SQL;
 	  	
 	  }
 	  
-	  public function obtener() {
+	  public function getPostulates() {
 	  	
 
 		
@@ -75,6 +75,8 @@ select * from Postulantes
 SQL;
 
 			$resQuery = mysql_query($sentenciaSql);
+			/////////////////////////////////////////////////////////////////
+			//ESTO VA EN LA VISTA, SOLO TIENE QUE DEVOLVER $resQuery
 			
 			if ($resQuery) {
 				
@@ -94,6 +96,7 @@ SQL;
 				return $arrPost or die("No existen elementos");
 				
 			}
+			//////////////////////////////////////////////////////////////////////////
 			
 	  }
 	  

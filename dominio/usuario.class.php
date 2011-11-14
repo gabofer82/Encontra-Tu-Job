@@ -8,7 +8,8 @@ class Usuario {
 	private $pass;
 	private $usrmail;
 	
-	function __construct($nom,$pass,$mail) {
+	function __construct($nom = 'Visitante',$pass = '',$mail = '') {
+		//Para iniciar sesion como visitante
 		$this->nombre=$nom;
 		$this->usrmail=$mail;
 		$this->pass=$pass;
@@ -44,7 +45,7 @@ class Usuario {
 		
 	}
 	
-	function setNom($pass) {
+	function setPass($pass) {
 		
 		$this->pass=$pass;	
 		

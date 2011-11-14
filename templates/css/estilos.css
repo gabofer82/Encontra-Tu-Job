@@ -38,7 +38,7 @@ div#barra-usuario span {
 	clear: right;
 }
 
-form#login-usr {
+form#login-usr, span#logout-usr {
 	float: right;
 }
 
@@ -156,3 +156,4 @@ div#pie p{
 input.btnSubmit{
 	clear: left;
 }
+
