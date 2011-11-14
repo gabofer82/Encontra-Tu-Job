@@ -131,3 +131,29 @@ div#pie p{
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 	padding-bottom: 4px;
 }
+
+/*************** FORMULARIOS DE LA APLICACION **************/
+
+form {
+	padding: 16px;
+	width: 400px;
+}
+
+label {
+	float: left;
+	width: 200px;
+	padding-right: 8px;
+	font-size: 12px;
+}
+
+input {
+	float: left;
+}
+
+label, input {
+	margin-bottom: 16px;
+}
+
+input#btnRegPost{
+	clear: left;
+}
