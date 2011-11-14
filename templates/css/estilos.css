@@ -134,26 +134,25 @@ div#pie p{
 
 /*************** FORMULARIOS DE LA APLICACION **************/
 
-form {
+.formularios {
 	padding: 16px;
 	width: 400px;
 }
 
-label {
-	float: left;
+.formularios label {
 	width: 200px;
 	padding-right: 8px;
 	font-size: 12px;
 }
 
-input {
+.formularios input {
+}
+
+.formularios label, .formularios input, .formularios textarea {
+	margin-bottom: 16px;
 	float: left;
 }
 
-label, input {
-	margin-bottom: 16px;
-}
-
-input#btnRegPost{
+input.btnSubmit{
 	clear: left;
 }

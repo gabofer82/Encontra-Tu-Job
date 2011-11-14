@@ -3,12 +3,12 @@
  * Esta funcion configura los select de la fecha de nacimiento no se donde iria aca para
  * que sea importada. O va en Index.html?
  */	
-	include_once __DIR__.'/../templates/header.php';//USAR VARIABLE GLOBAL CON PATH
+	include_once __DIR__.'/../templates/header.php';
 	include_once __DIR__.'/../templates/user-bar.php';
 	include_once __DIR__.'/../templates/content.php';
 ?>
 	<div id="cont-variable">
-		<form action="#" method="post" id="AltaPostulante">
+		<form action="#" method="post" id="AltaPostulante" class="formularios">
 			<!--Aca le faltaria algo para ver la nacionalidad-->
 			
 			<label>Nombre de Usuario</label>
@@ -54,7 +54,7 @@
 			<input type="radio" name="rbSexo" id="rbF" value="F" />
 			<!---->
 			
-			<input type="submit" id="btnRegPost" value="Registrarse" />
+			<input type="submit" id="btnRegPost" value="Registrarse" class="btnSubmit"/>
 			
 		</form>
 	</div>
