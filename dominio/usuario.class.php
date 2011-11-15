@@ -10,20 +10,21 @@ class Usuario {
 	private $telefono;
 	private $localidad;
 	private $codigoPostal;
+
+	function __construct($nom,$mail,$pass,$telefono,$localidad,$codigoPostal) {
 	
-	
-	function __construct($nom = 'Visitante') {
-		//Para iniciar sesion como visitante
+		if ($nom='Visitante') {
+			
+				//Para iniciar sesion como visitante
 		$this->nombre=$nom;
 		$this->usrmail="";
 		$this->pass="";
 		$this->telefono="";
 		$this->localidadl="";
 		$this->codigoPostal="";
+			
+		} else {
 		
-	}
-	
-	function __construct($nom,$mail,$pass,$telefono,$localidad,$codigoPostal) {
 		//Constructor para usuarios registrados
 		$this->nombre=$nom;
 		$this->usrmail=$mail;
@@ -31,6 +32,8 @@ class Usuario {
 		$this->telefono=$telefono;
 		$this->localidadl=$localidad;
 		$this->codigoPostal=$codigoPostal;
+		
+		}
 	}	
 	
 	function toString() {

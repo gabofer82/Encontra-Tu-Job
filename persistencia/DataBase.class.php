@@ -4,7 +4,7 @@ class DataBase {
 
 	private $conexion;
 	private $queryTxt;
-	private $numFilas;
+	private $umFilas = 0;
 	private $resultado;
 	
 	private static $objBD = null;
@@ -13,7 +13,7 @@ class DataBase {
     {
         if( !self::$objBD instanceof self )
         {
-                self::$objBD = new self;
+                self::$objBD = new self("","","");
         }
         return self::$objBD;
     }
@@ -47,7 +47,7 @@ class DataBase {
 	
 	}
 	
-	function ejecutar($sentencia) {
+	function ejecutarSentencia($sentencia) {
 		
 		setQueryText ( $sentencia );
 		ejecutar();

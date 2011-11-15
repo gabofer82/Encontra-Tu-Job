@@ -3,7 +3,7 @@
 	session_start();
 	
 	if (!isset($_SESSION['user'])) {
-		$_SESSION['user'] = new Usuario();
+		$_SESSION['user'] = new Usuario('Visitante',"","","","","");
 		//$_SESSION['user']->setNom('Otro');
 	}
 ?>	
