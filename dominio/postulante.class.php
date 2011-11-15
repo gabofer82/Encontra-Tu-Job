@@ -5,18 +5,21 @@
 	 */
 	class Postulante extends Usuario  {
 		
-		private $sexo;
+		private $apellido;
+		private $usrNom;
 		private $fNac;
-		private $localidad;
+		private $sexo;
 		
-		function __construct($nom,$pass,$mail,$sexo,$fNac,$localidad) {
+		function __construct($nom,$mail,$pass,$telefono,$localidad,
+		$codigoPostal,$ape,$usrNom,$fNac,$sexo) {
 			
-			parent:__construct($nom,$pass,$mail);
+			parent:__construct($nom,$mail,$pass,$telefono,$localidad,$codigoPostal);
 			
-			$this->sexo=$sexo;
-			$this->localidad=$localidad;
+			$this->apellido=$ape;
+			$this->usrNom=$usrNomu;
 			$this->fNac=$fNac;
-			
+			$this->sexo=$sexo;
+						
 		 }
 		
 		function toString() {

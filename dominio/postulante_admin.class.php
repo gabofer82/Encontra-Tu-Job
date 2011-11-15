@@ -4,13 +4,16 @@
  * todas las cosas tipo alta, baja, modificacion, etc
  * Implementa Singleton Pattern
  */
+
 class PostulanteAdmin {
 
-
 	private static $instance;
+	private $conexion;
 
 	private function __construct($argument) {
-		//algo
+
+		$conexion = $GLOBALS['conexion'];
+
 	}
 
 	public static function getInstance() {
@@ -36,7 +39,7 @@ $objP->getMail(),$objP->getSexo(),
 $objP->getFNac(),$objP->getLoc())
 SQL;
 
-				mysql_query($sentenciaSql);
+				$conexion -> ejecutar($sentenciaSql);
 				break;
 			}
 		}
@@ -55,7 +58,7 @@ delete from postulantes
 where nom=$objP->getNom() 
 SQL;
 
-				mysql_query($sentenciaSql);
+				$conexion -> ejecutar($sentenciaSql);
 				break;
 
 			}
@@ -75,8 +78,8 @@ delete from postulantes
 where nom=$objP->getNom() 
 SQL;
 
-				mysql_query($sentenciaSql);
-				
+				$conexion -> ejecutar($sentenciaSql);
+
 				$sentenciaSql = <<<SQL
 insert into postulante('nom','pass','mail','sexo','fNac','localidad')
 values($objP->getNom(),$objP->getPass(),
@@ -84,9 +87,8 @@ $objP->getMail(),$objP->getSexo(),
 $objP->getFNac(),$objP->getLoc())
 SQL;
 
-				mysql_query($sentenciaSql);
-				
-				break;				
+				$conexion -> ejecutar($sentenciaSql);
+				break;
 
 			}
 		}
@@ -98,7 +100,7 @@ SQL;
 select * from Postulantes
 SQL;
 
-		$resQuery = mysql_query($sentenciaSql);
+		$resQuery = $conexion -> ejecutar($sentenciaSql);
 
 		if ($resQuery) {
 
@@ -120,8 +122,5 @@ SQL;
 
 	}
 
-	  	  
-    }
-    
-
+}
 ?>
