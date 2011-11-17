@@ -4,7 +4,7 @@ class DataBase {
 
 	private $conexion;
 	private $queryTxt;
-	private $umFilas = 0;
+	private $numFilas = 0;
 	private $resultado;
 	
 	private static $objBD = null;
@@ -18,7 +18,7 @@ class DataBase {
 		return self::$objBD;
     }
 
-	function __construct($host,$usr,$pass){
+	private function __construct($host,$usr,$pass){
 	//Hay que acomodar los datos de conexion
 		$this->conexion = @mysql_connect($host, $usr, $usr);
 		mysql_select_db('etj_bd');
