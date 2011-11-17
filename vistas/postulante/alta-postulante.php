@@ -58,7 +58,6 @@
 			
 		</form>
 	</div>
-</div>
 <?php
 	include_once __DIR__.'/../templates/footer.php';
 ?>

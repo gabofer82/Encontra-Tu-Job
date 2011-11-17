@@ -27,7 +27,7 @@ li {
 
 div#barra-usuario {
 	background-color: #333;
-	color: #eee;
+	color: #dedeb9;
 	padding: 4px 30px;
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 	font-size: 14px;
@@ -37,6 +37,13 @@ div#barra-usuario {
 div#barra-usuario span {
 	clear: right;
 }
+
+div#barra-usuario a {
+	margin-left: 2px;
+	text-decoration: none;
+	color: #FFFFFF;
+}
+div#barra-usuario a:hover {color: #dedeb9;}
 
 form#login-usr, span#logout-usr {
 	float: right;

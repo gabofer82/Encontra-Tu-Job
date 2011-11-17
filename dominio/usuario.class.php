@@ -4,46 +4,54 @@
  */
 class Usuario {
 	
-	private $nombre;
+	private $id;
+	private $nom;
+	private $dir;
 	private $usrmail;
 	private $pass;
-	private $telefono;
-	private $localidad;
-	private $codigoPostal;
+	private $ciudad;
+	
+	private $conexion;
 
-	function __construct($nom,$mail,$pass,$telefono,$localidad,$codigoPostal) {
+	function __construct($nom,$dir,$mail,$pass,$ciudad) {
 	
 		if ($nom='Visitante') {
 			
 				//Para iniciar sesion como visitante
-		$this->nombre=$nom;
-		$this->usrmail="";
-		$this->pass="";
-		$this->telefono="";
-		$this->localidadl="";
-		$this->codigoPostal="";
-			
+		$this->nom = $nom;
+		$this->id = 0;
+		$this->dir='';
+		$this->pass='';
+		$this->usrmail='';
+		$this->ciudad='';
+					
 		} else {
 		
 		//Constructor para usuarios registrados
-		$this->nombre=$nom;
+		$this->nom = $nom;
+		$this->id = calcularId();
+		$this->dir=$dir;
+		$this->pass= $pass;
 		$this->usrmail=$mail;
-		$this->pass=$pass;
-		$this->telefono=$telefono;
-		$this->localidadl=$localidad;
-		$this->codigoPostal=$codigoPostal;
-		
+		$this->ciudad=$ciudad;
+							
 		}
-	}	
-	
-	function toString() {
-		
-		return "Usuario: ". $this->nombre." EMail: ".$this->usrmail;
-		
 	}
 	
+	private function calcularID() {
+		
+		$conexion = $GLOBALS['conexion'];
+		
+		$sql = <<<SQL
+select MAX(usr_id) from etj_usuarios		
+SQL;
+		
+		return $conexion->ejecutarSentencia($sql);
+				
+	}	
+	
 	function getNom() {
-		return $this->nombre;
+		return $this->nom;
 	}
 	
 	function getMail() {
@@ -54,22 +62,16 @@ class Usuario {
 		return $this->pass;
 	}
 	
-	function getTel() {
-		return $this->telefonot;
+	function getDir() {
+		return $this->dir;
 	}
 	
-	function getLoc() {
-		return $this->localidadl;
+	function getCiudad() {
+		return $this->ciudad;
 	}
 	
-	function getCP() {
-		return $this->codigoPostalc;
-	}
-	
-	function setNom($nom) {
-		
-		$this->nombre=$nom;	
-		
+	function getID() {
+		return $this->id;
 	}
 	
 	function setMail($mail) {
@@ -84,23 +86,18 @@ class Usuario {
 		
 	}	
 	
-	function setTel($tel) {
+	function setCiudad($ciudad) {
 		
-		$this->telefonot=$tel;	
-		
-	}
-	
-	function setLoc($loc) {
-		
-		$this->localidad=$loc;	
+		$this->ciudad=$ciudad;	
 		
 	}
 	
-	function setCP($CP) {
+	function setDir($dir) {
 		
-		$this->codigoPostal=$CP;	
+		$this->dir=$dir;	
 		
 	}
+
 			
 }
 ?>

@@ -6,72 +6,48 @@
 class Empresa extends Usuario {
 
 	private $rut;
-	private $direccion;
-	private $rubro;
-	private $sitoweb;
-	private $referente;
+	private $descripcion;
+	private $rubroid;
+	private $logo;
+	
+	function __construct($nom,$dir,$mail,$pass,$ciudad,$rut,$rubro) {
 
-	function __construct($nom, $mail, $pass, $telefono, $localidad, $codigoPostal, $xrut, $dir, $rub, $web, $ref) {
-
-		parent:
-		__construct($nom, $mail, $pass, $telefono, $localidad, $codigoPostal);
+		parent:__construct($nom,$dir,$mail,$pass,$ciudad);
 
 		$this -> rut = $xrut;
-		$this -> direccion = $dir;
-		$this -> rubro = $rub;
-		$this -> sitoweb = $web;
-		$this -> referente = $ref;
-
+		$this -> rubroid = $rubro;
 	}
 
 	function getRut() {
 		return $this -> rut;
 	}
 
-	function getDir() {
-		return $this -> direccion;
+	function getDesc() {
+		return $this -> descripcion;
 	}
 
 	function getRubro() {
-		return $this -> rubro;
+		return $this -> rubroid;
 	}
 
-	function getWeb() {
-		return $this -> sitoweb;
-	}
-
-	function getReferente() {
-		return $this -> referente;
+	function getLogo() {
+		return $this -> logol;
 	}
 
 	function setRut($rut) {
-
-		$this -> rut;
-
+		$this -> rut = $rut;
 	}
 
-	function setDireccion($direccion) {
-
-		$this -> direccion;
-
+	function setDescripcion($desc) {
+		$this ->descripcion= $desc;
 	}
 
 	function setRubro($rub) {
-
-		$this -> rubro;
-
+		$this -> rubroid = $rub;
 	}
 
-	function setSitioWeb($web) {
-
-		$this -> sitoweb;
-
-	}
-
-	function setReferente($ref) {
-
-		return $this -> referente;
-
+	function setLogo($logo) {
+		$this -> logo = $logo;
 	}
 
 }

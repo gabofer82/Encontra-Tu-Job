@@ -13,15 +13,15 @@ class DataBase {
     {
         if( !self::$objBD instanceof self )
         {
-                self::$objBD = new self("","","");
+                self::$objBD = new self('127.0.0.1','root','');
         }
-        return self::$objBD;
+		return self::$objBD;
     }
 
 	function __construct($host,$usr,$pass){
 	//Hay que acomodar los datos de conexion
 		$this->conexion = @mysql_connect($host, $usr, $usr);
-		mysql_select_db('database_name', $this->conexion);
+		mysql_select_db('etj_bd');
 		$this->queryTxt = "";
 		$this->numFilas = 0;
 		$GLOBALS['conexion'] = $this;		

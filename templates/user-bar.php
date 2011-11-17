@@ -3,7 +3,7 @@
 	session_start();
 	
 	if (!isset($_SESSION['user'])) {
-		$_SESSION['user'] = new Usuario('Visitante',"","","","","");
+		$_SESSION['user'] = new Usuario('Visitante',"","","","");
 		//$_SESSION['user']->setNom('Otro');
 	}
 ?>	
@@ -17,6 +17,7 @@
 				<label>Pass</label>
 				<input type="password" name="password" />
 				<input type="submit" value="Ingresar"/>
+				<a href="./vistas/usuarios_alta.php" onclick="RegistroMostrar();">Registrarse</a>
 			</form>';
 			}else{
 				echo '<span id="logout-usr"><a href="#">Salir</a></span>';

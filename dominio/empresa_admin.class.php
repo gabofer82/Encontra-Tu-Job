@@ -20,7 +20,9 @@ class EmpresaAdmin {
 		return self::$instance;
 	}
 
-	public function alta($objE) {
+	public function alta($nom,$rut,$mail,$pass,$dir,$rub,$ciudad) {
+
+		$objE = new Empresa($nom,$rut,$mail,$pass,$dir,$rub,$ciudad);
 
 		$arrE = obtener();
 
@@ -29,10 +31,11 @@ class EmpresaAdmin {
 			if ($objE -> getNom() != $key -> getNom()) {
 
 				$sentenciaSql = <<<SQL
-insert into postulante('nom','pass','mail','','localidad')
-values($objP->getNom(),$objP->getPass(),
-$objP->getMail(),$objP->getSexo(),
-$objP->getFNac(),$objP->getLoc())
+insert into etj_usuarios (usr_nombres,usr_direccion,usr_mail,usr_pass,usr_ciudad_id) 
+values ('.$objE->getNom().','.$objE->getDir().','.$objE->getMail().','.$objE->getPass().
+','.$objE->getCiudad().')
+insert into etj_empresa (emp_RUT,emp_rubro_id,emp_usr_id) values
+('.$objE->getRUT().','.$objE->getDesc().','.$objE->geRubro().','.$objE->getID().')
 SQL;
 
 				mysql_query($sentenciaSql);
