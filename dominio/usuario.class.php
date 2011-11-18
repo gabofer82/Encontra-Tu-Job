@@ -13,9 +13,9 @@ class Usuario {
 	
 	private $conexion;
 
-	function __construct($nom,$dir,$mail,$pass,$ciudad) {
+	function __construct($nom,$dir,$mail,$pass,$ciudad,$control) {
 	
-		if ($nom='Visitante') {
+		if ($control = 0) {
 			
 				//Para iniciar sesion como visitante
 		$this->nom = $nom;
