@@ -3,101 +3,71 @@
  * Representa los usuarios del sitio
  */
 class Usuario {
-	
+
 	private $id;
-	private $nom;
-	private $dir;
-	private $usrmail;
+	private $nick;
 	private $pass;
 	private $ciudad;
-	
-	private $conexion;
 
-	function __construct($nom,$dir,$mail,$pass,$ciudad,$control) {
-	
-		if ($control = 0) {
-			
-				//Para iniciar sesion como visitante
-		$this->nom = $nom;
-		$this->id = 0;
-		$this->dir='';
-		$this->pass='';
-		$this->usrmail='';
-		$this->ciudad='';
-					
-		} else {
-		
-		//Constructor para usuarios registrados
-		$this->nom = $nom;
-		$this->id = calcularId();
-		$this->dir=$dir;
-		$this->pass= $pass;
-		$this->usrmail=$mail;
-		$this->ciudad=$ciudad;
-							
-		}
+	public function __construct($nick, $pass, $ciu) {
+
+		$this -> id = calcularID();
+		$this -> nick = $nick;
+		$this -> pass = $pass;
+		$this -> ciu = $ciu;
+
 	}
-	
+
+	/**
+	 * Funcion encargada de calcular en ID de cada usuario. Obtiene el id maximo de la tabla y lo devuelve.
+	 */
 	private function calcularID() {
-		
+
 		$conexion = $GLOBALS['conexion'];
-		
+
 		$sql = <<<SQL
 select MAX(usr_id) from etj_usuarios		
 SQL;
-		
-		return $conexion->ejecutarSentencia($sql);
-				
-	}	
-	
-	function getNom() {
-		return $this->nom;
-	}
-	
-	function getMail() {
-		return $this->usrmail;
-	}
-	
-	function getPass() {
-		return $this->pass;
-	}
-	
-	function getDir() {
-		return $this->dir;
-	}
-	
-	function getCiudad() {
-		return $this->ciudad;
-	}
-	
-	function getID() {
-		return $this->id;
-	}
-	
-	function setMail($mail) {
-		
-		$this->usrmail=$mail;	
-		
-	}
-	
-	function setPass($pass) {
-		
-		$this->pass=$pass;	
-		
-	}	
-	
-	function setCiudad($ciudad) {
-		
-		$this->ciudad=$ciudad;	
-		
-	}
-	
-	function setDir($dir) {
-		
-		$this->dir=$dir;	
-		
+
+		return $conexion -> ejecutarSentencia($sql);
+
 	}
 
-			
+	//Declaración de Getters y Setters
+
+	public function getID() {
+		return $this -> id;
+	}
+
+	public function getNick() {
+		return $this -> nick;
+	}
+
+	public function getPass() {
+		return $this -> pass;
+	}
+
+	public function getCiudad() {
+		return $this -> ciudad;
+	}
+
+	public function setID($id) {
+		$this -> id = $id;
+	}
+
+	public function setNick($nick) {
+		$this -> nick = $nick;
+	}
+
+	public function setPass($pass) {
+		$this -> pass = $pass;
+	}
+
+	public function setCiudad($ciu) {
+		$this -> ciu = $ciu;
+	}
+
+	//-----------------------------------------------------------
+
 }
 ?>

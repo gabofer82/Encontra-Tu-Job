@@ -1,0 +1,5 @@
+# txt encargado de administrar el acceso de los robots y spiders de los buscadores al sitio
+
+User-agent: *
+Disallow: /dominio/
+Disallow: /templates/js/

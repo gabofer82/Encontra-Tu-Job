@@ -5,50 +5,75 @@
  */
 class Empresa extends Usuario {
 
+	private $nom;
+	private $razonsocial;
 	private $rut;
-	private $descripcion;
-	private $rubroid;
 	private $logo;
-	
-	function __construct($nom,$dir,$mail,$pass,$ciudad,$rut,$rubro) {
+	private $dir;
+	private $sitioweb;
+	private $tel;
 
-		parent:__construct($nom,$dir,$mail,$pass,$ciudad);
+	public function __construct($id, $nick, $pass, $ciu, $nom) {
 
-		$this -> rut = $xrut;
-		$this -> rubroid = $rubro;
+		parent:
+		__construct($id, $nick, $pass, $ciu);
+
+		$this -> nom = $nom;
+
 	}
 
-	function getRut() {
+	//Declaración de Getters y Setters
+
+	public function getNom() {
+		return $this -> nom;
+	}
+
+	public function getRazonSocial() {
+		return $this -> razonsocial;
+	}
+
+	public function getRUT() {
 		return $this -> rut;
 	}
 
-	function getDesc() {
-		return $this -> descripcion;
+	public function getLogo() {
+		return $this -> logo;
 	}
 
-	function getRubro() {
-		return $this -> rubroid;
+	public function getDir() {
+		return $this -> dir;
 	}
 
-	function getLogo() {
-		return $this -> logol;
+	public function getSitioWeb() {
+		return $this -> sitioweb;
 	}
 
-	function setRut($rut) {
-		$this -> rut = $rut;
+	public function getTel() {
+		return $this -> tel;
 	}
 
-	function setDescripcion($desc) {
-		$this ->descripcion= $desc;
+	public function setNom($nom) {$this -> nom = $nom;
 	}
 
-	function setRubro($rub) {
-		$this -> rubroid = $rub;
+	public function setRazonSocial($razon) {$this -> razonsocial = $razon;
 	}
 
-	function setLogo($logo) {
-		$this -> logo = $logo;
+	public function setRUT($rut) {$this -> rut = $rut;
 	}
+
+	public function setLogo($logo) {$this -> logo = $logo;
+	}
+
+	public function setDir($dir) {$this -> dir = $dir;
+	}
+
+	public function setSitoWeb($sito) {$this -> sitioweb = $sito;
+	}
+
+	public function setTel($tel) {$this -> tel = $tel;
+	}
+
+	//------------------------------------------------
 
 }
 ?>
