@@ -4,27 +4,25 @@
  * todas las cosas tipo alta, baja, modificacion, etc
  * Implementa Singleton Pattern
  */
+include_once 'usuario_admin.class.php';
 
-class PostulanteAdmin {
+class CandidatoAdmin extends UsuarioAdmin {
 
-	private static $instance;
-	private $conexion;
 
-	private function __construct() {
 
-		$conexion = $GLOBALS['conexion'];
+	public function __construct() {}
 
+	public function altaCandidatos($nick,$pass,$repass,$nom,$ape,$sexo,$año,$mes,$dia,$ciudad,$pais) {
+		
+		$fechaN = 
+		
+		
 	}
 
-	public static function getInstance() {
-		if (isset(self::$instance)) {
-			$c = __CLASS__;
-			self::$instance = new $c;
-		}
-		return self::$instance;
-	}
 
-	public function obtener() {
+	public function obtenerCandidatos() {
+
+		$conexion = DataBase::getInstance();
 
 		$sentenciaSql = <<<SQL
 select * from ejt_usuarios u natural join ejt_candidatos c

@@ -1,9 +1,7 @@
 <?php
-
 include __DIR__ . '/../dominio/usuario.class.php';
 include __DIR__ . '/../lang/es.php';
 $GLOBALS['visit'] = $visit_bar;
-
 
 
 session_start();

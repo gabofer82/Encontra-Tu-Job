@@ -4,7 +4,8 @@
 	include_once __DIR__.'/../templates/header.php';
 	include_once __DIR__.'/../templates/user-bar.php';
 	include_once __DIR__.'/../templates/content.php';
-
+	include_once __DIR__.'/../controladores/candidato_admin.class.php';
+	
 ?>
 
 <style type="text/css">
@@ -17,7 +18,7 @@ div#cont-variable {
 </style>
 
 <script language="javascript" type="text/javascript" src="../templates/js/fechaNac.js"></script>
-<script language="JavaScript" type="text/javascript" scr= "../templates/js/validarContraseña.js"></script> 
+<script language="JavaScript" type="text/javascript" scr= "../templates/js/encriptador.js"></script> 
 
 	<div id="cont-variable">
 		<form action="#" method="post" id="AltaCandidato" class="formularios">
@@ -29,7 +30,7 @@ div#cont-variable {
 			<input type="text" id="txtUsrNom"/>
 			
 			<label for="txtUsrPass">Contraseña</label>
-			<input type="password" id="txtUsrPass"/>
+			<input type="password" id="txtUsrPass" />
 			
 			<label for="txtUsrRePass">Confirmar Contraseña</label>
 			<input type="password" id="txtUsrRePass"/>
@@ -64,22 +65,24 @@ div#cont-variable {
 			
 			<select id="ciudad">
 			<?php 
-			include_once __DIR__.'/../controladores/usuario_admin.php';
-			$objU = UsuarioAdmin::getInstance() ;
+			$objU = CandidatoAdmin::getInstance() ;
 			
+	
 			$arr = $objU->obtenerCiudades();
 			
 			foreach ($arr as $v) {
 
 				echo '<option>'.$v.'</option>';	
-	
 			}
-				
-
-
 			?>
 			</select>
+			<!--Este campo por el momento será oculto, en el futuro si se requieren contemplar varios paises 
+				a la hora del registro se cambiará-->
+			<input type="hidden" id="pais" value="Uruguay" />
 			</fieldset>
+			
+			<input type="submit" value="Registrarse" id="btnEnviar" />
+			<input type="reset" value="Restablecer" id="btnReset" />
 			
 		</form>
 	</div>
