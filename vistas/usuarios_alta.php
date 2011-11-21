@@ -7,27 +7,12 @@
 	include_once __DIR__.'/../templates/user-bar.php';
 	include_once __DIR__.'/../templates/content.php';
 ?>
-
-<script type="text/javascript">
-	
-	function RegistroMostrar () {
-	  
-	  alert("Ya se encuentra en el formulario de registro");
-	  
-	}
-	
-</script>
-
-
-
 	<div id="cont-variable">
 	
-			<form action="./empresa/alta-empresa.php" method="post" id="AltaFormulario" class="formularios">
-				<label>Selecciona el tipo de cuenta a crear:</label>
-				<input type="submit" id="AltaEmp" value="Empresa" />
+					<label>Selecciona el tipo de cuenta a crear:</label>
+
 				<a href="./alta-empresa.php">Empresa</a>
-				
-			</form>				
+				<a href="./alta-candidato.php">Candidato</a>
 		
 	</div>
 <?php

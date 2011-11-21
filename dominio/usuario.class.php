@@ -11,28 +11,23 @@ class Usuario {
 
 	public function __construct($nick, $pass, $ciu) {
 
-		$this -> id = calcularID();
-		$this -> nick = $nick;
-		$this -> pass = $pass;
-		$this -> ciu = $ciu;
+		if ($nick = $GLOBALS['visit']) {
+	
+			$this->nick = $nick;	
+	
+		}else  {
+							
+			$this -> id = $this -> calcularID();
+			$this -> nick = $nick;
+			$this -> pass = $pass;
+			$this -> ciu = $ciu;
+		}
 
 	}
 
 	/**
 	 * Funcion encargada de calcular en ID de cada usuario. Obtiene el id maximo de la tabla y lo devuelve.
 	 */
-	private function calcularID() {
-
-		$conexion = $GLOBALS['conexion'];
-
-		$sql = <<<SQL
-select MAX(usr_id) from etj_usuarios		
-SQL;
-
-		return $conexion -> ejecutarSentencia($sql);
-
-	}
-
 	//Declaración de Getters y Setters
 
 	public function getID() {

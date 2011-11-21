@@ -14,8 +14,7 @@ class Curriculum {
 	private $foto;
 	private $academico;
 	private $laboral;
-	private $idiomas;
-	//deberia ser un array ej: Idioma1 -> Medio, Idioma2 ->Alto
+	private $idiomas;//deberia ser un array ej: Idioma1 -> Medio, Idioma2 ->Alto
 	private $puestodeseado;
 	private $subscribir;
 

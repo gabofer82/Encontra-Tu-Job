@@ -10,9 +10,9 @@ class Cantidato extends Usuario {
 	private $sexo;
 	private $fNac;
 
-	public function __construct($id,$nick,$pass,$ciu,$nom, $ape, $sexo, $fNac) {
+	public function __construct($nick,$pass,$ciu,$nom, $ape, $sexo, $fNac) {
 
-		parent:__construct($id, $nick, $pass, $ciu);
+		parent:__construct( $nick, $pass, $ciu);
 
 		$this -> nom = $nom;
 		$this -> ape = $ape;

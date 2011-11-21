@@ -1,6 +1,6 @@
 		<div id="contenido">
 			<div id="cabecera">
-				<h1><img src="ruta" alt="Busca Tu Job"/>Busc&aacute; Tu Job!</h1>			
+				<h1><a href="../index.php"><img src="ruta" alt="Encontr&aacute; Tu Job"/></a>Encontr&aacute; Tu Job!</h1>			
 			</div>
 			<div id="nav-bar">
 					<ul>
