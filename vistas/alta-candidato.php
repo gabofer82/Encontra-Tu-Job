@@ -4,7 +4,10 @@
 	include_once __DIR__.'/../templates/header.php';
 	include_once __DIR__.'/../templates/user-bar.php';
 	include_once __DIR__.'/../templates/content.php';
-	include_once __DIR__.'/../controladores/candidato_admin.class.php';
+	include_once __DIR__.'/../modelos/candidato_admin.class.php';
+	$objU = CandidatoAdmin::getInstance() ;
+	$GLOBALS['adminCandidato'] = $objU;
+
 	
 ?>
 
@@ -18,22 +21,21 @@ div#cont-variable {
 </style>
 
 <script language="javascript" type="text/javascript" src="../templates/js/fechaNac.js"></script>
-<script language="JavaScript" type="text/javascript" scr= "../templates/js/encriptador.js"></script> 
 
 	<div id="cont-variable">
-		<form action="#" method="post" id="AltaCandidato" class="formularios">
+		<form action="../controladores/candidato_controller.php?action=altaCandidato" method="post" id="AltaCandidato" class="formularios">
 			
 			<fieldset class="registro">
 			<legend>Datos de Registro</legend>
 			
 			<label for="txtUsrNom">Nombre de Usuario</label>
-			<input type="text" id="txtUsrNom"/>
+			<input type="text" name="txtUsrNom" id="txtUsrNom"/>
 			
 			<label for="txtUsrPass">Contraseña</label>
-			<input type="password" id="txtUsrPass" />
+			<input type="password" name="txtUsrPass" id="txtUsrPass" />
 			
 			<label for="txtUsrRePass">Confirmar Contraseña</label>
-			<input type="password" id="txtUsrRePass"/>
+			<input type="password" name="txtUsrRePass" id="txtUsrRePass"/>
 			
 			</fieldset class="registro">
 			
@@ -41,33 +43,31 @@ div#cont-variable {
 			<legend>Datos de Usuario</legend>
 			
 			<label>Nombre(s)</label>
-			<input type="text" id="txtNombre"/>
+			<input type="text" name="txtNombre" id="txtNombre"/>
 			
 			<label>Apellido(s)</label>
-			<input type="text" id="txtApellido"/>
+			<input type="text" name="txtApellido" id="txtApellido"/>
 			
 			<label>Sexo</label>
 			<label for="rbM">Masculino</label><input type="radio" name="rbSexo" id="rbM" value="M" />
 			<label for="rbF">Femenino</label><input type="radio" name="rbSexo" id="rbF" value="F" />
 			
 			<label for ="anhoNac">Fecha de Nacimiento</label>
-			<select id="anhoNac" onchange="ponerDias()">
+			<select name="anhoNac" id="anhoNac" onchange="ponerDias()">
 			<script>ponerAnho();</script>
 			</select>
-			<select id="mesNac" onchange="ponerDias()">
+			<select name="mesNac" id="mesNac" onchange="ponerDias()">
 			<script>ponerMes();</script>
 			</select>
-			<select id="diaNac">
+			<select name="diaNac" id="diaNac">
 			<script>ponerDias();</script>
 			</select>
 					
 			<label>Ciudad</label>
 			
-			<select id="ciudad">
+			<select name="slcciudad" id="ciudad">
 			<?php 
-			$objU = CandidatoAdmin::getInstance() ;
-			
-	
+
 			$arr = $objU->obtenerCiudades();
 			
 			foreach ($arr as $v) {
@@ -78,7 +78,7 @@ div#cont-variable {
 			</select>
 			<!--Este campo por el momento será oculto, en el futuro si se requieren contemplar varios paises 
 				a la hora del registro se cambiará-->
-			<input type="hidden" id="pais" value="Uruguay" />
+			<input type="hidden" id="slcpais" value="Uruguay" />
 			</fieldset>
 			
 			<input type="submit" value="Registrarse" id="btnEnviar" />

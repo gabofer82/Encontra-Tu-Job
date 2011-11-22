@@ -7,7 +7,7 @@ $GLOBALS['visit'] = $visit_bar;
 session_start();
 
 if (!isset($_SESSION['user'])) {
-	$_SESSION['user'] = new Usuario($visit_bar, "", "");
+	$_SESSION['user'] = new Usuario($visit_bar, "", "","");
 }
 
 ?>

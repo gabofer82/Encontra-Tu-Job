@@ -3,16 +3,16 @@
 /**
  *  Clase encargada de representar los Usuarios Postulantes
  */
-class Cantidato extends Usuario {
+class Candidato extends Usuario {
 
 	private $nom;
 	private $ape;
 	private $sexo;
 	private $fNac;
 
-	public function __construct($nick,$pass,$ciu,$nom, $ape, $sexo, $fNac) {
+	public function __construct($nick,$pass,$ciu,$pais,$nom, $ape, $sexo, $fNac) {
 
-		parent:__construct( $nick, $pass, $ciu);
+		parent:__construct( $nick, $pass, $ciu,$pais);
 
 		$this -> nom = $nom;
 		$this -> ape = $ape;
