@@ -49,8 +49,11 @@ div#cont-variable {
 			<input type="text" name="txtApellido" id="txtApellido"/>
 			
 			<label>Sexo</label>
-			<label for="rbM">Masculino</label><input type="radio" name="rbSexo" id="rbM" value="M" />
-			<label for="rbF">Femenino</label><input type="radio" name="rbSexo" id="rbF" value="F" />
+<!--aca pasa algo raro Si se seleccionan los radiobutton( cualquiera de ellos) manda a una pagina index.php que no existe-->
+			<label for="rbM">Masculino</label>
+			<input type="radio" name="radioSexo" id="rbM" value="M" />
+			<label for="rbF">Femenino</label>
+			<input type="radio" name="radioSexo" id="rbF" value="F" />
 			
 			<label for ="anhoNac">Fecha de Nacimiento</label>
 			<select name="anhoNac" id="anhoNac" onchange="ponerDias()">
@@ -78,7 +81,7 @@ div#cont-variable {
 			</select>
 			<!--Este campo por el momento será oculto, en el futuro si se requieren contemplar varios paises 
 				a la hora del registro se cambiará-->
-			<input type="hidden" id="slcpais" value="Uruguay" />
+			<input type="hidden" name="slcpais" id="slcpais" value="1" />
 			</fieldset>
 			
 			<input type="submit" value="Registrarse" id="btnEnviar" />

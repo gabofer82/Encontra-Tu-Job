@@ -34,11 +34,12 @@ class DataBase {
 
 	public function ejecutarSentencia($sentencia) {
 
+
 		$queryTxt = $sentencia;
 
 		if ($queryTxt != "") {
 
-			$resource = mysql_query($queryTxt) or die(msql_error());
+			$resource = mysql_query($queryTxt) /*or die(msql_error())*/;
 
 			$this -> numFilas = mysql_num_rows($resource);
 		

@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . '/../modelos/DataBase.class.php';
+include __DIR__ . '/../persistencia/DataBase.class.php';
 class UsuarioAdmin {
 
 	private static $instance = array();
@@ -11,8 +11,8 @@ class UsuarioAdmin {
 		$valorRetorno = null;
 		$clase = get_called_class();
 		if (!isset(self::$instance[$clase])) {
-			self::$instance[$class] = new $clase;
-			$valorRetorno = self::$instance[$class];
+			self::$instance[$clase] = new $clase;
+			$valorRetorno = self::$instance[$clase];
 		}
 
 		return $valorRetorno;
@@ -47,11 +47,17 @@ SQL;
 
 	public function calcularID() {
 
+		$conexion = DataBase::getInstance();
+
 		$sql = <<<SQL
 select MAX(usr_id) from etj_usuarios		
 SQL;
 
-		return $conexion -> ejecutarSentencia($sql);
+		$resultado = $conexion -> ejecutarSentencia($sql);
+
+		$dato = mysql_fetch_array($restultado);
+
+		return $dato;
 
 	}
 
@@ -59,6 +65,50 @@ SQL;
 
 		if ($pass1 == $pass2)
 			return true;
+
+		return false;
+
+	}
+
+	public function validarNombreUsuario($nick) {
+
+		$conexion = DataBase::getInstance();
+
+		$sql = <<<SQL
+select usr_nick from 
+etj_usuarios
+where usr_nick = '$nick'
+SQL;
+
+		$resultado = $conexion -> ejecutarSentencia($sql);
+
+		if ($restultado != null) {
+
+			return false;
+
+		}
+
+		return true;
+
+	}
+
+	public function validarCiudad($ciudad, $pais) {
+
+		$conexion = DataBase::getInstance();
+
+		$sql = <<<SQL
+select * from 
+etj_ciudades
+where ciu_nom = '$ciudad' and pa_id = $pais
+SQL;
+
+		$resultado = $conexion -> ejecutarSentencia($sql);
+
+		if (mysql_num_rows($resultado) > 0) {
+
+			return true;
+
+		}
 
 		return false;
 

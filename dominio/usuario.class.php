@@ -10,15 +10,15 @@ class Usuario {
 	private $ciudad;
 	private $pais; 
 
-	public function __construct($nick, $pass, $ciu,$pais) {
+	public function __construct($id,$nick, $pass, $ciu,$pais) {
 
 		if ($nick = $GLOBALS['visit']) {
 	
 			$this->nick = $nick;	
 	
 		}else  {
-							
-			$this -> id = $this -> calcularID();
+			
+			$this -> id = $id;
 			$this -> nick = $nick;
 			$this -> pass = $pass;
 			$this -> ciu = $ciu;

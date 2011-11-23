@@ -1,4 +1,5 @@
 <?php
+		echo "<script>alert(\"llegamos? prncipio\")</script>";
 require_once __DIR__ . '/../modelos/candidato_admin.class.php';
 
 if (isset($_REQUEST['action'])) {
@@ -11,12 +12,12 @@ if (isset($_REQUEST['action'])) {
 }
 
 if ($orden == "altaCandidato") {
-
+		echo "<script>alert(\"llegamos? controller if\")</script>";
 	
 	if ($CanAdmin -> validarContrasena($_POST['txtUsrPass'], $_POST['txtUsrRePass'])){
 		$pass = md5($_POST['txtUsrPass']);
 	$retorno = $CanAdmin -> altaCandidato($_POST['txtUsrNom'], $pass,$_POST['txtNombre'],
-	$_POST['txtApellido'],$_POST['rbSexo'],$_POST['slcciudad'],$_POST['slcpais'] ,$fecha);
+	$_POST['txtApellido'],"M",$_POST['slcciudad'],$_POST['slcpais'] ,$fecha);
 
 		if ($retorno) {
 			

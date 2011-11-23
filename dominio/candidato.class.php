@@ -3,6 +3,9 @@
 /**
  *  Clase encargada de representar los Usuarios Postulantes
  */
+
+ include_once 'usuario.class.php';
+ 
 class Candidato extends Usuario {
 
 	private $nom;
@@ -10,9 +13,9 @@ class Candidato extends Usuario {
 	private $sexo;
 	private $fNac;
 
-	public function __construct($nick,$pass,$ciu,$pais,$nom, $ape, $sexo, $fNac) {
+	public function __construct($id,$nick,$pass,$ciu,$pais,$nom, $ape, $sexo, $fNac) {
 
-		parent:__construct( $nick, $pass, $ciu,$pais);
+		parent::__construct( $nick, $pass, $ciu,$pais);
 
 		$this -> nom = $nom;
 		$this -> ape = $ape;
