@@ -92,8 +92,15 @@ function ponerDias(){
         //dias.options.length=30;
         for(var o=0;o<=30;o++){
             op = document.createElement("OPTION");
-            op.value = o+1;
-            op.text = o+1;
+            if (o < 10) {
+            	valor = o+1;
+                op.value ="0"+valor;
+                op.text = o+1;
+                	
+                } else {
+                op.value =o+1;
+                op.text = o+1;
+                }
             dias.options[o] = op;
             //document.body.appendChild(dias);
         }
@@ -101,10 +108,16 @@ function ponerDias(){
     //si el mes es de 30 dias entonces solo le pongo 30 dias
     if(mes.value=="04" || mes.value=="06" || mes.value=="09" || mes.value=="11"){
         //dias.options.length=30;
-        for(var o=0;o<=29;o++){
+        for(var o=00;o<=29;o++){
             op = document.createElement("OPTION");
-            op.value = o+1;
-            op.text = o+1;
+            if (o < 10) {
+                op.value ="0"+o+1;
+                op.text = "0"+o+1;
+                	
+                } else {
+                op.value =o+1;
+                op.text = o+1;
+                }
             dias.options[o] = op;
             //document.body.appendChild(dias);
         }
@@ -113,19 +126,31 @@ function ponerDias(){
     if(mes.value=="02"){
         //si es bisiesto
         if((anho.value % 4 == 0) && ((anho.value % 100 != 0) || (anho.value % 400 == 0))){
-            for(var o=0;o<=28;o++){
+            for(var o=00;o<=28;o++){
                 op = document.createElement("OPTION");
-                op.value = o+1;
+                if (o < 10) {
+                op.value ="0"+o+1;
+                op.text = "0"+o+1;
+                	
+                } else {
+                op.value =o+1;
                 op.text = o+1;
+                }
                 dias.options[o] = op;
                 //document.body.appendChild(dias);
             }
         }
         else{//o si no lo es
-            for(var o=0;o<=27;o++){
+            for(var o=00;o<=27;o++){
                 op = document.createElement("OPTION");
-                op.value = o+1;
+                if (o < 10) {
+                op.value ="0"+o+1;
+                op.text = "0"+o+1;
+                	
+                } else {
+                op.value =o+1;
                 op.text = o+1;
+                }
                 dias.options[o] = op;
                 //document.body.appendChild(dias);
             }

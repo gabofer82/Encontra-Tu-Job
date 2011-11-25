@@ -55,9 +55,9 @@ SQL;
 
 		$resultado = $conexion -> ejecutarSentencia($sql);
 
-		$dato = mysql_fetch_array($restultado);
+		$dato = mysql_fetch_array($resultado);
 
-		return $dato;
+		return $dato[0] + 1;
 
 	}
 
@@ -97,7 +97,7 @@ SQL;
 		$conexion = DataBase::getInstance();
 
 		$sql = <<<SQL
-select * from 
+select ciu_id from 
 etj_ciudades
 where ciu_nom = '$ciudad' and pa_id = $pais
 SQL;
@@ -106,12 +106,42 @@ SQL;
 
 		if (mysql_num_rows($resultado) > 0) {
 
-			return true;
+			$ciu = mysql_fetch_array($resultado);
+
+			return $ciu[0];
 
 		}
 
 		return false;
 
+	}
+
+	function login_usuario($nick, $pass) {
+		if ($_SESSION['sID'] == $_REQUEST['sID']) {
+
+			$sql = "SELECT * FROM etj_usuarios WHERE `usr_nick` = '" . $nick . "' AND `usr_pass` = '" . $pass . "'";
+			$resultado = mysql_query($sql);
+			$datoUsr = mysql_fetch_assoc($resultado);
+
+			if ($datoUsr) {
+
+				$sql = "SELECT * FROM etj_candidatos WHERE `can_id` = " . $datoUsr['usr_id'];
+				$resultado = mysql_query($sql);
+				if ($resultado) {
+
+					$datoCan = mysql_fetch_assoc($resultado);
+					$can = new Candidato($datoUsr['usr_id'], $datoUsr['usr_nick'], $datoUsr['usr_pass'], $datoUsr['ciu_id'], 
+					$datoUsr['pa_id'], $datoCan['can_nom'], $datoCan['can_ape'], $datoCan['can_sexo'], $datoCan['can_fNac']);
+					
+				return true;
+				}
+
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
 	}
 
 }

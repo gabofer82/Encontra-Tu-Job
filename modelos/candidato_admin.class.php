@@ -15,8 +15,6 @@ class CandidatoAdmin extends UsuarioAdmin {
 	}
 
 	public function altaCandidato($nick, $pass, $nom, $ape, $sexo, $ciu, $pa,$fecha) {
-		echo "<script>alert(\"llegamos? altac\")</script>";
-echo var_dump($pa);
 
 		if (!$this -> validarNombreUsuario($nick)) {
 			return false;
@@ -24,30 +22,26 @@ echo var_dump($pa);
 		if ($sexo <> "M" and $sexo <> "F") {
 			return false;
 		}
-		if (!$this -> validarCiudad($ciu, $pa)) {
+		$ciunum =$this -> validarCiudad($ciu, $pa);
+		if (!$ciunum) {
 			return false;
-		}
-		echo "<script>alert(\"despues de volver del validar ciudad\")</script>";
+		}	
+
 		$conexion = DataBase::getInstance();
-		
 		$id = $this->calcularID();
-				echo "<script>alert(\"llegamos? a\")</script>";
-		$c = new Candidato($id,$nick,$pass,$ciu,$pa,$nom, $ape, $sexo, $fecha);
-		echo "<script>alert(\"llegamos?\")</script>";
-		$sentenciaSql = <<<SQL
-insert into etj_usuarios (usr_nick,usr_pass,pa_id,ciu_id) 
-values ($c->getNick(),$c->getPass(),$c->getPais(),$c->getCiudad())
-SQL;
+		
+
+		$c = new Candidato($id,$nick,$pass,$ciunum,$pa,$nom, $ape, $sexo, $fecha);
+		$sentenciaSql = "insert into etj_usuarios (usr_nick,usr_pass,pa_id,ciu_id) values ('".
+		$c->getNick()."','".$c->getPass()."',".$c->getPais().",'".$c->getCiudad()."')";
 
 		$conexion -> ejecutarSentencia($sentenciaSql);
 		
 		if ($conexion) {
-
-		$sentenciaSql = <<<SQL
-insert into etj_candidatos (can_id,can_nom,can_ape,can_fNac,can_sexo) 
-values ($c->getID(),'$c->getNom()','$c->getApe()','$c->getSexo()','$c->getFNac()')
-SQL;
-		
+;
+		$sentenciaSql = "insert into etj_candidatos (can_id,can_nom,can_ape,can_sexo,can_fNac) 
+values (".$c->getID().",'".$c->getNom()."','".$c->getApe()."','".$c->getSexo()."','".$c->getFNac()."')";
+echo var_dump($sentenciaSql);		
 		$conexion -> ejecutarSentencia($sentenciaSql);
 		
 		if ($conexion) {

@@ -8,22 +8,16 @@ class Usuario {
 	private $nick;
 	private $pass;
 	private $ciudad;
-	private $pais; 
+	private $pais;
 
-	public function __construct($id,$nick, $pass, $ciu,$pais) {
+	public function __construct($id,$nick,$pass,$ciu,$pais) {
 
-		if ($nick = $GLOBALS['visit']) {
-	
-			$this->nick = $nick;	
-	
-		}else  {
-			
 			$this -> id = $id;
 			$this -> nick = $nick;
 			$this -> pass = $pass;
-			$this -> ciu = $ciu;
+			$this -> ciudad = $ciu;
 			$this -> pais = $pais;
-		}
+		
 
 	}
 
@@ -37,6 +31,7 @@ class Usuario {
 	}
 
 	public function getNick() {
+
 		return $this -> nick;
 	}
 
@@ -50,7 +45,7 @@ class Usuario {
 
 	public function getPais() {
 		return $this -> pais;
-	}	
+	}
 
 	public function setID($id) {
 		$this -> id = $id;
@@ -69,7 +64,7 @@ class Usuario {
 	}
 
 	public function setPais($pa) {
-		$this -> pais = $pa;
+		$this -> pais = $pais;
 	}
 
 	//-----------------------------------------------------------

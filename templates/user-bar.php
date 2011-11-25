@@ -1,13 +1,16 @@
 <?php
 include __DIR__ . '/../dominio/usuario.class.php';
 include __DIR__ . '/../lang/es.php';
-$GLOBALS['visit'] = $visit_bar;
+include_once __DIR__.'/../controladores/usuario_controller.php';
 
+$GLOBALS['visit'] = $visit_bar;
 
 session_start();
 
 if (!isset($_SESSION['user'])) {
 	$_SESSION['user'] = new Usuario(0,$visit_bar, "", "","");
+	
+	
 }
 
 ?>
@@ -19,7 +22,7 @@ if (!isset($_SESSION['user'])) {
 	<?php
 	
 	if ($_SESSION['user'] -> getNick() == $GLOBALS['visit']) {
-		echo '<form action="#" method="post" id="login-usr">
+		echo '<form action="" method="post" id="login-usr">
 				<label>' . $usr_bar . '</label>
 				<input type="text" name="user-name"/>
 				<label>' . $pass_bar . '</label>

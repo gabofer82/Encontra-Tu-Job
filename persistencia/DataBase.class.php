@@ -38,9 +38,9 @@ class DataBase {
 		$queryTxt = $sentencia;
 
 		if ($queryTxt != "") {
-
 			$resource = mysql_query($queryTxt) /*or die(msql_error())*/;
 
+			
 			$this -> numFilas = mysql_num_rows($resource);
 		
 			return $resource;			

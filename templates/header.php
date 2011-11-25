@@ -4,5 +4,5 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>Portal de Ofertas Laborales: Encontr&aacute; Tu Job</title>
-		<link rel="stylesheet" type="text/css" href="http://127.0.0.1/obligatorio/templates/css/estilos.css" media="all"/>
+		<link rel="stylesheet" type="text/css" href="../templates/css/estilos.css" media="all"/>
 	</head>
