@@ -15,7 +15,6 @@ class Candidato extends Usuario {
 
 	public function __construct($id,$nick,$pass,$ciu,$pais,$nom, $ape, $sexo, $fNac) {
 
-echo"<script>alert(\"".var_dump($nick)."Hola\")</script>";
 		parent::__construct($id,$nick, $pass, $ciu,$pais);
 
 		$this -> nom = $nom;

@@ -117,23 +117,31 @@ SQL;
 	}
 
 	function login_usuario($nick, $pass) {
+
 		if ($_SESSION['sID'] == $_REQUEST['sID']) {
 
-			$sql = "SELECT * FROM etj_usuarios WHERE `usr_nick` = '" . $nick . "' AND `usr_pass` = '" . $pass . "'";
-			$resultado = mysql_query($sql);
+			$conexion = DataBase::getInstance();
+
+			$sql = <<<SQL
+SELECT * 
+FROM etj_usuarios
+WHERE  `usr_nick` =  '$nick'
+AND  `usr_pass` =  '$pass'
+SQL;
+			$resultado = $conexion -> ejecutarSentencia($sql);
 			$datoUsr = mysql_fetch_assoc($resultado);
-
+		echo "<script>alert('Se llega?');</script>";
 			if ($datoUsr) {
-
+						echo "<script>alert('Se llega aca?');</script>";
 				$sql = "SELECT * FROM etj_candidatos WHERE `can_id` = " . $datoUsr['usr_id'];
 				$resultado = mysql_query($sql);
 				if ($resultado) {
-
+					include_once __DIR__.'/../dominio/Candidato.class.php';
 					$datoCan = mysql_fetch_assoc($resultado);
-					$can = new Candidato($datoUsr['usr_id'], $datoUsr['usr_nick'], $datoUsr['usr_pass'], $datoUsr['ciu_id'], 
-					$datoUsr['pa_id'], $datoCan['can_nom'], $datoCan['can_ape'], $datoCan['can_sexo'], $datoCan['can_fNac']);
-					
-				return true;
+					$can = new Candidato($datoUsr['usr_id'], $datoUsr['usr_nick'], $datoUsr['usr_pass'], $datoUsr['ciu_id'], $datoUsr['pa_id'], $datoCan['can_nom'], $datoCan['can_ape'], $datoCan['can_sexo'], $datoCan['can_fNac']);
+					$_SESSION['user'] = $can;
+		echo "<script>alert('".var_dump($_SESSION['user'])."');</script>";
+					return true;
 				}
 
 			} else {
