@@ -3,6 +3,9 @@
 /**
  *  Clase encargada de representar los Usuarios Empresas
  */
+
+ include_once 'usuario.class.php';
+  
 class Empresa extends Usuario {
 
 	private $nom;
@@ -13,10 +16,9 @@ class Empresa extends Usuario {
 	private $sitioweb;
 	private $tel;
 
-	public function __construct($id, $nick, $pass, $ciu, $nom) {
+	public function __construct($id, $nick, $pass, $nom, $ciu,$pais) {
 
-		parent:
-		__construct($id, $nick, $pass, $ciu);
+		parent::__construct($id, $nick, $pass, $ciu,$pais);
 
 		$this -> nom = $nom;
 

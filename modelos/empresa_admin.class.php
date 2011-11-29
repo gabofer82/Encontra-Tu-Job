@@ -4,42 +4,47 @@
  * todas las cosas tipo alta, baja, modificacion, etc
  * Implementa Singleton Pattern
  */
-class EmpresaAdmin {
 
-	private static $instance;
+include_once 'usuario_admin.class.php';
+include_once __DIR__ . '/../dominio/Empresa.class.php';
 
-	private function __construct($argument) {
-		//algo
+class EmpresaAdmin  extends UsuarioAdmin {
+
+	public function __construct() {
 	}
 
-	public static function getInstance() {
-		if (isset(self::$instance)) {
-			$c = __CLASS__;
-			self::$instance = new $c;
+	public function altaEmpresa($nick, $pass, $nom, $ciudad, $pais) {
+
+		if (!$this -> validarNombreUsuario($nick)) {
+			return false;
+			exit;
 		}
-		return self::$instance;
-	}
 
-	public function alta($nom,$rut,$mail,$pass,$dir,$rub,$ciudad) {
+		$ciunum = $this -> validarCiudad($ciudad, $pais);
+		if (!$ciunum) {
+			return false;
+			exit;
+		}
 
-		$objE = new Empresa($nom,$rut,$mail,$pass,$dir,$rub,$ciudad);
+		$conexion = DataBase::getInstance();
+		$id = $this -> calcularID();
+		$objE = new Empresa($id, $nick, $pass, $nom, $ciunum, $pais);
 
-		$arrE = obtener();
+		$sentenciaSql = "insert into etj_usuarios (usr_nick,usr_pass,pa_id,ciu_id) values ('" . $objE -> getNick() . "','" . 
+		$objE -> getPass() . "'," . $objE -> getPais() . ",'" . $objE -> getCiudad() . "')";
+			echo var_dump($sentenciaSql);
+		$conexion -> ejecutarSentencia($sentenciaSql);
 
-		foreach ($arrE as $key => $value) {
+		if ($conexion) {
 
-			if ($objE -> getNom() != $key -> getNom()) {
+			$sentenciaSql = "insert into etj_empresas(emp_id,emp_nom) 
+values (" . $objE -> getID() . ",'" . $objE -> getNom() . "')";
+			echo var_dump($sentenciaSql);
+			$conexion -> ejecutarSentencia($sentenciaSql);
 
-				$sentenciaSql = <<<SQL
-insert into etj_usuarios (usr_nombres,usr_direccion,usr_mail,usr_pass,usr_ciudad_id) 
-values ('.$objE->getNom().','.$objE->getDir().','.$objE->getMail().','.$objE->getPass().
-','.$objE->getCiudad().')
-insert into etj_empresa (emp_RUT,emp_rubro_id,emp_usr_id) values
-('.$objE->getRUT().','.$objE->getDesc().','.$objE->geRubro().','.$objE->getID().')
-SQL;
+			if ($conexion) {
 
-				mysql_query($sentenciaSql);
-				break;
+				return true;
 			}
 		}
 	}
@@ -54,7 +59,7 @@ SQL;
 
 				$sentenciaSql = <<<SQL
 delete from postulantes
-where nom=$objP->getNom() 
+where nom=$objP->getNom()
 SQL;
 
 				mysql_query($sentenciaSql);
@@ -74,11 +79,11 @@ SQL;
 
 				$sentenciaSql = <<<SQL
 delete from postulantes
-where nom=$objP->getNom() 
+where nom=$objP->getNom()
 SQL;
 
 				mysql_query($sentenciaSql);
-				
+
 				$sentenciaSql = <<<SQL
 insert into postulante('nom','pass','mail','sexo','fNac','localidad')
 values($objP->getNom(),$objP->getPass(),
@@ -87,8 +92,8 @@ $objP->getFNac(),$objP->getLoc())
 SQL;
 
 				mysql_query($sentenciaSql);
-				
-				break;				
+
+				break;
 
 			}
 		}

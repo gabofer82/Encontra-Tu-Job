@@ -1,69 +1,53 @@
 <?php
-	include_once __DIR__.'/../templates/header.php';
-	include_once __DIR__.'/../templates/user-bar.php';
-	include_once __DIR__.'/../templates/content.php';
-	include __DIR__.'/../dominio/empresa_admin.class.php';
-		
-	$gestora = EmpresaAdmin::getInstance();
-	
-	function AltaEmpresa() {
+include_once __DIR__ . '/../templates/header.php';
+include_once __DIR__ . '/../templates/user-bar.php';
+include_once __DIR__ . '/../templates/content.php';
+include_once __DIR__ . '/../modelos/empresa_admin.class.php';
+	$objU = EmpresaAdmin::getInstance() ;
+	$GLOBALS['adminEmpresa'] = &$objU;
 
-		$gestora.alta($_POST['txtUsrNomEmp'],$_POST['txtRUTEmp'],	$_POST['txtMailEmpresa'],
-		$_POST['txtPassEmp'],$_POST['txtDirEmp'],$_POST['txtRubroIDEmp'],
-		$_POST['txtCiudadEmp']);
-		
-	}
-	
+$gestora = EmpresaAdmin::getInstance();
 ?>
-	<div id="cont-variable">
-		<form action='<?phpAltaEmpresa();?>' method="post" id="AltaEmpresa" class="formularios">
+<div id="cont-variable">
+	<form action='../controladores/empresa_controller.php?action=altaEmpresa' method="post" id="AltaEmpresa" class="formularios">
+		<fieldset class="registro">
+			<legend>
+				Datos de Registro
+			</legend>
+			<label for="txtUsrNom">Nombre de Usuario</label>
+			<input type="text" name="txtUsrNom" id="txtUsrNom"/>
+			<label for="txtUsrPass">Contraseña</label>
+			<input type="password" name="txtUsrPass" id="txtUsrPass" />
+			<label for="txtUsrRePass">Confirmar Contraseña</label>
+			<input type="password" name="txtUsrRePass" id="txtUsrRePass"/>
+			</fieldset class="registro">
+			<fieldset>
+			<legend>Datos de Empresa</legend>
+				
+			<label>Nombre(s)</label>
+			<input type="text" name="txtNombre" id="txtNombre"/>
+				
+			<label>Ciudad</label>
 			
-			<!---->
+			<select name="slcciudad" id="ciudad">
+			<?php 
+
+			$arr = $objU->obtenerCiudades();
 			
-			<label>Nombre de Empresa</label>
-			<input type="text" id="txtUsrNomEmp" />
-			
-			<!---->
-			
-			<!---->
-			
-			<label>RUT</label>
-			<input type="text" id="txtRUTEmp" />
-			
-			<!---->
-			
-			<label>Mail</label>
-			<input type="email" id="txtMailEmpresa"/>
-			
-			<!---->
-			
-			<label>Password</label>
-			<input type="password" id="txtPassEmp"/>
-			
-			<!---->
-			
-			<label>Reingresar Password</label>
-			<input type="password" id="txtRePassEmp"/>
-			
-			<!--Aca hay que ver si una empresa tiene mas de un rubro-->
-			<label> Rubro </label>
-			<input type="text" id="txtRubroIDEmp" />
-						
-			<!--Aca hay que hacer algun tipo de combo también para desplegr las ciudades-->
-			<label>Ubicaci&oacute;n</label>
-			<input type="text" id="txtCiudadEmp" />
-			
-						<label>Direccion</label>
-			<input type="text" id="txtDirEmp" />
-						
-			<br />
-			<!---->
-			
-			<input type="submit" id="btnRegEmp" value="Registrarse" class="btnSubmit" />
-			
-		</form>
-	</div>
+			foreach ($arr as $v) {
+
+				echo '<option>'.$v.'</option>';	
+			}
+			?>
+			</select>
+				<!--Este campo por el momento será oculto, en el futuro si se requieren contemplar varios paises
+				a la hora del registro se cambiará-->
+				<input type="hidden" name="slcpais" id="slcpais" value="1" />
+			</fieldset>
+			<input type="submit" value="Registrarse" id="btnEnviar" />
+			<input type="reset" value="Restablecer" id="btnReset" />
+	</form>
 </div>
-<?php
-	include_once __DIR__.'/../templates/footer.php';
+</div> <?php
+include_once __DIR__ . '/../templates/footer.php';
 ?>

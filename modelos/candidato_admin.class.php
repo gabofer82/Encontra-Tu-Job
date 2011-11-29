@@ -6,15 +6,14 @@
  */
 
 include_once 'usuario_admin.class.php';
-
-include_once __DIR__.'/../dominio/Candidato.class.php';
+include_once __DIR__ . '/../dominio/Candidato.class.php';
 
 class CandidatoAdmin extends UsuarioAdmin {
 
 	public function __construct() {
 	}
 
-	public function altaCandidato($nick, $pass, $nom, $ape, $sexo, $ciu, $pa,$fecha) {
+	public function altaCandidato($nick, $pass, $nom, $ape, $sexo, $ciu, $pa, $fecha) {
 
 		if (!$this -> validarNombreUsuario($nick)) {
 			return false;
@@ -22,34 +21,31 @@ class CandidatoAdmin extends UsuarioAdmin {
 		if ($sexo <> "M" and $sexo <> "F") {
 			return false;
 		}
-		$ciunum =$this -> validarCiudad($ciu, $pa);
+		$ciunum = $this -> validarCiudad($ciu, $pa);
 		if (!$ciunum) {
 			return false;
-		}	
+		}
 
 		$conexion = DataBase::getInstance();
-		$id = $this->calcularID();
-		
+		$id = $this -> calcularID();
 
-		$c = new Candidato($id,$nick,$pass,$ciunum,$pa,$nom, $ape, $sexo, $fecha);
-		$sentenciaSql = "insert into etj_usuarios (usr_nick,usr_pass,pa_id,ciu_id) values ('".
-		$c->getNick()."','".$c->getPass()."',".$c->getPais().",'".$c->getCiudad()."')";
+		$c = new Candidato($id, $nick, $pass, $ciunum, $pa, $nom, $ape, $sexo, $fecha);
+		$sentenciaSql = "insert into etj_usuarios (usr_nick,usr_pass,pa_id,ciu_id) values ('" . $c -> getNick() . "','" . $c -> getPass() . "'," . $c -> getPais() . ",'" . $c -> getCiudad() . "')";
 
 		$conexion -> ejecutarSentencia($sentenciaSql);
-		
+
 		if ($conexion) {
-;
-		$sentenciaSql = "insert into etj_candidatos (can_id,can_nom,can_ape,can_sexo,can_fNac) 
-values (".$c->getID().",'".$c->getNom()."','".$c->getApe()."','".$c->getSexo()."','".$c->getFNac()."')";
-echo var_dump($sentenciaSql);		
-		$conexion -> ejecutarSentencia($sentenciaSql);
-		
-		if ($conexion) {
-			
-			return true;
-			
-		}
- 		
+			$sentenciaSql = "insert into etj_candidatos (can_id,can_nom,can_ape,can_sexo,can_fNac) 
+values (" . $c -> getID() . ",'" . $c -> getNom() . "','" . $c -> getApe() . "','" . $c -> getSexo() . "','" . $c -> getFNac() . "')";
+			echo var_dump($sentenciaSql);
+			$conexion -> ejecutarSentencia($sentenciaSql);
+
+			if ($conexion) {
+
+				return true;
+
+			}
+
 		}
 
 	}

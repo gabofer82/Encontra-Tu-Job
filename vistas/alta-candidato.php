@@ -1,14 +1,10 @@
 <?php
-
-
 	include_once __DIR__.'/../templates/header.php';
 	include_once __DIR__.'/../templates/user-bar.php';
 	include_once __DIR__.'/../templates/content.php';
 	include_once __DIR__.'/../modelos/candidato_admin.class.php';
 	$objU = CandidatoAdmin::getInstance() ;
 	$GLOBALS['adminCandidato'] = $objU;
-
-	
 ?>
 
 <style type="text/css">

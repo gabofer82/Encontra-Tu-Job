@@ -1,7 +1,9 @@
 <?php
 include __DIR__ . '/../dominio/usuario.class.php';
 include __DIR__ . '/../lang/es.php';
+echo "<script>alert('Bienvenido ,ldffsfala " . $GLOBALS['visit'] . "');</script>";
 $GLOBALS['visit'] = $visit_bar;
+echo "<script>alert('Bienvenido ,lala " . $_SESSION['user'] . "');</script>";
 if (!isset($_SESSION['user'])) {
 session_start();
 $_SESSION['user'] = new Usuario(0, $visit_bar, "", "", "");
@@ -13,7 +15,6 @@ $_SESSION['user'] = new Usuario(0, $visit_bar, "", "", "");
 		?>
 		<?php 	echo $_SESSION['user'] -> getNick();?></span>
 	<?php
-
 	if ($_SESSION['user'] -> getNick() == $GLOBALS['visit']) {
 		echo '<form action="controladores/usuario_controller.php?action=login" method="post" id="login-usr">
 <label>' . $usr_bar . '</label>
