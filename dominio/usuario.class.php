@@ -63,7 +63,7 @@ class Usuario {
 		$this -> ciudad = $ciu;
 	}
 
-	public function setPais($pa) {
+	public function setPais($pais) {
 		$this -> pais = $pais;
 	}
 

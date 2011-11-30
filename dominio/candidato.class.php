@@ -50,7 +50,7 @@ class Candidato extends Usuario {
 	}
 
 	public function setSexo($sexo) {
-		$this -> sexo = $ape;
+		$this -> sexo = $sexo;
 	}
 
 	public function setFNac($fNac) {

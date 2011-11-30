@@ -28,10 +28,14 @@ $GLOBALS['adminCandidato'] = $objU;
 				<legend>
 					Editar Contraseña
 				</legend>
-				<label for="txtUsrPass">Contraseña</label>
-				<input type="password" name="txtUsrPass" id="txtUsrPass" />
-				<label for="txtUsrRePass">Confirmar Contraseña</label>
-				<input type="password" name="txtUsrRePass" id="txtUsrRePass"/>
+			<label for="txtUsrPass">Contraseña Actual</label>
+			<input type="password" name="txtUsrActPass" id="txtUsrActPass" />
+			
+			<label for="txtUsrPass">Contraseña Nueva</label>
+			<input type="password" name="txtUsrPass" id="txtUsrPass" />
+						
+			<label for="txtUsrRePass">Confirmar Contraseña</label>
+			<input type="password" name="txtUsrRePass" id="txtUsrRePass"/>
 			</fieldset>
 			
 			<fieldset>
@@ -66,6 +70,7 @@ $GLOBALS['adminCandidato'] = $objU;
 					echo '<option>' . $v . '</option>';
 				}?>
 			</select>
+		<input type="hidden" name="slcpais" id="slcpais" value="1" />
 		</fieldset>
 		<input type="submit" value="Registrarse" id="btnEnviar" />
 		<input type="reset" value="Restablecer" id="btnReset" />
