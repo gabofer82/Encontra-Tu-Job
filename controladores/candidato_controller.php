@@ -14,9 +14,8 @@ if ($orden == "altaCandidato") {
 	if ($CanAdmin -> validarContrasena($_POST['txtUsrPass'], $_POST['txtUsrRePass'])) {
 		$pass = md5($_POST['txtUsrPass']);
 		$fecha = $_POST['anhoNac']."".$_POST['mesNac']."".$_POST['diaNac'];
-		$retorno = $CanAdmin -> altaCandidato($_POST['txtUsrNom'], $pass, $_POST['txtNombre'], $_POST['txtApellido'], "M", $_POST['slcciudad'], $_POST['slcpais'], $fecha);
+		$retorno = $CanAdmin -> altaCandidato($_POST['txtUsrNom'], $pass, $_POST['txtNombre'], $_POST['txtApellido'], $_POST['radioSexo'], $_POST['slcciudad'], $_POST['slcpais'], $fecha);
 
 	}
 }
-
 ?>
