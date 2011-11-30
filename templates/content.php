@@ -1,12 +1,48 @@
+<?php
+session_start();
+
+
+	if ($_SESSION['user'] -> getNick() == $GLOBALS['visit']) {
+?>
 		<div id="contenido">
 			<div id="cabecera">
 				<h1><a href="../index.php"><img src="ruta" alt="Encontr&aacute; Tu Job"/></a>Encontr&aacute; Tu Job!</h1>			
 			</div>
 			<div id="nav-bar">
 					<ul>
-						<li><a href="#">Enlace 1</a></li>
-						<li><a href="#">Enlace 2</a></li>
-						<li><a href="#">Enlace 3</a></li>
-						<li><a href="#">Enlace 4</a></li>
+						<li><a href="#">Buscar Empleo</a></li>
 					</ul>
 				</div>
+<?php
+	} else {
+		if ($_SESSION['user'] instanceof Candidato)  {
+?>
+		<div id="contenido">
+			<div id="cabecera">
+				<h1><a href="../index.php"><img src="ruta" alt="Encontr&aacute; Tu Job"/></a>Encontr&aacute; Tu Job!</h1>			
+			</div>
+			<div id="nav-bar">
+					<ul>
+						<li><a href="./vistas/modificar-candidato.php">Mi Perfil</a></li>
+						<li><a href="#">Mi Curriculum</a></li>						
+						<li><a href="#">Buscar Empleo</a></li>
+					</ul>
+				</div>
+<?php
+		} else if ($_SESSION['user'] instanceof Empresa) {
+?>
+		<div id="contenido">
+			<div id="cabecera">
+				<h1><a href="../index.php"><img src="ruta" alt="Encontr&aacute; Tu Job"/></a>Encontr&aacute; Tu Job!</h1>			
+			</div>
+			<div id="nav-bar">
+					<ul>
+						<li><a href="#">Ver Perfil</a></li>
+						<li><a href="#">Mis Demandas </a></li>
+						<li><a href="#">Buscar</a></li>
+					</ul>
+				</div>
+<?php			
+		}
+	}
+?>

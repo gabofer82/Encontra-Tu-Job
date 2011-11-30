@@ -1,50 +1,74 @@
 <?php
 
 /**
- * 
+ *
  */
 class ClassName {
-	
+
 	function __construct($argument) {
-		
+
 	}
-	
-	public function ObtenerListarPorRubro($criterio,$valor) {
-		
-		if ($criterio) {
-			
-			if ($criterio = "Rubro") {
-				
-			}
-	
+
+	public function GenerarConsulta($criterio, $valor) {
+
+		if ($criterio = "Rubro") {
+
+			$sql = <<<SQL
+select * from etj_demandas where emp_id = 
+(select * from etj_empresas natural join etj_rubros where rub_nom = $valor)
+SQL;
+
+		}
+
+		if ($criterio = "Empresa") {
+
+			$sql = <<<SQL
+select * from etj_demandas where emp_id = $valor
+SQL;
+
+		}
+
+		if ($criterio = "Ciudad") {
+
+			$sql = <<<SQL
+select * from etj_demandas where emp_id = 
+(select * from etj_empresas natural join etj_ciudades where ciu_nom = $valor)
+limit 
+SQL;
+
 		}
 		
 		
+
 	}
-	
-	
-	public function paginar($pagina) {
-		
+
+	public function paginar($sql, $pagina) {
+
 		$tamanoPagina = 10;
-		
-		if (!$pagina) {
-			
+
+		if (!$pagina or $pagina = 0) {
+
 			$inicio = 0;
 			$pagina = 1;
-			
+
 		} else {
-			
+
 			$inicio = ($pagina - 1) * $tamanoPagina;
-			
+
 		}
+
+		$resultado = $conexion->ejecutarSentencia($sql);
+		$numeroResultados = $conexion -> getNumFilas();
 		
-		$numeroResultados = $conexion->getNumFilas();
+		$datos = mysql_fetch_array($resultado);
 		
-		$totalPaginas = ceil($numeroResultados / $tamanoPagina);		
-		
-	}
+		$totalPaginas = ceil($numeroResultados / $tamanoPagina);
+
+		$arrayRetorno = array('datos'=> &$datos,'totalPag'=>$totalPaginas,'pagina'=>$pagina);
 	
+		return $arrayRetorno;
+
+	}
+
 }
-
-
 ?>
