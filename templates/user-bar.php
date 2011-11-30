@@ -2,12 +2,17 @@
 include __DIR__ . '/../dominio/usuario.class.php';
 include __DIR__ . '/../lang/es.php';
 $GLOBALS['visit'] = $visit_bar;
-echo "<script>alert('Aca deberia mostrar el usuario logueado:" . $_SESSION['user'] . "');</script>";
+
 if (!isset($_SESSION['user'])) {
 session_start();
 $_SESSION['user'] = new Usuario(0, $visit_bar, "", "", "");
-
+//Usuario no se podia convertir a string por eso era imposible mostrarlo
+//para eso agregue un nuevo indice al $_SESSION
+$_SESSION['name_user'] = $_SESSION['user']->getNick();
 }
+//los echos estaban de la asignacion de los datos
+echo "<script>alert('Bienvenido ,ldffsfala " . $GLOBALS['visit'] . "');</script>";
+echo "<script>alert('Bienvenido ,lala " . $_SESSION['name_user'] . "');</script>";
 ?>
 <div id="barra-usuario">
 	<span><?php echo $saludo_bar

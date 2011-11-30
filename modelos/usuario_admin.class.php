@@ -117,7 +117,16 @@ SQL;
 	}
 
 	function login_usuario($nick, $pass) {
-
+		/****DEBUG*****/	
+		global $_SESSION, $_REQUEST;	
+		
+		if (empty($_SESSION['sID'])) {
+			echo "SESSION vacia";
+		}
+		if (empty($_REQUEST['sID'])) {
+			echo "REQUEST vacia";
+		}
+		/****END DEBUG****/
 		if ($_SESSION['sID'] == $_REQUEST['sID']) {
 
 			$conexion = DataBase::getInstance();
