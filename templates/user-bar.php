@@ -10,7 +10,8 @@ $_SESSION['user'] = new Usuario(0, $visit_bar, "", "", "");
 //para eso agregue un nuevo indice al $_SESSION
 $_SESSION['name_user'] = $_SESSION['user']->getNick();
 }
-//los echos estaban de la asignacion de los datos
+//los echos estaban antes de la asignacion de los datos por eso
+//las variables estaban vacias
 echo "<script>alert('Bienvenido ,ldffsfala " . $GLOBALS['visit'] . "');</script>";
 echo "<script>alert('Bienvenido ,lala " . $_SESSION['name_user'] . "');</script>";
 ?>
