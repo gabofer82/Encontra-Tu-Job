@@ -118,18 +118,6 @@ SQL;
 	}
 
 	function login_usuario($nick, $pass) {
-		/****DEBUG*****
-		 global $_SESSION, $_REQUEST;
-
-		 if (empty($_SESSION['sID'])) {
-		 echo "SESSION vacia";
-		 }
-		 if (empty($_REQUEST['sID'])) {
-		 echo "REQUEST vacia";
-		 }
-
-		 if ($_SESSION['sID'] == $_REQUEST['sID']) {
-		 ****END DEBUG****/
 		$conexion = DataBase::getInstance();
 
 		$sql = <<<SQL
@@ -145,11 +133,10 @@ SQL;
 
 			$sql = "SELECT * FROM etj_candidatos WHERE `can_id` = " . $datoUsr['usr_id'];
 			$resultado = $conexion -> ejecutarSentencia($sql);
-			if ($conexion->getNumFilas() > 0) {
+			if ($conexion -> getNumFilas() > 0) {
 				include_once __DIR__ . '/../dominio/Candidato.class.php';
 				$datoCan = mysql_fetch_assoc($resultado);
-				$can = new Candidato($datoUsr['usr_id'], $datoUsr['usr_nick'], $datoUsr['usr_pass'], $datoUsr['ciu_id'], 
-				$datoUsr['pa_id'], $datoCan['can_nom'], $datoCan['can_ape'], $datoCan['can_sexo'], $datoCan['can_fNac']);
+				$can = new Candidato($datoUsr['usr_id'], $datoUsr['usr_nick'], $datoUsr['usr_pass'], $datoUsr['ciu_id'], $datoUsr['pa_id'], $datoCan['can_nom'], $datoCan['can_ape'], $datoCan['can_sexo'], $datoCan['can_fNac']);
 				session_start();
 				$_SESSION['user'] = $can;
 				return true;
@@ -159,11 +146,10 @@ SQL;
 				$sql = "SELECT * FROM etj_empresas WHERE `emp_id` = " . $datoUsr['usr_id'];
 				$resultado = $conexion -> ejecutarSentencia($sql);
 
-				if ($conexion->getNumFilas() > 0) {
+				if ($conexion -> getNumFilas() > 0) {
 					include_once __DIR__ . '/../dominio/Empresa.class.php';
 					$datoCan = mysql_fetch_assoc($resultado);
-					$emp = new Empresa($datoUsr['usr_id'], $datoUsr['usr_nick'], $datoUsr['usr_pass'], 
-					$datoUsr['ciu_id'], $datoUsr['pa_id'], $datoCan['emp_nom']);
+					$emp = new Empresa($datoUsr['usr_id'], $datoUsr['usr_nick'], $datoUsr['usr_pass'], $datoUsr['ciu_id'], $datoUsr['pa_id'], $datoCan['emp_nom']);
 					session_start();
 					$_SESSION['user'] = $emp;
 					return true;
@@ -172,6 +158,29 @@ SQL;
 
 		} else {
 			return false;
+		}
+
+	}
+
+	public function subirImagen() {
+			
+		$conexion = DataBase::getInstance();
+
+		$vurl = "";
+		if (isset($_FILES['fileFoto']['name'])) {
+			$vurl = $_FILES['fileFoto']['name'];	
+		}
+		
+		if ($vurl != "") {
+			$tmp_url = 'user_img/' . basename($vurl);
+			if (move_uploaded_file($_FILES['fileFoto']['tmp_name'], $tmp_url)) {
+								echo '<script>alert ("La imagen ser ha ingresado correctamente");</script>';	
+				return $tmp_url;
+
+			} else {
+				return false;
+				echo '<script>alert ("Error, Su video no ha sido ingresado. Intente otra vez!");</script>';
+			}
 		}
 
 	}
