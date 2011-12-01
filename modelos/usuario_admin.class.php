@@ -1,4 +1,5 @@
 <?php
+
 include __DIR__ . '/../persistencia/DataBase.class.php';
 class UsuarioAdmin {
 
@@ -117,54 +118,72 @@ SQL;
 	}
 
 	function login_usuario($nick, $pass) {
-		/****DEBUG*****/	
-		global $_SESSION, $_REQUEST;	
-		
-		if (empty($_SESSION['sID'])) {
-			echo "SESSION vacia";
-		}
-		if (empty($_REQUEST['sID'])) {
-			echo "REQUEST vacia";
-		}
-		/****END DEBUG****/
-		if ($_SESSION['sID'] == $_REQUEST['sID']) {
+		$conexion = DataBase::getInstance();
 
-			$conexion = DataBase::getInstance();
-
-			$sql = <<<SQL
+		$sql = <<<SQL
 SELECT * 
 FROM etj_usuarios
 WHERE  `usr_nick` =  '$nick'
 AND  `usr_pass` =  '$pass'
 SQL;
+		$resultado = $conexion -> ejecutarSentencia($sql);
+		$datoUsr = mysql_fetch_assoc($resultado);
+
+		if ($datoUsr) {
+
+			$sql = "SELECT * FROM etj_candidatos WHERE `can_id` = " . $datoUsr['usr_id'];
 			$resultado = $conexion -> ejecutarSentencia($sql);
-			$datoUsr = mysql_fetch_assoc($resultado);
+			if ($conexion -> getNumFilas() > 0) {
+				include_once __DIR__ . '/../dominio/Candidato.class.php';
+				$datoCan = mysql_fetch_assoc($resultado);
+				$can = new Candidato($datoUsr['usr_id'], $datoUsr['usr_nick'], $datoUsr['usr_pass'], $datoUsr['ciu_id'], $datoUsr['pa_id'], $datoCan['can_nom'], $datoCan['can_ape'], $datoCan['can_sexo'], $datoCan['can_fNac']);
+				session_start();
+				$_SESSION['user'] = $can;
+				return true;
 
-			if ($datoUsr) {
+			} else {
 
-				$sql = "SELECT * FROM etj_candidatos WHERE `can_id` = " . $datoUsr['usr_id'];
-				$resultado = mysql_query($sql);
-				
-				if ($resultado) {
-					include_once __DIR__ . '/../dominio/Candidato.class.php';
+				$sql = "SELECT * FROM etj_empresas WHERE `emp_id` = " . $datoUsr['usr_id'];
+				$resultado = $conexion -> ejecutarSentencia($sql);
+
+				if ($conexion -> getNumFilas() > 0) {
+					include_once __DIR__ . '/../dominio/Empresa.class.php';
 					$datoCan = mysql_fetch_assoc($resultado);
-					$can = new Candidato($datoUsr['usr_id'], $datoUsr['usr_nick'], $datoUsr['usr_pass'], $datoUsr['ciu_id'], $datoUsr['pa_id'], $datoCan['can_nom'], $datoCan['can_ape'], $datoCan['can_sexo'], $datoCan['can_fNac']);
-					$_SESSION['user'] = &$can;
-					echo "<script>alert('Esto es en admin " . $_SESSION['user']->getNick() . "');</script>";
-?>
-<SCRIPT LANGUAGE="javascript">
-	location.href = "../vistas/usuarios_alta.php";
-</SCRIPT>
-<?php
-}
+					$emp = new Empresa($datoUsr['usr_id'], $datoUsr['usr_nick'], $datoUsr['usr_pass'], $datoUsr['ciu_id'], $datoUsr['pa_id'], $datoCan['emp_nom']);
+					session_start();
+					$_SESSION['user'] = $emp;
+					return true;
+				}
+			}
 
-} else {
-return false;
-}
-} else {
-return false;
-}
-}
+		} else {
+			return false;
+		}
+
+	}
+
+	public function subirImagen() {
+			
+		$conexion = DataBase::getInstance();
+
+		$vurl = "";
+		if (isset($_FILES['fileFoto']['name'])) {
+			$vurl = $_FILES['fileFoto']['name'];	
+		}
+		
+		if ($vurl != "") {
+			$tmp_url = 'user_img/' . basename($vurl);
+			if (move_uploaded_file($_FILES['fileFoto']['tmp_name'], $tmp_url)) {
+								echo '<script>alert ("La imagen ser ha ingresado correctamente");</script>';	
+				return $tmp_url;
+
+			} else {
+				return false;
+				echo '<script>alert ("Error, Su video no ha sido ingresado. Intente otra vez!");</script>';
+			}
+		}
+
+	}
 
 }
 ?>

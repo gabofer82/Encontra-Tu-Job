@@ -6,6 +6,7 @@
 class Curriculum {
 
 	private $documento;
+	private $tipodoc;
 	private $edocivil;
 	private $direccion;
 	private $cp;
@@ -18,9 +19,10 @@ class Curriculum {
 	private $puestodeseado;
 	private $subscribir;
 
-	public function __construct($documento, $email, $academico, $laboral, $idiomas, $subscribir) {
+	public function __construct($documento,$tipodoc, $email, $academico, $laboral, $idiomas, $subscribir) {
 
 		$this -> documento = $documento;
+		$this->tipodoc = $tipodoc;
 		$this -> e_mail = $email;
 		$this -> academico = $academico;
 		$this -> laboral = $laboral;
@@ -33,6 +35,10 @@ class Curriculum {
 	public function getDocumento() {
 		return $this -> documento;
 	}
+
+	public function getTipoDoc() {
+		return $this -> tipodoc;
+	}	
 
 	public function getECivil() {
 		return $this -> edocivil;
@@ -80,6 +86,9 @@ class Curriculum {
 
 	public function setDocumento($doc) {$this -> documento = $doc;
 	}
+
+	public function setTipoDoc($tipodoc) {$this ->tipodoc = $tipodoc;
+	}	
 
 	public function setECivil($edocivil) {$this -> edocivil = $edocivil;
 	}
