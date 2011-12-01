@@ -24,7 +24,7 @@ session_start();
 			<div id="nav-bar">
 					<ul>
 						<li><a href="./vistas/modificar-candidato.php">Mi Perfil</a></li>
-						<li><a href="#">Mi Curriculum</a></li>						
+						<li><a href="./vistas/ver-curriculum.php">Mi Curriculum</a></li>						
 						<li><a href="#">Buscar Empleo</a></li>
 					</ul>
 				</div>

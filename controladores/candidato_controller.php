@@ -16,7 +16,6 @@ if ($orden == "altaCandidato") {
 		
 	}
 } else if ($orden == "modCandidato") {
-				echo "aca llegamos??";
 	session_start();
 	$passVieja = md5($_POST['txtUsrActPass']);
 	if ($_SESSION['user'] -> getPass() == $passVieja) {
@@ -31,8 +30,8 @@ if ($orden == "altaCandidato") {
 		}
 	}
 } else if ($orden = "altaCurriculum") {
-	
-	$retorno = altaCurriculum($_POST['txtDocNum'],$_POST['txtDocTipo'],$_POST['txtMail'],$_POST['txtEdoCivil'],
+		echo "<script>alert(\"aca llegamos?\");</script>";
+	$retorno = $CanAdmin->altaCurriculum($_POST['txtDocNum'],$_POST['txtDocTipo'],$_POST['txtMail'],$_POST['txtEdoCivil'],
 	$_POST['txtDir'],$_POST['txtCP'],$_POST['txtTel'],$_POST['fileFoto'],$_POST['txtPuesto'],$_POST['txtEstudios'],
 	$_POST['txtLaborales'],$_POST['slcIdioma'],$_POST['slcNivel'],$_POST['chkSubs']);
 	

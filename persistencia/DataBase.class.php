@@ -40,12 +40,11 @@ class DataBase {
 		if ($queryTxt != "") {
 			$resource = mysql_query($queryTxt) /*or die(msql_error())*/;
 
-			
+			if (mysql_num_rows($resource)) {
 			$this -> numFilas = mysql_num_rows($resource);
-		
-			return $resource;			
+			}
+			return $resource;		
 		}
-
 	}
 
 
