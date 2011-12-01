@@ -195,7 +195,6 @@ SQL;
 					return true;
 
 				}
-
 			}
 		}
 	}
@@ -205,9 +204,10 @@ SQL;
 		$conexion = DataBase::getInstance();
 		session_start();
 		if (isset($_SESSION['curr'])) {
-			$usrNum = $_SESSION['user']->getID();
+			$usrNum = $_SESSION['user'] -> getID();
 			$curr = $_SESSION['curr'];
-
+			$idmRepetido = "SinIngresar";
+			$idmid;
 			if (isset($docNum)) {
 				$curr -> setDocumento($docNum);
 			}
@@ -230,10 +230,10 @@ SQL;
 				$curr -> setTelefono($Tel);
 			}
 			if (isset($foto)) {
-			$img = $this -> subirImagen();
-			if (!$img) {
-				return false;
-			}
+				$img = $this -> subirImagen();
+				if (!$img) {
+					return false;
+				}
 				$curr -> setFoto($img);
 			}
 			if (isset($puesto)) {
@@ -246,28 +246,57 @@ SQL;
 				$curr -> setExLaboral($laborales);
 			}
 			if (isset($idioma) and isset($nivel)) {
-	
-			$idmid = $this -> devolverIdmId($idioma);
-			if (!$idmid) {
-				return false;
-			}
-			$idiomas = array($idmid => $nivel);
-			
+
+				$idmid = $this -> devolverIdmId($idioma);
+				if (!$idmid) {
+					return false;
+				}
+
+				$idiomasCurr = $curr -> getIdiomas();
+				foreach ($idiomasCurr as $idioma => $lvl) {
+
+					if ($idioma == $idmid) {
+						$idmRepetido = "Si";
+					}
+					$idiomasCurr[$idmid] = $nivel;
+					$curr -> setIdiomas($idiomasCurr);
+					$idmRepetido = "No";
+				}
+
 			}
 			if (isset($subs)) {
 				$curr -> setSubscribir($subs);
 			}
-			
-		$sentenciaSql ="update etj_curriculum
-		set cur_doctipo='".$curr->getTipoDoc()."',cur_docnum=".$curr->getDocumento().",
-		cur_edocivil='".$curr->getECivil()."',cur_dir='".$curr->getDireccion()."',cur_cpost=".$curr->getCodigoPostal().",
-		cur_tel=".$curr->getTelefono().",cur_mail='".$curr->getMail()."',cur_foto='".$curr->getFoto()."',
-		cur_academicos='".$curr->getEAcademicas()."',cur_laborales='".$curr->getExLaboral().
-		"',cur_puesto='".$curr->getPuestoDeseado()."',cur_subscribir='".$curr->getSubscribir()."'
-		where can_id =".$usrNum;
 
+			$sentenciaSql = "update etj_curriculum
+		set cur_doctipo='" . $curr -> getTipoDoc() . "',cur_docnum=" . $curr -> getDocumento() . ",
+		cur_edocivil='" . $curr -> getECivil() . "',cur_dir='" . $curr -> getDireccion() . "',cur_cpost=" . $curr -> getCodigoPostal() . ",
+		cur_tel=" . $curr -> getTelefono() . ",cur_mail='" . $curr -> getMail() . "',cur_foto='" . $curr -> getFoto() . "',
+		cur_academicos='" . $curr -> getEAcademicas() . "',cur_laborales='" . $curr -> getExLaboral() . "',cur_puesto='" . $curr -> getPuestoDeseado() . "',cur_subscribir='" . $curr -> getSubscribir() . "'
+		where can_id =" . $usrNum;
+			$recurso = $conexion -> ejecutarSentencia($sentenciaSql);
+
+			if ($recurso and $idmRepetido = "Si") {
+
+				$sentenciaSql = "update etj_habla
+		set idm_id=" . $idmid . ",nivel='" . $nivel . "'where can_id =" . $usrNum;
+				echo "<script>alert(\"" . var_dump($sentenciaSql) . "\");</script>";
+				$recurso = $conexion -> ejecutarSentencia($sentenciaSql);
+
+			} else if ($recurso and $idmRepetido = "No") {
+
+				$sentenciaSql = "insert into etj_habla
+		values(" . $usrNum . "," . $idmid . ",'" . $nivel . "')";
+				echo "<script>alert(\"" . var_dump($sentenciaSql) . "\");</script>";
+				$recurso = $conexion -> ejecutarSentencia($sentenciaSql);
+
+			}
+			if ($recurso) {
+
+				return true;
+
+			}
 		}
-
 	}
 
 	public function tieneCurriculum() {
@@ -277,8 +306,8 @@ SQL;
 		if (!isset($_SESSION['curr'])) {
 
 			$sentenciaSql = "select * from etj_curriculum where can_id =" . $_SESSION['user'] -> getID();
-
-			$recurso = $conexion -> ejecutarSentencia($sentenciaSql);
+echo var_dump($sentenciaSql);
+			$resultado = $conexion -> ejecutarSentencia($sentenciaSql);
 
 			if ($conexion -> getNumFilas() > 0) {
 
@@ -314,17 +343,13 @@ SQL;
 					$curr -> setPuestoDeseado($Puesto);
 					$curr -> setFoto($Foto);
 
-					$_SESSION['curr'] = $curr;
+					$_SESSION['curr'] = serialize($curr);
 					return true;
 				}
 			}
-
 			return false;
-
 		}
-
 		return true;
 	}
-
 }
 ?>
