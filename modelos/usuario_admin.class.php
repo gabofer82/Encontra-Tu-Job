@@ -83,7 +83,7 @@ SQL;
 
 		$resultado = $conexion -> ejecutarSentencia($sql);
 
-		if ($restultado != null) {
+		if ($resultado != null) {
 
 			return false;
 

@@ -10,7 +10,7 @@ class DataBase {
 	private function __construct($host,$usr,$pass) {
 		//Hay que acomodar los datos de conexion
 		$this -> conexion = mysql_connect($host, $usr, $pass)  or die(mysql_error());
-		mysql_select_db('etj_db', $this -> conexion)  or die(mysql_error());
+		mysql_select_db('ETJ_BD', $this -> conexion)  or die(mysql_error());
 		$this -> queryTxt = "";
 	$this -> numFilas = 0;
 
@@ -18,7 +18,7 @@ class DataBase {
 
 	public static function getInstance() {
 		if (!isset(self::$instance)) {
-			self::$instance = new DataBase('127.0.0.1', 'root', '');
+			self::$instance = new DataBase('localhost:8080', 'django', 'django82');
 		}
 		return self::$instance;
 	}

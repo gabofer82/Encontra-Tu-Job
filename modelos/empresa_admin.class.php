@@ -6,7 +6,7 @@
  */
 
 include_once 'usuario_admin.class.php';
-include_once __DIR__ . '/../dominio/Empresa.class.php';
+include_once '../dominio/empresa.class.php';
 
 class EmpresaAdmin  extends UsuarioAdmin {
 
