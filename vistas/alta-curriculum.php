@@ -13,10 +13,10 @@
 		<form action="../controladores/candidato_controller.php?action=altaCurriculum" method="post" 
 		id="AltaCurriculum" class="formularios" enctype="multipart/form-data" onsubmit="return validar_img()">
 			
+			<div>
 			Documento(*)<input type="text" name="txtDocNum" id="txtDocNum"/>
 			<br>
 			<input type="hidden" name="txtDocTipo" id="txtDocTipo" value="CI"/>			
-						
 			EMail(*)	<input type="email" name="txtMail" id="txtMail"/>						
 			<br>
 			Estado Civil<input type="text" name="txtEdoCivil" id="txtEdoCivil"/>
@@ -29,6 +29,8 @@
 			<br>
 			Foto de Perfil<input type="file" name="fileFoto" id="fileFoto"/>
 			<br>
+			</div>
+			<div>
 			Puesto Preferido<input type="text" name="txtPuesto" id="txtPuesto"/>			
 			<br>
 			Estudios Realizados (*)
@@ -53,7 +55,7 @@
 			<option>Medio</option>
 			<option>Alto</option>
 			</select>
-			
+			<div>
 			Suscripcion a bolet&iacute;n de ofertas?
 			<input type="checkbox" name="chkSubs" id="chkSubs" value="S" />
 			<input type="submit" value="Enviar" id="btnEnviar" />

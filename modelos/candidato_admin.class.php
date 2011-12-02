@@ -31,6 +31,7 @@ class CandidatoAdmin extends UsuarioAdmin {
 		$id = $this -> calcularID();
 
 		$c = new Candidato($id, $nick, $pass, $ciunum, $pa, $nom, $ape, $sexo, $fecha);
+			echo var_dump($c -> getPass());
 		$sentenciaSql = "insert into etj_usuarios (usr_nick,usr_pass,pa_id,ciu_id) values ('" . $c -> getNick() . "','" . $c -> getPass() . "'," . $c -> getPais() . ",'" . $c -> getCiudad() . "')";
 
 		$conexion -> ejecutarSentencia($sentenciaSql);
@@ -179,8 +180,11 @@ SQL;
 			$curr -> setTelefono($Tel);
 			$curr -> setPuestoDeseado($puesto);
 			$curr -> setFoto($img);
+			
+
+			
 			$sentenciaSql = "insert into etj_curriculum
-		values (" . $usrid . ",'" . $curr -> getTipoDoc() . "'," . $curr -> getDocumento() . "," . $curr -> getECivil . "," . $curr -> getDireccion . "," . $curr -> getCodigoPostal() . "," . $curr -> getTelefono() . ",'" . $curr -> getMail() . "','" . $curr -> getFoto() . "','" . $curr -> getEAcademicas() . "','" . $curr -> getExLaboral() . "','" . $curr -> getPuestoDeseado() . "','" . $curr -> getSubscribir() . "')";
+		values (" . $usrid . ",'" . $curr -> getTipoDoc() . "','" . $curr -> getDocumento() . "','" . $curr -> getECivil() . "','" . $curr -> getDireccion() . "'," . $curr -> getCodigoPostal() . "," . $curr -> getTelefono() . ",'" . $curr -> getMail() . "','" . $curr -> getFoto() . "','" . $curr -> getEAcademicas() . "','" . $curr -> getExLaboral() . "','" . $curr -> getPuestoDeseado() . "','" . $curr -> getSubscribir() . "')";
 			$recurso = $conexion -> ejecutarSentencia($sentenciaSql);
 			echo "<script>alert(\"" . var_dump($sentenciaSql) . "\");</script>";
 			if ($recurso) {
@@ -313,27 +317,28 @@ echo var_dump($sentenciaSql);
 
 				$dato = mysql_fetch_array($resultado);
 
-				$DocTipo = $dato[0];
-				$DocNum = $dato[1];
-				$edocivil = $dato[2];
-				$dir = $dato[3];
-				$CP = $dato[4];
-				$Tel = $dato[5];
-				$Mail = $dato[6];
-				$Foto = $dato[7];
-				$Academico = $dato[8];
-				$Laboral = $dato[9];
-				$Puesto = $dato[10];
-				$Sub = $dato[11];
+				$DocTipo = $dato[1];
+				$DocNum = $dato[2];
+				$edocivil = $dato[3];
+				$dir = $dato[4];
+				$CP = $dato[5];
+				$Tel = $dato[6];
+				$Mail = $dato[7];
+				$Foto = $dato[8];
+				$Academico = $dato[9];
+				$Laboral = $dato[10];
+				$Puesto = $dato[11];
+				$Sub = $dato[12];
 
 				$sentenciaSql = "select * from etj_habla where can_id =" . $_SESSION['user'] -> getID();
-
-				$recurso = $conexion -> ejecutarSentencia($sentenciaSql);
-
+				echo var_dump($sentenciaSql);
+				$resultado = $conexion -> ejecutarSentencia($sentenciaSql);
 				if ($conexion -> getNumFilas() > 0) {
-					$idiomas;
-					while ($dato = mysql_fetch_array($resultado, MYSQL_ASSOC)) {
-						$idiomas['idm_id'] = 'nivel';
+					$idiomas = array();
+					while ($dato = mysql_fetch_array($resultado)) {
+					$idm = $dato[1];
+					$lvl = $dato[2];
+					$idiomas[$idm] = $lvl; 
 					}
 					$curr = new Curriculum($DocNum, $DocTipo, $Mail, $Academico, $Laboral, $idiomas, $Sub);
 					$curr -> setECivil($edocivil);

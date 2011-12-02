@@ -234,6 +234,54 @@ SQL;
 		}
 
 	}
+	
+	public function obtenerNombreCiudad($ciudad,$pais) {
+	
+		$conexion = DataBase::getInstance();
+		
+			$sql = <<<SQL
+select ciu_nom from 
+etj_ciudades
+where ciu_id = $ciudad and pa_id = $pais
+SQL;
+
+		$resultado = $conexion -> ejecutarSentencia($sql);
+		
+		if (mysql_num_rows($resultado) > 0) {
+
+			$ciu = mysql_fetch_array($resultado);
+
+			return $ciu[0];
+
+		}
+
+		return true;
+
+	}	
+	
+	public function obtenerNombreIdioma($idioma) {
+	
+		$conexion = DataBase::getInstance();
+		
+			$sql = <<<SQL
+select idm_nom from 
+etj_idiomas
+where idm_id = $idioma
+SQL;
+
+		$resultado = $conexion -> ejecutarSentencia($sql);
+		
+		if (mysql_num_rows($resultado) > 0) {
+
+			$idm = mysql_fetch_array($resultado);
+
+			return $idm[0];
+
+		}
+
+		return true;
+
+	}
 
 }
 ?>

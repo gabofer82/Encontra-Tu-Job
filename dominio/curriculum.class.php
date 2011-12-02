@@ -45,6 +45,7 @@ class Curriculum {
 	}
 
 	public function getDireccion() {
+	echo var_dump($this->direccion);
 		return $this -> direccion;
 	}
 
@@ -90,13 +91,18 @@ class Curriculum {
 	public function setTipoDoc($tipodoc) {$this ->tipodoc = $tipodoc;
 	}	
 
-	public function setECivil($edocivil) {$this -> edocivil = $edocivil;
+	public function setECivil($edocivil) {
+		echo var_dump($edocivil);
+	$this ->edocivil = $edocivil;
 	}
 
-	public function setDireccion($direccion) {$this -> direccion = $direccion;
+	public function setDireccion($direccion) {
+	echo var_dump($direccion);
+	$this ->direccion = $direccion;
 	}
 
-	public function setCodigoPostal($cp) {$this -> cp = $cp;
+	public function setCodigoPostal($cp) {
+	$this -> cp = $cp;
 	}
 
 	public function setTelefono($tel) {$this -> tel = $tel;
