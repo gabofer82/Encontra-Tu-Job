@@ -21,7 +21,7 @@ $GLOBALS['adminCandidato'] = $objU;
 				Datos de Perfil
 			</legend>
 			<label>Nombre de Usuario: <?php echo $_SESSION['user']->getNick() ;?></label>
-			<a href="ver-curriuculum.php">Ver Curriculum</a>
+			<a href="ver-curriculum.php">Ver Curriculum</a>
 			</fieldset>
 			
 			<fieldset>

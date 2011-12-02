@@ -12,15 +12,16 @@ if (isset($_REQUEST['action'])) {
 	$orden = $_REQUEST['action'];
 	$usr = UsuarioAdmin::getInstance();
 	$pass = md5($_POST['password']);
+	echo var_dump($pass);
 	if ($orden == 'login' && $usr -> login_usuario($_POST['user-name'], $pass)) {
-	$_SESSION['iniciada'] = true;
+		$_SESSION['iniciada'] = true;
+		echo var_dump($_SESSION['user']);
 	} elseif ($orden == 'logout') {
 		session_start();
 		session_destroy();
-		} else {
+	} else {
 		echo "<script>	alert('Usuario no existe o Contrase�a incorrecta.');</script>";
 	}
 	header("location:../index.php");
 }
-
 ?>

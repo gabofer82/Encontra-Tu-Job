@@ -7,7 +7,7 @@
 
 include_once 'usuario_admin.class.php';
 include_once __DIR__ . '/../dominio/Candidato.class.php';
-include_once __DIR__. '/../dominio/Curriculum.class.php';
+include_once __DIR__ . '/../dominio/Curriculum.class.php';
 
 class CandidatoAdmin extends UsuarioAdmin {
 
@@ -31,6 +31,7 @@ class CandidatoAdmin extends UsuarioAdmin {
 		$id = $this -> calcularID();
 
 		$c = new Candidato($id, $nick, $pass, $ciunum, $pa, $nom, $ape, $sexo, $fecha);
+			echo var_dump($c -> getPass());
 		$sentenciaSql = "insert into etj_usuarios (usr_nick,usr_pass,pa_id,ciu_id) values ('" . $c -> getNick() . "','" . $c -> getPass() . "'," . $c -> getPais() . ",'" . $c -> getCiudad() . "')";
 
 		$conexion -> ejecutarSentencia($sentenciaSql);
@@ -53,15 +54,15 @@ values (" . $c -> getID() . ",'" . $c -> getNom() . "','" . $c -> getApe() . "',
 	public function modCandidato($pass, $nom, $ape, $sexo, $ciudad, $pais, $fecha) {
 
 		session_start();
-		echo "aca llegamos antes de user";
+
 		if (!isset($_SESSION['user'])) {
 			return false;
 		}
-		echo "aca llegamos antes de sexo";
+		$c = $_SESSION['user'];
+
 		if ($sexo <> "M" and $sexo <> "F") {
 			return false;
 		}
-		echo "aca llegamos despues de sexo?";
 		echo var_dump($ciudad);
 		echo var_dump($pais);
 
@@ -73,7 +74,7 @@ values (" . $c -> getID() . ",'" . $c -> getNom() . "','" . $c -> getApe() . "',
 		echo var_dump($sexo);
 		echo "Aca despues de validar ciudad?";
 		$conexion = DataBase::getInstance();
-		$c = $_SESSION['user'];
+
 		$c -> setPass($pass);
 		$c -> setNom($nom);
 		$c -> setApe($ape);
@@ -135,62 +136,226 @@ SQL;
 
 	}
 
-	public function altaCurriculum($docNum, $docTipo, $Mail, $EdoCivil, $Dir, 
-	$CP, $Tel, $foto, $puesto, $estudios, $laborales, $idioma, $nivel, $subs) {
-			
-		if (!isset($docNum)){
-			return FALSE;
-		}		
-		if (!isset($Mail)) {
-			return false;
-		}	
-		if (!isset($estudios)){
-			return false;
-		}
-		if (!isset($laborales)){
-			return false;
-		}
-		if (!isset($idioma)){
-			return false;
-		}
-		if (!isset($subs)){
-			return false;	
-		}
-		$img = subirImagen(); 
-		if ($img) {
-			return false; 
-		}
-		
-		$idmid = devolverIdmId($idioma);
-		$idiomas = array($idmid => $nivel);
-		
-		$conexion = DataBase::getInstance();
+	public function altaCurriculum($docNum, $docTipo, $Mail, $EdoCivil, $Dir, $CP, $Tel, $foto, $puesto, $estudios, $laborales, $idioma, $nivel, $subs) {
 		session_start();
-		
-		$usrid = $_SESSION['user'] ->getID();
-		
-		$curr = new Curriculum($docNum,$docTipo, $Mail, $estudios, $laborales, $idiomas, $subs);
-		$curr->setECivil =$EdoCivil;
-		$curr->setDireccion =$Dir;
-		$curr->setCodigoPostal =$CP;
-		$curr->setTelefono =$Tel;
-		$curr->setPuestoDeseado =$puesto;
-		$curr->setFoto = $img;
-		
-		$sentenciaSql = "insert into etj_curriculum
-		values (".$usrid.",'".$curr->getTipoDoc."',".$curr->getDocumento.",".$curr->getCodigoPostal.",".
-		$curr->getTelefono.",'".	$curr->getMail."','".$curr->getFoto."','".$curr->getEAcademicas."','".
-		$curr->getExLaboral."','".$curr->getPuestoDeseado."','".$curr->getSubscribir."')";
-		
-		$conexion -> ejecutarSentencia($sentenciaSql);
-		
-		$sentenciaSql = "insert into etj_habla
-		values(".$usrid.",".$idmid.",".$nivel.")";
+		if (!isset($_SESSION['curr'])) {
+			if (!isset($docNum)) {
+				return FALSE;
+			}
+			if (!isset($Mail)) {
+				return false;
+			}
+			if (!isset($estudios)) {
+				return false;
+			}
+			if (!isset($laborales)) {
+				return false;
+			}
+			if (!isset($idioma)) {
+				return false;
+			}
+			if (!isset($subs)) {
+				return false;
+			}
+			$img = $this -> subirImagen();
+			if (!$img) {
+				return false;
+			}
 
-		$conexion -> ejecutarSentencia($sentenciaSql);
-		
+			$idmid = $this -> devolverIdmId($idioma);
+			if (!$idmid) {
+				return false;
+			}
 
+			$idiomas = array($idmid => $nivel);
+
+			$conexion = DataBase::getInstance();
+
+			$usrid = $_SESSION['user'] -> getID();
+
+			$curr = new Curriculum($docNum, $docTipo, $Mail, $estudios, $laborales, $idiomas, $subs);
+			$curr -> setECivil($EdoCivil);
+			$curr -> setDireccion($Dir);
+			$curr -> setCodigoPostal($CP);
+			$curr -> setTelefono($Tel);
+			$curr -> setPuestoDeseado($puesto);
+			$curr -> setFoto($img);
+			
+
+			
+			$sentenciaSql = "insert into etj_curriculum
+		values (" . $usrid . ",'" . $curr -> getTipoDoc() . "','" . $curr -> getDocumento() . "','" . $curr -> getECivil() . "','" . $curr -> getDireccion() . "'," . $curr -> getCodigoPostal() . "," . $curr -> getTelefono() . ",'" . $curr -> getMail() . "','" . $curr -> getFoto() . "','" . $curr -> getEAcademicas() . "','" . $curr -> getExLaboral() . "','" . $curr -> getPuestoDeseado() . "','" . $curr -> getSubscribir() . "')";
+			$recurso = $conexion -> ejecutarSentencia($sentenciaSql);
+			echo "<script>alert(\"" . var_dump($sentenciaSql) . "\");</script>";
+			if ($recurso) {
+
+				$sentenciaSql = "insert into etj_habla
+		values(" . $usrid . "," . $idmid . ",'" . $nivel . "')";
+				echo "<script>alert(\"" . var_dump($sentenciaSql) . "\");</script>";
+				$recurso = $conexion -> ejecutarSentencia($sentenciaSql);
+
+				if ($recurso) {
+
+					return true;
+
+				}
+			}
+		}
 	}
 
+	public function modCurriculum($docNum, $docTipo, $Mail, $EdoCivil, $Dir, $CP, $Tel, $foto, $puesto, $estudios, $laborales, $idioma, $nivel, $subs) {
+		echo "<script>alert(\"aca llegamos?\");</script>";
+		$conexion = DataBase::getInstance();
+		session_start();
+		if (isset($_SESSION['curr'])) {
+			$usrNum = $_SESSION['user'] -> getID();
+			$curr = unserialize($_SESSION['curr']);
+			
+			$idmRepetido = "SinIngresar";
+			$idmid;
+			if (isset($docNum)) {
+				$curr -> setDocumento($docNum);
+			}
+			if (isset($docTipo)) {
+				$curr -> setTipoDoc($docTipo);
+			}
+			if (isset($Mail)) {
+				$curr -> setMail($Mail);
+			}
+			if (isset($EdoCivil)) {
+				$curr -> setECivil($EdoCivil);
+			}
+			if (isset($Dir)) {
+				$curr -> setDireccion($Dir);
+			}
+			if (isset($CP)) {
+				$curr -> setCodigoPostal($CP);
+			}
+			if (isset($Tel)) {
+				$curr -> setTelefono($Tel);
+			}
+			if (isset($foto)) {
+				$img = $this -> subirImagen();
+				if (!$img) {
+					return false;
+				}
+				$curr -> setFoto($img);
+			}
+			if (isset($puesto)) {
+				$curr -> setPuestoDeseado($puesto);
+			}
+			if (isset($estudios)) {
+				$curr -> setEAcademicos($estudios);
+			}
+			if (isset($laborales)) {
+				$curr -> setExLaboral($laborales);
+			}
+			if (isset($idioma) and isset($nivel)) {
+
+				$idmid = $this -> devolverIdmId($idioma);
+				if (!$idmid) {
+					return false;
+				}
+
+				$idiomasCurr = $curr -> getIdiomas();
+				foreach ($idiomasCurr as $idioma => $lvl) {
+
+					if ($idioma == $idmid) {
+						$idmRepetido = "Si";
+					}
+					$idiomasCurr[$idmid] = $nivel;
+					$curr -> setIdiomas($idiomasCurr);
+					$idmRepetido = "No";
+				}
+
+			}
+			if (isset($subs)) {
+				$curr -> setSubscribir($subs);
+			}
+
+			$sentenciaSql = "update etj_curriculum
+		set cur_doctipo='" . $curr -> getTipoDoc() . "',cur_docnum=" . $curr -> getDocumento() . ",
+		cur_edocivil='" . $curr -> getECivil() . "',cur_dir='" . $curr -> getDireccion() . "',cur_cpost=" . $curr -> getCodigoPostal() . ",
+		cur_tel=" . $curr -> getTelefono() . ",cur_mail='" . $curr -> getMail() . "',cur_foto='" . $curr -> getFoto() . "',
+		cur_academicos='" . $curr -> getEAcademicas() . "',cur_laborales='" . $curr -> getExLaboral() . "',cur_puesto='" . $curr -> getPuestoDeseado() . "',cur_subscribir='" . $curr -> getSubscribir() . "'
+		where can_id =" . $usrNum;
+			$recurso = $conexion -> ejecutarSentencia($sentenciaSql);
+				echo "<script>alert(\"" . var_dump($sentenciaSql) . "\");</script>";
+			if ($recurso and $idmRepetido = "Si") {
+
+				$sentenciaSql = "update etj_habla
+		set idm_id=" . $idmid . ",nivel='" . $nivel . "'where can_id =" . $usrNum;
+				echo "<script>alert(\"" . var_dump($sentenciaSql) . "\");</script>";
+				$recurso = $conexion -> ejecutarSentencia($sentenciaSql);
+
+			} else if ($recurso and $idmRepetido = "No") {
+
+				$sentenciaSql = "insert into etj_habla
+		values(" . $usrNum . "," . $idmid . ",'" . $nivel . "')";
+				echo "<script>alert(\"" . var_dump($sentenciaSql) . "\");</script>";
+				$recurso = $conexion -> ejecutarSentencia($sentenciaSql);
+
+			}
+			if ($recurso) {
+
+				return true;
+
+			}
+		}
+	}
+
+	public function tieneCurriculum() {
+
+		$conexion = DataBase::getInstance();
+		session_start();
+		if (!isset($_SESSION['curr'])) {
+
+			$sentenciaSql = "select * from etj_curriculum where can_id =" . $_SESSION['user'] -> getID();
+echo var_dump($sentenciaSql);
+			$resultado = $conexion -> ejecutarSentencia($sentenciaSql);
+
+			if ($conexion -> getNumFilas() > 0) {
+
+				$dato = mysql_fetch_array($resultado);
+
+				$DocTipo = $dato[1];
+				$DocNum = $dato[2];
+				$edocivil = $dato[3];
+				$dir = $dato[4];
+				$CP = $dato[5];
+				$Tel = $dato[6];
+				$Mail = $dato[7];
+				$Foto = $dato[8];
+				$Academico = $dato[9];
+				$Laboral = $dato[10];
+				$Puesto = $dato[11];
+				$Sub = $dato[12];
+
+				$sentenciaSql = "select * from etj_habla where can_id =" . $_SESSION['user'] -> getID();
+				echo var_dump($sentenciaSql);
+				$resultado = $conexion -> ejecutarSentencia($sentenciaSql);
+				if ($conexion -> getNumFilas() > 0) {
+					$idiomas = array();
+					while ($dato = mysql_fetch_array($resultado)) {
+					$idm = $dato[1];
+					$lvl = $dato[2];
+					$idiomas[$idm] = $lvl; 
+					}
+					$curr = new Curriculum($DocNum, $DocTipo, $Mail, $Academico, $Laboral, $idiomas, $Sub);
+					$curr -> setECivil($edocivil);
+					$curr -> setDireccion($dir);
+					$curr -> setCodigoPostal($CP);
+					$curr -> setTelefono($Tel);
+					$curr -> setPuestoDeseado($Puesto);
+					$curr -> setFoto($Foto);
+
+					$_SESSION['curr'] = serialize($curr);
+					return true;
+				}
+			}
+			return false;
+		}
+		return true;
+	}
 }
 ?>

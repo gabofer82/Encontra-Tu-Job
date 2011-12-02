@@ -162,19 +162,69 @@ SQL;
 
 	}
 
+	public function obtenerIdiomas() {
+
+		$conexion = DataBase::getInstance();
+
+		$sql = <<<SQL
+select idm_nom from 
+etj_idiomas
+SQL;
+
+		$resultado = $conexion -> ejecutarSentencia($sql);
+		$cont = mysql_num_rows($resultado);
+		if (mysql_num_rows($resultado) > 0) {
+
+			$arrIdio;
+			while ($dato = mysql_fetch_array($resultado)) {
+
+				$arrIdio[$cont] = $dato[0];
+				$cont--;
+
+			}
+
+		}mysql_free_result($resultado);
+		return $arrIdio;
+
+	}
+
+	public function devolverIdmId($idioma) {
+
+		$conexion = DataBase::getInstance();
+
+		$sql = <<<SQL
+select idm_id from 
+etj_idiomas
+where idm_nom = '$idioma'
+SQL;
+
+		$resultado = $conexion -> ejecutarSentencia($sql);
+
+		if (mysql_num_rows($resultado) > 0) {
+
+			$idm = mysql_fetch_array($resultado);
+
+			return $idm[0];
+
+		}
+
+		return true;
+
+	}
+
 	public function subirImagen() {
-			
+
 		$conexion = DataBase::getInstance();
 
 		$vurl = "";
 		if (isset($_FILES['fileFoto']['name'])) {
-			$vurl = $_FILES['fileFoto']['name'];	
+			$vurl = $_FILES['fileFoto']['name'];
 		}
-		
+
 		if ($vurl != "") {
-			$tmp_url = 'user_img/' . basename($vurl);
+			$tmp_url = __DIR__.'/../user_img/' . basename($vurl);
 			if (move_uploaded_file($_FILES['fileFoto']['tmp_name'], $tmp_url)) {
-								echo '<script>alert ("La imagen ser ha ingresado correctamente");</script>';	
+				echo '<script>alert ("La imagen ser ha ingresado correctamente");</script>';
 				return $tmp_url;
 
 			} else {
@@ -182,6 +232,54 @@ SQL;
 				echo '<script>alert ("Error, Su video no ha sido ingresado. Intente otra vez!");</script>';
 			}
 		}
+
+	}
+	
+	public function obtenerNombreCiudad($ciudad,$pais) {
+	
+		$conexion = DataBase::getInstance();
+		
+			$sql = <<<SQL
+select ciu_nom from 
+etj_ciudades
+where ciu_id = $ciudad and pa_id = $pais
+SQL;
+
+		$resultado = $conexion -> ejecutarSentencia($sql);
+		
+		if (mysql_num_rows($resultado) > 0) {
+
+			$ciu = mysql_fetch_array($resultado);
+
+			return $ciu[0];
+
+		}
+
+		return true;
+
+	}	
+	
+	public function obtenerNombreIdioma($idioma) {
+	
+		$conexion = DataBase::getInstance();
+		
+			$sql = <<<SQL
+select idm_nom from 
+etj_idiomas
+where idm_id = $idioma
+SQL;
+
+		$resultado = $conexion -> ejecutarSentencia($sql);
+		
+		if (mysql_num_rows($resultado) > 0) {
+
+			$idm = mysql_fetch_array($resultado);
+
+			return $idm[0];
+
+		}
+
+		return true;
 
 	}
 

@@ -1,17 +1,16 @@
 <?php
-	include_once __DIR__.'/../templates/header.php';
-	include_once __DIR__.'/../templates/user-bar.php';
-	include_once __DIR__.'/../templates/content.php';
-	include_once __DIR__.'/../modelos/candidato_admin.class.php';
-	$objU = CandidatoAdmin::getInstance() ;
-	$GLOBALS['adminCandidato'] = $objU;
+include_once __DIR__ . '/../templates/header.php';
+include_once __DIR__ . '/../templates/user-bar.php';
+include_once __DIR__ . '/../templates/content.php';
+include_once __DIR__ . '/../modelos/candidato_admin.class.php';
+$objU = CandidatoAdmin::getInstance();
+$GLOBALS['adminCandidato'] = $objU;
 ?>
-
 <script language="javascript" type="text/javascript" src="../templates/js/validarImg.js"></script>
 
 	<div id="cont-variable">
-		<form action="../controladores/candidato_controller.php?action=altaCurriculum" method="post" 
-		id="AltaCurriculum" class="formularios" enctype="multipart/form-data" onsubmit="return validar_img()">
+		<form action="../controladores/candidato_controller.php?action=editCurr" method="post" 
+		id="ModCurriculum" class="formularios" enctype="multipart/form-data" onsubmit="return validar_img()">
 			
 			<div>
 			Documento(*)<input type="text" name="txtDocNum" id="txtDocNum"/>
@@ -64,5 +63,5 @@
 		</form>
 	</div>
 <?php
-	include_once __DIR__.'/../templates/footer.php';
+include_once __DIR__ . '/../templates/footer.php';
 ?>
