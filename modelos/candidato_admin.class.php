@@ -204,19 +204,20 @@ SQL;
 	}
 
 	public function modCurriculum($docNum, $docTipo, $Mail, $EdoCivil, $Dir, $CP, $Tel, $foto, $puesto, $estudios, $laborales, $idioma, $nivel, $subs) {
-
+		echo "<script>alert(\"aca llegamos?\");</script>";
 		$conexion = DataBase::getInstance();
 		session_start();
 		if (isset($_SESSION['curr'])) {
 			$usrNum = $_SESSION['user'] -> getID();
-			$curr = $_SESSION['curr'];
+			$curr = unserialize($_SESSION['curr']);
+			
 			$idmRepetido = "SinIngresar";
 			$idmid;
 			if (isset($docNum)) {
 				$curr -> setDocumento($docNum);
 			}
 			if (isset($docTipo)) {
-				$curr -> set($docTipo);
+				$curr -> setTipoDoc($docTipo);
 			}
 			if (isset($Mail)) {
 				$curr -> setMail($Mail);

@@ -47,7 +47,7 @@
 		?>
 	</div>
 	<div>
-	<a href="">Editar</a>
+	<a href="modificar-curriculum.php">Editar</a>
 	</div>
 </div>
 <?php
