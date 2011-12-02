@@ -280,7 +280,7 @@ SQL;
 		cur_academicos='" . $curr -> getEAcademicas() . "',cur_laborales='" . $curr -> getExLaboral() . "',cur_puesto='" . $curr -> getPuestoDeseado() . "',cur_subscribir='" . $curr -> getSubscribir() . "'
 		where can_id =" . $usrNum;
 			$recurso = $conexion -> ejecutarSentencia($sentenciaSql);
-
+				echo "<script>alert(\"" . var_dump($sentenciaSql) . "\");</script>";
 			if ($recurso and $idmRepetido = "Si") {
 
 				$sentenciaSql = "update etj_habla

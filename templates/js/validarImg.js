@@ -2,8 +2,7 @@ function validar_img() {
 	var filename = document.getElementById('fileFoto').value;
 	var ext = filename.toUpperCase().substr(-3);
 
-	if(ext != null) {
-
+	if(ext != "") {
 		if(ext != 'PNG' && ext != 'JPG' && ext != 'JPEG') {
 			alert("Formato de imagen no valido.");
 			return false;

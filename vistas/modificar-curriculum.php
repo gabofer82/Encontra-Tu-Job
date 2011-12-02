@@ -9,8 +9,8 @@ $GLOBALS['adminCandidato'] = $objU;
 <script language="javascript" type="text/javascript" src="../templates/js/validarImg.js"></script>
 
 	<div id="cont-variable">
-		<form action="../controladores/candidato_controller.php?action=modCurriculum" method="post" 
-		id="AltaCurriculum" class="formularios" enctype="multipart/form-data" onsubmit="return validar_img()">
+		<form action="../controladores/candidato_controller.php?action=editCurr" method="post" 
+		id="ModCurriculum" class="formularios" enctype="multipart/form-data" onsubmit="return validar_img()">
 			
 			<div>
 			Documento(*)<input type="text" name="txtDocNum" id="txtDocNum"/>
