@@ -1,9 +1,8 @@
 <?php
-include_once 'config.php';
-include_once TEMPLATES . '/templates/header.php';
-include_once TEMPLATES . '/emplates/user-bar.php';
-include_once TEMPLATES . '/emplates/content.php';
-include_once TEMPLATES . '/modelos/empresa_admin.class.php';
+include 'templates/header.php';
+include 'templates/user-bar.php';
+include 'templates/content.php';
+include 'modelos/empresa_admin.class.php';
 	$objU = EmpresaAdmin::getInstance() ;
 	$GLOBALS['adminEmpresa'] = &$objU;
 
@@ -14,5 +13,5 @@ $gestora = EmpresaAdmin::getInstance();
 	<p>Aqui debe ir el perfil de la empresa</p>
 </div>
 </div> <?php
-include_once '../../templates/footer.php';
+include 'templates/footer.php';
 ?>

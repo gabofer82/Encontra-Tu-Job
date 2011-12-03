@@ -1,7 +1,8 @@
 <?php
-include_once 'templates/header.php';
-include_once 'templates/user-bar.php';
-include_once 'templates/content.php';
-include_once 'templates/cont-variable.php';
-include_once 'templates/footer.php';
+include_once 'config.php';
+include 'templates/header.php';
+include 'templates/user-bar.php';
+include 'templates/content.php';
+include 'templates/cont-variable.php';
+include 'templates/footer.php';
 ?>
