@@ -1,0 +1,176 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: url("../imagenes/bg_sombra_contenedor.jpg") repeat-y center;
+	background-color: #eee;
+}
+
+/******TEMPORALES*******/
+
+/*div {
+	border: 1px solid #444;
+	background-color: #ccc;
+}*/
+
+/**********************/
+
+ul {
+	list-style: none;
+}
+
+li {
+	display: inline;
+}
+
+div#barra-usuario {
+	background-color: #333;
+	color: #dedeb9;
+	padding: 4px 30px;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	height: 22px;
+
+}
+
+div#barra-usuario span {
+	clear: right;
+}
+
+div#barra-usuario a {
+	margin-left: 2px;
+	text-decoration: none;
+	color: #FFFFFF;
+}
+div#barra-usuario a:hover {color: #dedeb9;}
+
+form#login-usr, span#logout-usr {
+	float: right;
+}
+
+div#contenido {
+	margin: auto;
+	width: 800px;
+	height: 560px;
+	/*border-left: 1px solid #333;
+	border-right: 1px solid #333;*/
+	padding: 5px 20px;
+	background-color: white;
+}
+
+div#cabecera {
+	padding: 10px 20px;
+	height: 100px;	
+}
+
+div#nav-bar {
+	height: 46px;
+	background-color: #333333;
+}
+
+div#nav-bar ul {
+	padding: 14px 10px;
+}
+
+div#nav-bar li {
+	padding: 2px 0;
+	margin: 6px 0;
+	/*border: 1px solid black;*/
+}
+
+div#nav-bar a {
+	text-decoration: none;
+	border-right: 2px dotted #999;
+	padding: 2px 8px 2px 4px;
+	color: #dedeb9;
+}
+
+div#cont-variable {
+	margin: 18px 0;
+	background-color: #dedeb9;
+	height: 320px;
+	padding: 20px 0;
+	border-top: 6px solid #bcbc98;
+	
+}
+
+div#cont-variable div {
+
+margin: 10px 0;
+
+}
+
+div.secciones {
+	float: left;
+	width: 200px;
+	border-right: 1px solid #333;
+	padding: 16px 0 16px 48px;
+}
+
+div#ultimo {
+	border-right: none;
+}
+
+div.secciones h3 {
+	padding: 10px 0;
+	font-family:"Courier New", Courier, monospace;
+	clear: left;
+}
+
+div.secciones li {
+	padding: 2px 6px;
+	margin: 6px 2px;
+	float:left;
+}
+
+div.secciones a {
+	text-decoration: none;
+	border: 1px solid #BCBC98;
+	background-color: #EFEFBA;
+	padding: 2px 6px;
+	font-size: 14px;
+	color: #333333;
+}
+
+div#pie {
+	clear: left;
+	text-align: center;
+	background-color: #999;
+	border-top: 4px solid #222;
+	height: 220px;
+}
+
+div#pie p{
+	margin-top: 194px;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	padding-bottom: 4px;
+}
+
+/*************** FORMULARIOS DE LA APLICACION **************/
+
+.formularios {
+	padding: 16px;
+	width: 400px;
+}
+
+.formularios label {
+	width: 200px;
+	padding-right: 8px;
+	font-size: 12px;
+}
+
+.formularios input {
+}
+
+.formularios label, .formularios input, .formularios textarea {
+	margin-bottom: 16px;
+	/*float: left;*/
+
+}
+
+input.btnSubmit{
+	clear: left;
+}
+
