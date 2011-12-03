@@ -1,8 +1,9 @@
 <?php
-include_once './../../templates/header.php';
-include_once  './../../templates/user-bar.php';
-include_once './../../templates/content.php';
-include_once './../../modelos/empresa_admin.class.php';
+include_once 'config.php';
+include_once TEMPLATES . '/templates/header.php';
+include_once TEMPLATES . '/emplates/user-bar.php';
+include_once TEMPLATES . '/emplates/content.php';
+include_once TEMPLATES . '/modelos/empresa_admin.class.php';
 	$objU = EmpresaAdmin::getInstance() ;
 	$GLOBALS['adminEmpresa'] = &$objU;
 
