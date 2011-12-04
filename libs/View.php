@@ -35,6 +35,42 @@ class View
 		//Finalmente, incluimos la plantilla.
 		include($path);
 	}
+	
+	/*public function show_all_templates($names = array(), $vars = array()) 
+	{
+		//$name es el nombre de nuestra plantilla, por ej, listado.php
+		//$vars es el contenedor de nuestras variables, es un arreglo del tipo llave => valor, opcional.
+		
+		//Traemos una instancia de nuestra clase de configuracion.
+		$config = Config::singleton();
+		
+		$paths = array();
+		//Si no existe el fichero en cuestion, tiramos un 404
+		for ($i = 0; $i <= count($names); $i++) {
+			//Armamos la ruta a la plantilla
+			global $paths;
+			$paths[$i] = $config->get('viewsFolder') . $names[$i];
+			if (file_exists($paths[$i]) == false) 
+			{
+				trigger_error ('Template `' . $paths[$i] . '` does not exist.', E_USER_NOTICE);
+				return false;
+			}  
+		}
+		
+		//Si hay variables para asignar, las pasamos una a una.
+		if(is_array($vars))
+		{
+                    foreach ($vars as $key => $value) 
+                    {
+                	$$key = $value;
+                    }
+        }
+                
+		//Finalmente, incluimos la plantilla.
+		for ($i = 0; $i <= count($paths); $i++){
+			include($paths[$i]);	
+		}
+	}*/
 }
 /*
  El uso es bastante sencillo:

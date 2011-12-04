@@ -1,26 +1,18 @@
 <?php
-include __DIR__ . '/../dominio/usuario.class.php';
-include __DIR__ . '/../dominio/candidato.class.php';
-include __DIR__ . '/../dominio/empresa.class.php';
 
-include __DIR__ . '/../lang/es.php';
-$GLOBALS['visit'] = $visit_bar;
-session_start();
-if (!isset($_SESSION['user'])) {
-$usrAnon = new Usuario(0, $visit_bar, "", "", "");	
-$_SESSION['user'] = $usrAnon;
-//Usuario no se podia convertir a string por eso era imposible mostrarlo
-//para eso agregue un nuevo indice al $_SESSION
+include 'lang/es.php';
+$_SESSION['user']->setNick($visit_bar);
 $_SESSION['name_user'] = $_SESSION['user']->getNick();
-}
-					
 ?>
 <div id="barra-usuario">
-	<span><?php echo $saludo_bar." "
+	<span>
+		<?php 
+			echo $saludo_bar." ";
+			echo $_SESSION['user'] -> getNick();
 		?>
-<?php 	echo $_SESSION['user'] -> getNick();?></span>
+	</span>
 <?php
-	if ($_SESSION['user'] -> getNick() == $GLOBALS['visit']) {
+	if ($visita) {
 		echo '<form action="controladores/usuario_controller.php?action=login" method="post" id="login-usr">
 <label>' . $usr_bar . '</label>
 <input type="text" name="user-name"/>
