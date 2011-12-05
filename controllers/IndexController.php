@@ -30,6 +30,12 @@ class IndexController extends ControllerBase
 		$this->view->show_all_templates($paths, $data);*/
     }
     
+	public function hola() {
+		
+		return "hola";
+		
+	}
+	
     public function testView()
     {
         $vars['nombre'] = "Federico";

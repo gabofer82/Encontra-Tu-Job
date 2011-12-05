@@ -6,7 +6,7 @@ class SPDO extends PDO
 	
 	public function __construct() 
 	{
-		parent::__construct('mysql:host=localhost;dbname=pruebas', 'django', 'django82');
+		parent::__construct('mysql:host=localhost;dbname=etj_db', 'root', '');
 	}
 
 	public static function singleton() 

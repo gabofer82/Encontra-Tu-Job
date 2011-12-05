@@ -19,11 +19,9 @@ $_SESSION['name_user'] = $_SESSION['user']->getNick();
 <label>' . $pass_bar . '</label>
 <input type="password" name="password" />
 <input type="submit" value="' . $submit_bar . '"/>
-<a href="index.php?controlador=Empresa&accion=alta_empresa" onclick="RegistroMostrar();">' . $reglink_bar . '</a>
+<a href="http://localhost/Encontra-Tu-Job-Test/index.php?controlador=Usuarios&accion=registro_usr">' . $reglink_bar . '</a>
 </form>';
 	} else {
-		
-		//Arreglar aca
 		echo '<span id="logout-usr"><a href="controladores/usuario_controller.php?action=logout">' . $logout_bar . '</a></span>';
 	}
 ?>
