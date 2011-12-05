@@ -1,10 +1,5 @@
 <?php
-include_once __DIR__ . '/../templates/header.php';
-include_once __DIR__ . '/../templates/user-bar.php';
-include_once __DIR__ . '/../templates/content.php';
-include_once __DIR__ . '/../modelos/candidato_admin.class.php';
-$objU = CandidatoAdmin::getInstance();
-$GLOBALS['adminCandidato'] = $objU;
+
 ?>
 
 <style type="text/css">
@@ -13,7 +8,7 @@ $GLOBALS['adminCandidato'] = $objU;
 		height: 420px;
 	}
 </style>
-<script language="javascript" type="text/javascript" src="../templates/js/fechaNac.js"></script>
+<script language="javascript" type="text/javascript" src="./views/js/fechaNac.js"></script>
 <div id="cont-variable">
 	<form action="../controladores/candidato_controller.php?action=modCandidato" method="post" id="AltaCandidato" class="formularios">
 		<fieldset>
@@ -21,7 +16,7 @@ $GLOBALS['adminCandidato'] = $objU;
 				Datos de Perfil
 			</legend>
 			<label>Nombre de Usuario: <?php echo $_SESSION['user']->getNick() ;?></label>
-			<a href="ver-curriculum.php">Ver Curriculum</a>
+			<a href="ihttp://localhost/Encontra-Tu-Job/index.php?controlador=Candidatos&accion=ver_curriculum">Ver Curriculum</a>
 			</fieldset>
 			
 			<fieldset>
@@ -77,5 +72,5 @@ $GLOBALS['adminCandidato'] = $objU;
 	</form>
 </div>
 <?php
-include_once __DIR__ . '/../templates/footer.php';
+
 ?>

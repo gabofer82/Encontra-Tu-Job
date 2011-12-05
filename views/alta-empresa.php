@@ -1,15 +1,7 @@
 <?php
-include_once __DIR__ . '/../templates/header.php';
-include_once __DIR__ . '/../templates/user-bar.php';
-include_once __DIR__ . '/../templates/content.php';
-include_once __DIR__ . '/../modelos/empresa_admin.class.php';
-	$objU = EmpresaAdmin::getInstance() ;
-	$GLOBALS['adminEmpresa'] = &$objU;
-
-$gestora = EmpresaAdmin::getInstance();
 ?>
 <div id="cont-variable">
-	<form action='../controladores/empresa_controller.php?action=altaEmpresa' method="post" id="AltaEmpresa" class="formularios">
+	<form action='index.php?controlador=Empresa&accion=alta_empresa' method="POST" id="AltaEmpresa" class="formularios">
 		<fieldset class="registro">
 			<legend>
 				Datos de Registro
@@ -30,14 +22,12 @@ $gestora = EmpresaAdmin::getInstance();
 			<label>Ciudad</label>
 			
 			<select name="slcciudad" id="ciudad">
-			<?php 
-
-			$arr = $objU->obtenerCiudades();
-			
-			foreach ($arr as $v) {
-
-				echo '<option>'.$v.'</option>';	
-			}
+			<?php
+				// $listado es una variable asignada desde el controlador ItemsController.
+				while($item = $listadoPaises->fetch())
+				{
+					echo '<option>'.$item['ciu_nom'].'</option>';	
+				}
 			?>
 			</select>
 				<!--Este campo por el momento será oculto, en el futuro si se requieren contemplar varios paises
@@ -48,6 +38,4 @@ $gestora = EmpresaAdmin::getInstance();
 			<input type="reset" value="Restablecer" id="btnReset" />
 	</form>
 </div>
-</div> <?php
-include_once __DIR__ . '/../templates/footer.php';
-?>
+</div>

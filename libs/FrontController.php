@@ -44,7 +44,11 @@ class FrontController
 		}
 		//Si todo esta bien, creamos una instancia del controlador y llamamos a la accion
 		$controller = new $controllerName();
-		$controller->$actionName();
+		if (empty($_POST))
+			$controller->$actionName();
+		else
+			$controller->$actionName($_POST);
+		
 	}
 }
 ?>

@@ -60,8 +60,6 @@ div#cont-variable {
 			
 			<select name="slcciudad" id="ciudad">
 			<?php 
-
-			
 			
 			foreach ($ciudades as $v) {
 

@@ -1,8 +1,7 @@
 <?php
 $config = Config::singleton();
 $ruta = $config -> get('librerias');
-
-require_once $ruta . "/DataBase.class.php";
+include_once $ruta."/DataBase.class.php";
 
 class UsuarioAdmin {
 
@@ -137,10 +136,10 @@ SQL;
 			$sql = "SELECT * FROM etj_candidatos WHERE `can_id` = " . $datoUsr['usr_id'];
 			$resultado = $conexion -> ejecutarSentencia($sql);
 			if ($conexion -> getNumFilas() > 0) {
-				include_once __DIR__ . '/../dominio/Candidato.class.php';
+				include_once __DIR__ . '/../classes/Candidato.class.php';
 				$datoCan = mysql_fetch_assoc($resultado);
 				$can = new Candidato($datoUsr['usr_id'], $datoUsr['usr_nick'], $datoUsr['usr_pass'], $datoUsr['ciu_id'], $datoUsr['pa_id'], $datoCan['can_nom'], $datoCan['can_ape'], $datoCan['can_sexo'], $datoCan['can_fNac']);
-				session_start();
+							session_start();
 				$_SESSION['user'] = $can;
 				return true;
 
@@ -150,10 +149,10 @@ SQL;
 				$resultado = $conexion -> ejecutarSentencia($sql);
 
 				if ($conexion -> getNumFilas() > 0) {
-					include_once __DIR__ . '/../dominio/Empresa.class.php';
+					include_once __DIR__ . '/../classes/Empresa.class.php';
 					$datoCan = mysql_fetch_assoc($resultado);
 					$emp = new Empresa($datoUsr['usr_id'], $datoUsr['usr_nick'], $datoUsr['usr_pass'], $datoUsr['ciu_id'], $datoUsr['pa_id'], $datoCan['emp_nom']);
-					session_start();
+						session_start();
 					$_SESSION['user'] = $emp;
 					return true;
 				}

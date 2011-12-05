@@ -5,11 +5,9 @@ $config = Config::singleton();
 $ruta = $config -> get('modelsFolder');
 require_once $ruta . "/candidato_admin.class.php";
 
-
 class CandidatosController extends ControllerBase {
 
 	private $widgets = null;
-
 
 	public function __construct() {
 		parent::__construct();
@@ -40,31 +38,61 @@ class CandidatosController extends ControllerBase {
 	}
 
 	public function alta_candidato() {
-		
+
 		$objU = CandidatoAdmin::getInstance();
-		
+
 		if ($objU -> validarContrasena($_POST['txtUsrPass'], $_POST['txtUsrRePass'])) {
 			$pass = md5($_POST['txtUsrPass']);
 			$fecha = $_POST['anhoNac'] . "/" . $_POST['mesNac'] . "/" . $_POST['diaNac'];
-			$retorno = $objU -> altaCandidato($_POST['txtUsrNom'], $pass, $_POST['txtNombre'], 
-			$_POST['txtApellido'], $_POST['radioSexo'], $_POST['slcciudad'], $_POST['slcpais'], $fecha);
-			
+			$retorno = $objU -> altaCandidato($_POST['txtUsrNom'], $pass, $_POST['txtNombre'], $_POST['txtApellido'], $_POST['radioSexo'], $_POST['slcciudad'], $_POST['slcpais'], $fecha);
+
 			if ($retorno) {
 				echo "<script>alert(\"Usuario Registrado Existosamente\")</script>";
 			} else {
 				echo "<script>alert(\"Registro Fallido\")</script>";
 			}
-			
-			} else {
+
+		} else {
 			echo "<script>alert(\"Registro Fallido\")</script>";
 		}
-		
+
 		$this -> widgets -> add_html_header();
 		$this -> widgets -> add_user_bar();
 		$this -> widgets -> add_content();
 		$this -> view -> show('inicio.php');
 		$this -> widgets -> add_footer();
+
+	}
+
+	public function ver_perfil() {
+
+		$this -> widgets -> add_html_header();
+		$this -> widgets -> add_user_bar();
+		$this -> widgets -> add_content();
+		$this -> view -> show('modificar-candidato.php');
+		$this -> widgets -> add_footer();
+
+	}
+
+	public function ver_curriculum() {
+
+	session_start();
+	$curr = unserialize($_SESSION['curr']);
+	$usr = $_SESSION['user'];
+
+		$objU = CandidatoAdmin::getInstance();
+		$datos['ciudad'] = $objU->obtenerNombreCiudad($usr->getCiudad(),$usr->getPais());
+		$datos['curriculum'] = $objU->tieneCurriculum();
+		$datos['fotoperfil'] = $curr->getFoto();
+		$datos['idioma'] =  $objU->obtenerNombreIdioma($idioma);
+		$datos['usuario'] = $usr;
+		$datos['curriculum'] = $curr;
 		
+		$this -> widgets -> add_html_header();
+		$this -> widgets -> add_user_bar();
+		$this -> widgets -> add_content();
+		$this -> view -> show('ver-curriculum.php',$datos);
+		$this -> widgets -> add_footer();
 
 	}
 

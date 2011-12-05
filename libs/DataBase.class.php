@@ -38,14 +38,13 @@ class DataBase {
 		$queryTxt = $sentencia;
 
 		if ($queryTxt != "") {
-				echo "<script>alert(\"".var_dump($queryTxt)."\")</script>";
 			$resource = mysql_query($queryTxt) /*or die(msql_error())*/;
-				echo "<script>alert(\"".var_dump($resource)."\")</script>";
-			$this -> numFilas = mysql_num_rows($resource);
-		
-			return $resource;			
-		}
 
+			if (mysql_num_rows($resource)) {
+			$this -> numFilas = mysql_num_rows($resource);
+			}
+			return $resource;		
+		}
 	}
 
 

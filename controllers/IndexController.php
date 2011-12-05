@@ -16,7 +16,9 @@ class IndexController extends ControllerBase
     public function index()
     {
         $this->widgets->add_html_header();
+		
         $this->widgets->add_user_bar();
+		
         $this->widgets->add_content();		
         $this->view->show('inicio.php');
 		$this->widgets->add_footer();

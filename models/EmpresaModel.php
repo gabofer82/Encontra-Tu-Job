@@ -7,13 +7,21 @@ class EmpresaModel extends ModelBase {
   //o con herencia.
   public function alta($datos)
   {
-  	$sql = 'INSERT INTO etj_empresas VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-  	$consulta = $this->db->prepare($sql);
-	//obtener ultimo ID
+  	$sqlUsuario = 'INSERT INTO etj_usuarios (usr_nick, usr_pass, pa_id, ciu_id) VALUES (:usr_nick, :usr_pass, :pa_id, :ciu_id)';	
+	$consultaU = $this->db->prepare($sqlUsuario);
+	$ultimoIdUsr = $this->db->lastInsertId();
 	$pass = md5($datos['txtUsrPass']);
-	$consulta->execute(array($datos['txtUsrNom'], $pass,$datos['txtNombre'], 
-		$datos['slcciudad'], $datos['slcpais']));
-	return $consulta;
+	$consultaU->execute(array(':usr_nick'=>$datos['txtUsrNom'], 
+								':usr_pass'=>$pass,
+								':pa_id'=> 0, 
+								':ciu_id'=>$datos['slcciudad']));
+	
+  	$sqlEmpresa = 'INSERT INTO etj_empresas (emp_id, emp_nom) VALUES (:emp_id, :emp_nom)';
+  	$consultaE = $this->db->prepare($sqlEmpresa);
+	$ultimoIdUsr = $ultimoIdUsr++;
+	$consultaE->execute(array(':emp_id'=>$ultimoIdUsr,
+								':emp_nom'=>$datos['txtNombre']));
+	return $ultimoIdUsr;
   }
   
   public function baja($idEmpresa)
@@ -31,6 +39,15 @@ class EmpresaModel extends ModelBase {
   public function obtenerDatos($id)
   {
   	
+  }
+  
+  public function listarCiudades()
+  {
+  		//realizamos la consulta de todos los items
+		$consulta = $this->db->prepare('SELECT * FROM etj_ciudades');
+		$consulta->execute();
+		//devolvemos la coleccion para que la vista la presente.
+		return $consulta;
   }
 }
 
