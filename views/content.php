@@ -6,7 +6,7 @@
 ?>
 		<div id="contenido">
 			<div id="cabecera">
-				<h1><a href="http://localhost/Encontra-Tu-Job-Test/index.php?controlador=&accion="><img src="ruta" alt="Encontr&aacute; Tu Job"/></a>Encontr&aacute; Tu Job!</h1>			
+				<h1><a href="http://localhost/Encontra-Tu-Job/index.php?controlador=&accion="><img src="ruta" alt="Encontr&aacute; Tu Job"/></a>Encontr&aacute; Tu Job!</h1>			
 			</div>
 			<div id="nav-bar">
 					<ul>
@@ -19,13 +19,13 @@
 ?>
 		<div id="contenido">
 			<div id="cabecera">
-				<h1><a href="http://localhost/Encontra-Tu-Job-Test/index.php?controlador=&accion="><img src="ruta" alt="Encontr&aacute; Tu Job"/></a>Encontr&aacute; Tu Job!</h1>			
+				<h1><a href="http://localhost/Encontra-Tu-Job/index.php?controlador=&accion="><img src="ruta" alt="Encontr&aacute; Tu Job"/></a>Encontr&aacute; Tu Job!</h1>			
 			</div>
 			<div id="nav-bar">
 					<ul>
-						<li><a href="./vistas/modificar-candidato.php">Mi Perfil</a></li>
-						<li><a href="./vistas/ver-curriculum.php">Mi Curriculum</a></li>						
-						<li><a href="#">Buscar Empleo</a></li>
+						<li><a href="http://localhost/Encontra-Tu-Job/index.php?controlador=Candidatos&accion=ver_perfil">Mi Perfil</a></li>
+						<li><a href="http://localhost/Encontra-Tu-Job/index.php?controlador=Candidatos&accion=ver_curriculum">Mi Curriculum</a></li>						
+						<li><a href="http://localhost/Encontra-Tu-Job/index.php?controlador=Usuarios&accion=ver_demandas">Buscar Empleo</a></li>
 					</ul>
 				</div>
 <?php
@@ -33,13 +33,13 @@
 ?>
 		<div id="contenido">
 			<div id="cabecera">
-				<h1><a href="http://localhost/Encontra-Tu-Job-Test/index.php?controlador=&accion="><img src="ruta" alt="Encontr&aacute; Tu Job"/></a>Encontr&aacute; Tu Job!</h1>			
+				<h1><a href="http://localhost/Encontra-Tu-Job/index.php?controlador=&accion="><img src="ruta" alt="Encontr&aacute; Tu Job"/></a>Encontr&aacute; Tu Job!</h1>			
 			</div>
 			<div id="nav-bar">
 					<ul>
-						<li><a href="#">Ver Perfil</a></li>
-						<li><a href="#">Mis Demandas </a></li>
-						<li><a href="#">Buscar</a></li>
+						<li><a href="http://localhost/Encontra-Tu-Job/index.php?controlador=Empresa&accion=ver_perfil">Ver Perfil</a></li>
+						<li><a href="http://localhost/Encontra-Tu-Job/index.php?controlador=Empresa&accion=ver_mis_demandas">Mis Demandas </a></li>
+						<li><a href="http://localhost/Encontra-Tu-Job/index.php?controlador=Usuarios&accion=ver_demandas">Buscar</a></li>
 					</ul>
 				</div>
 <?php			

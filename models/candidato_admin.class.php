@@ -6,8 +6,8 @@
  */
 
 include_once 'usuario_admin.class.php';
-include_once __DIR__ . '/../dominio/Candidato.class.php';
-include_once __DIR__ . '/../dominio/Curriculum.class.php';
+include_once __DIR__ . '/../classes/Candidato.class.php';
+include_once __DIR__ . '/../classes/Curriculum.class.php';
 
 class CandidatoAdmin extends UsuarioAdmin {
 
@@ -15,7 +15,6 @@ class CandidatoAdmin extends UsuarioAdmin {
 	}
 
 	public function altaCandidato($nick, $pass, $nom, $ape, $sexo, $ciu, $pa, $fecha) {
-
 		if (!$this -> validarNombreUsuario($nick)) {
 			return false;
 		}
@@ -31,7 +30,6 @@ class CandidatoAdmin extends UsuarioAdmin {
 		$id = $this -> calcularID();
 
 		$c = new Candidato($id, $nick, $pass, $ciunum, $pa, $nom, $ape, $sexo, $fecha);
-			echo var_dump($c -> getPass());
 		$sentenciaSql = "insert into etj_usuarios (usr_nick,usr_pass,pa_id,ciu_id) values ('" . $c -> getNick() . "','" . $c -> getPass() . "'," . $c -> getPais() . ",'" . $c -> getCiudad() . "')";
 
 		$conexion -> ejecutarSentencia($sentenciaSql);
@@ -63,16 +61,12 @@ values (" . $c -> getID() . ",'" . $c -> getNom() . "','" . $c -> getApe() . "',
 		if ($sexo <> "M" and $sexo <> "F") {
 			return false;
 		}
-		echo var_dump($ciudad);
-		echo var_dump($pais);
 
 		$ciunum = $this -> validarCiudad($ciudad, $pais);
 		if (!$ciunum) {
 			return false;
 		}
-		echo var_dump($pais);
-		echo var_dump($sexo);
-		echo "Aca despues de validar ciudad?";
+
 		$conexion = DataBase::getInstance();
 
 		$c -> setPass($pass);
@@ -82,20 +76,18 @@ values (" . $c -> getID() . ",'" . $c -> getNom() . "','" . $c -> getApe() . "',
 		$c -> setCiudad($ciunum);
 		$c -> setPais($pais);
 		$c -> setFNac($fecha);
-		echo var_dump($c);
 
-		echo "Aca?";
 		$sentenciaSql = "update etj_usuarios
 		set usr_nick='" . $c -> getNick() . "', usr_pass='" . $c -> getPass() . "', pa_id=" . $c -> getPais() . ", ciu_id=" . $c -> getCiudad() . "
 		where usr_id =" . $c -> getID() . "";
-		echo var_dump($sentenciaSql);
+
 		$conexion -> ejecutarSentencia($sentenciaSql);
 
 		if ($conexion) {
 			$sentenciaSql = "update etj_candidatos
 		set can_nom='" . $c -> getNom() . "', can_ape='" . $c -> getApe() . "', can_sexo='" . $c -> getSexo() . "', can_fNac= " . $c -> getFNac() . "
 		where can_id =" . $c -> getID() . "";
-			echo var_dump($sentenciaSql);
+
 			$conexion -> ejecutarSentencia($sentenciaSql);
 
 			if ($conexion) {

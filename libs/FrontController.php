@@ -6,7 +6,7 @@ class FrontController
 		//Incluimos algunas clases:
 		
 		require 'libs/Config.php'; //de configuracion
-		require 'libs/SPDO.php'; //PDO con singleton
+		require 'libs/DataBase.class.php'; //
 		require 'libs/ControllerBase.php'; //Clase controlador base
 		require 'libs/ModelBase.php'; //Clase modelo base
 		require 'libs/View.php'; //Mini motor de plantillas

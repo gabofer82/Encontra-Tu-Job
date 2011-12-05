@@ -1,6 +1,6 @@
 <?php
 ?>
-
+<script language="javascript" type="text/javascript" src="./views/js/fechaNac.js"></script>
 <style type="text/css">
 	
 div#cont-variable {
@@ -10,10 +10,10 @@ div#cont-variable {
 }
 </style>
 
-<script language="javascript" type="text/javascript" src="../templates/js/fechaNac.js"></script>
+
 
 	<div id="cont-variable">
-		<form action="../controladores/candidato_controller.php?action=altaCandidato" method="post" id="AltaCandidato" class="formularios">
+		<form action="http://localhost/Encontra-Tu-Job/index.php?controlador=Candidatos&accion=alta_candidato" method="post" id="AltaCandidato" class="formularios">
 			
 			<fieldset class="registro">
 			<legend>Datos de Registro</legend>
@@ -60,8 +60,6 @@ div#cont-variable {
 			
 			<select name="slcciudad" id="ciudad">
 			<?php 
-
-			
 			
 			foreach ($ciudades as $v) {
 

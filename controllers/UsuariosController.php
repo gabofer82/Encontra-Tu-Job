@@ -5,7 +5,6 @@ $config = Config::singleton();
 $ruta = $config -> get('modelsFolder');
 
 require $ruta . "/usuario_admin.class.php";
-$objU = UsuarioAdmin::getInstance();
 
 class UsuariosController extends ControllerBase {
 
@@ -35,10 +34,13 @@ class UsuariosController extends ControllerBase {
 
 	public function login_usr() {
 
+		$objU = UsuarioAdmin::getInstance();
 		$pass = md5($_POST['password']);
 
-		if ($usr -> login_usuario($_POST['user-name'], $pass)) {
+		if ($objU -> login_usuario($_POST['user-name'], $pass)) {
+			session_start();
 			$_SESSION['iniciada'] = true;
+			$_SESSION['name_user'] = $_SESSION['user']->getNick();
 			$datos['user'] = $_POST['user-name'];
 			
 		} else {
@@ -55,10 +57,17 @@ class UsuariosController extends ControllerBase {
 	
 	public function logout_usr() {
 		
-			session_start();
+		session_start();
 		session_destroy();
 		
+		$this -> widgets -> add_html_header();
+		$this -> widgets -> add_user_bar();
+		$this -> widgets -> add_content();
+		$this -> view -> show('inicio.php');
+		$this -> widgets -> add_footer();		
+		
 	}
+	
 
 	public function testView() {
 		$vars['nombre'] = "Federico";

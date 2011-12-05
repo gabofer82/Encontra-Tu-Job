@@ -1,9 +1,7 @@
 <?php
-
 $config = Config::singleton();
 $ruta = $config -> get('librerias');
-
-require_once $ruta . "/SPDO.php";
+include_once $ruta."/DataBase.class.php";
 
 class UsuarioAdmin {
 
@@ -25,38 +23,44 @@ class UsuarioAdmin {
 
 	public function obtenerCiudades() {
 
-		$conexion = SPDO::singleton();
+		$conexion = DataBase::getInstance();
 
-		$sql = "SELECT * FROM etj_ciudades WHERE pa_id = 1";
+		$sql = <<<SQL
+SELECT ciu_nom
+FROM etj_ciudades
+WHERE pa_id =1
+SQL;
 
-		$resultado = $conexion -> query($sql);
-		$arrCiu;
-		foreach ($resultado as $value) {
-			$arrCiu[] = $value[ciu_nom];
-		}
+		$restultado = $conexion -> ejecutarSentencia($sql);
 
-		if ($arrCiu) {
-			return $arrCiu;
+		if (mysql_num_rows($restultado) > 0) {
 
-		}
-		return false;
+			$cont = mysql_num_rows($restultado);
+			$arrCiu;
+			while ($dato = mysql_fetch_array($restultado)) {
 
+				$arrCiu[$cont] = $dato[0];
+				$cont--;
+
+			}
+
+		} mysql_free_result($restultado);
+		return $arrCiu;
 	}
 
 	public function calcularID() {
 
-		$conexion = SPDO::singleton();
+		$conexion = DataBase::getInstance();
 
 		$sql = <<<SQL
 select MAX(usr_id) from etj_usuarios		
 SQL;
 
-		$resultado = $conexion -> query($sql);
+		$resultado = $conexion -> ejecutarSentencia($sql);
 
-		foreach ($resultado as $value) {
-			$id = $value;
-			return $id + 1;
-		}
+		$dato = mysql_fetch_array($resultado);
+
+		return $dato[0] + 1;
 
 	}
 
@@ -71,7 +75,7 @@ SQL;
 
 	public function validarNombreUsuario($nick) {
 
-		$conexion = SPDO::singleton();
+		$conexion = DataBase::getInstance();
 
 		$sql = <<<SQL
 select usr_nick from 
@@ -79,7 +83,7 @@ etj_usuarios
 where usr_nick = '$nick'
 SQL;
 
-		$resultado = $conexion -> query($sql);
+		$resultado = $conexion -> ejecutarSentencia($sql);
 
 		if ($resultado != null) {
 
@@ -93,7 +97,7 @@ SQL;
 
 	public function validarCiudad($ciudad, $pais) {
 
-		$conexion = SPDO::singleton();
+		$conexion = DataBase::getInstance();
 
 		$sql = <<<SQL
 select ciu_id from 
@@ -101,21 +105,22 @@ etj_ciudades
 where ciu_nom = '$ciudad' and pa_id = $pais
 SQL;
 
-		$resultado = $conexion -> query($sql);
+		$resultado = $conexion -> ejecutarSentencia($sql);
 
-		foreach ($resultado as $value) {
-			$ciu = $value;
-		}
-		if ($ciu) {
-			return $ciu;
+		if (mysql_num_rows($resultado) > 0) {
+
+			$ciu = mysql_fetch_array($resultado);
+
+			return $ciu[0];
 
 		}
+
 		return false;
+
 	}
 
 	function login_usuario($nick, $pass) {
-
-		$conexion = SPDO::singleton();
+		$conexion = DataBase::getInstance();
 
 		$sql = <<<SQL
 SELECT * 
@@ -123,66 +128,71 @@ FROM etj_usuarios
 WHERE  `usr_nick` =  '$nick'
 AND  `usr_pass` =  '$pass'
 SQL;
-		$resultado = $conexion -> query($sql);
-
-		foreach ($resultado as $value) {
-			$datoUsr = $value;
-		}
+		$resultado = $conexion -> ejecutarSentencia($sql);
+		$datoUsr = mysql_fetch_assoc($resultado);
 
 		if ($datoUsr) {
 
 			$sql = "SELECT * FROM etj_candidatos WHERE `can_id` = " . $datoUsr['usr_id'];
-			$resultado = $conexion -> query($sql);
-
-			include_once __DIR__ . '/../dominio/Candidato.class.php';
-			$can;
-			foreach ($resultado as $value) {
+			$resultado = $conexion -> ejecutarSentencia($sql);
+			if ($conexion -> getNumFilas() > 0) {
+				include_once __DIR__ . '/../classes/Candidato.class.php';
+				$datoCan = mysql_fetch_assoc($resultado);
 				$can = new Candidato($datoUsr['usr_id'], $datoUsr['usr_nick'], $datoUsr['usr_pass'], $datoUsr['ciu_id'], $datoUsr['pa_id'], $datoCan['can_nom'], $datoCan['can_ape'], $datoCan['can_sexo'], $datoCan['can_fNac']);
-			}
-			if ($can instanceof Candidato) {
+							session_start();
 				$_SESSION['user'] = $can;
 				return true;
+
+			} else {
+
+				$sql = "SELECT * FROM etj_empresas WHERE `emp_id` = " . $datoUsr['usr_id'];
+				$resultado = $conexion -> ejecutarSentencia($sql);
+
+				if ($conexion -> getNumFilas() > 0) {
+					include_once __DIR__ . '/../classes/Empresa.class.php';
+					$datoCan = mysql_fetch_assoc($resultado);
+					$emp = new Empresa($datoUsr['usr_id'], $datoUsr['usr_nick'], $datoUsr['usr_pass'], $datoUsr['ciu_id'], $datoUsr['pa_id'], $datoCan['emp_nom']);
+						session_start();
+					$_SESSION['user'] = $emp;
+					return true;
+				}
 			}
+
 		} else {
-
-			$sql = "SELECT * FROM etj_empresas WHERE `emp_id` = " . $datoUsr['usr_id'];
-			$resultado = $conexion -> query($sql);
-
-			include_once __DIR__ . '/../dominio/Empresa.class.php';
-
-			$emp;
-			foreach ($resultado as $value) {
-				$emp = new Empresa($datoUsr['usr_id'], $datoUsr['usr_nick'], $datoUsr['usr_pass'], $datoUsr['ciu_id'], $datoUsr['pa_id'], $datoCan['emp_nom']);
-			}
-			$_SESSION['user'] = $emp;
-			return true;
+			return false;
 		}
+
 	}
 
 	public function obtenerIdiomas() {
 
-		$conexion = SPDO::singleton();
+		$conexion = DataBase::getInstance();
 
 		$sql = <<<SQL
 select idm_nom from 
 etj_idiomas
 SQL;
 
-		$resultado = $conexion -> query($sql);
-		foreach ($resultado as $value) {
-			$arrIdio[] = $value[idm_nom];
-		}
-		if ($arrIdio) {
-			return $arrIdio;
+		$resultado = $conexion -> ejecutarSentencia($sql);
+		$cont = mysql_num_rows($resultado);
+		if (mysql_num_rows($resultado) > 0) {
 
-		}
-		return false;
+			$arrIdio;
+			while ($dato = mysql_fetch_array($resultado)) {
+
+				$arrIdio[$cont] = $dato[0];
+				$cont--;
+
+			}
+
+		}mysql_free_result($resultado);
+		return $arrIdio;
 
 	}
 
 	public function devolverIdmId($idioma) {
 
-		$conexion = SPDO::singleton();
+		$conexion = DataBase::getInstance();
 
 		$sql = <<<SQL
 select idm_id from 
@@ -190,21 +200,23 @@ etj_idiomas
 where idm_nom = '$idioma'
 SQL;
 
-		$resultado = $conexion -> query($sql);
+		$resultado = $conexion -> ejecutarSentencia($sql);
 
-		foreach ($resultado as $value) {
-			$idm = $value[idm_nom];
-		}
-		if ($idm) {
+		if (mysql_num_rows($resultado) > 0) {
+
+			$idm = mysql_fetch_array($resultado);
+
 			return $idm[0];
 
 		}
-		return false;
+
+		return true;
+
 	}
 
 	public function subirImagen() {
 
-		$conexion = SPDO::singleton();
+		$conexion = DataBase::getInstance();
 
 		$vurl = "";
 		if (isset($_FILES['fileFoto']['name'])) {
@@ -212,7 +224,7 @@ SQL;
 		}
 
 		if ($vurl != "") {
-			$tmp_url = __DIR__ . '/../user_img/' . basename($vurl);
+			$tmp_url = __DIR__.'/../user_img/' . basename($vurl);
 			if (move_uploaded_file($_FILES['fileFoto']['tmp_name'], $tmp_url)) {
 				echo '<script>alert ("La imagen ser ha ingresado correctamente");</script>';
 				return $tmp_url;
@@ -224,49 +236,52 @@ SQL;
 		}
 
 	}
-
-	public function obtenerNombreCiudad($ciudad, $pais) {
-
-		$conexion = SPDO::singleton();
-
-		$sql = <<<SQL
+	
+	public function obtenerNombreCiudad($ciudad,$pais) {
+	
+		$conexion = DataBase::getInstance();
+		
+			$sql = <<<SQL
 select ciu_nom from 
 etj_ciudades
 where ciu_id = $ciudad and pa_id = $pais
 SQL;
 
-		$resultado = $conexion -> query($sql);
+		$resultado = $conexion -> ejecutarSentencia($sql);
+		
+		if (mysql_num_rows($resultado) > 0) {
 
-		foreach ($resultado as $value) {
-			$ciu = $value[idm_nom];
-		}
-		if ($ciu) {
+			$ciu = mysql_fetch_array($resultado);
+
 			return $ciu[0];
 
 		}
-		return false;
 
-	}
+		return true;
 
+	}	
+	
 	public function obtenerNombreIdioma($idioma) {
-
-		$conexion = SPDO::singleton();
-
-		$sql = <<<SQL
+	
+		$conexion = DataBase::getInstance();
+		
+			$sql = <<<SQL
 select idm_nom from 
 etj_idiomas
 where idm_id = $idioma
 SQL;
 
-		$resultado = $conexion -> query($sql);
-		foreach ($resultado as $value) {
-			$idm = $value[idm_nom];
-		}
-		if ($idm) {
+		$resultado = $conexion -> ejecutarSentencia($sql);
+		
+		if (mysql_num_rows($resultado) > 0) {
+
+			$idm = mysql_fetch_array($resultado);
+
 			return $idm[0];
 
 		}
-		return false;
+
+		return true;
 
 	}
 

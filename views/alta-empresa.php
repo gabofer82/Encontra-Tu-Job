@@ -1,7 +1,7 @@
 <?php
 ?>
 <div id="cont-variable">
-	<form action='index.php?controlador=Empresa&accion=alta_empresa' method="POST" id="AltaEmpresa" class="formularios">
+	<form action='controllers/EmpresaController.php?accion=alta_empresa' method="POST" id="AltaEmpresa" class="formularios">
 		<fieldset class="registro">
 			<legend>
 				Datos de Registro
@@ -24,9 +24,8 @@
 			<select name="slcciudad" id="ciudad">
 			<?php
 				// $listado es una variable asignada desde el controlador ItemsController.
-				while($item = $listadoPaises->fetch())
-				{
-					echo '<option>'.$item['ciu_nom'].'</option>';	
+				foreach ($listadoCiudades as $value) {
+				  echo '<option>'.$value.'</option>';	
 				}
 			?>
 			</select>
