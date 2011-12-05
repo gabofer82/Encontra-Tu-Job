@@ -38,6 +38,20 @@ class DemandasController extends ControllerBase
 		$paths[3] = $this->widgets->add_footer();
 		$this->view->show_all_templates($paths, $data);*/
     }
+	
+	public function mostrar_demanda() {
+		
+		$objD = new DemandaAdmin;	
+			
+		$datos['demanda'] = $objD->ObtenerDemanda($_GET['dem']);	
+		
+		 $this->widgets->add_html_header();
+	    $this->widgets->add_user_bar();
+	    $this->widgets->add_content();		
+        $this->view->show('mostrar-demanda.php',$datos);
+		$this->widgets->add_footer();
+		
+	}
     
 	public function hola() {
 		

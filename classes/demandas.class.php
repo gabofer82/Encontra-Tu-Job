@@ -5,6 +5,7 @@
  */
 class Demandas {
 
+	private $id;
 	private $titulo;
 	private $empresa;
 	private $referencia;
@@ -20,8 +21,9 @@ class Demandas {
 	private $fechacierre;
 	private $postulados;
 
-	public function __construct($titulo, $empresa, $referencia, $descripcion, $horario, $vacantes, $nivel, $postulados) {
+	public function __construct($id,$titulo, $empresa, $referencia, $descripcion, $horario, $vacantes, $nivel, $postulados) {
 
+		$this-> id = $id;
 		$this -> titulo = $titulo;
 		$this -> empresa = $empresa;
 		$this -> referencia = $referencia;
@@ -30,6 +32,10 @@ class Demandas {
 		$this -> vacantes = $vacantes;
 		$this -> nivel = $nivel;
 		$this -> postulados = $postulados;
+	}
+
+	public function getId() {
+		return $this -> id;
 	}
 
 	public function getTitulo() {
@@ -86,6 +92,9 @@ class Demandas {
 
 	public function getPostulados() {
 		return $this -> postulados;
+	}
+
+	public function setID($id) {$this -> id = $id;
 	}
 
 	public function setTitulo($titulo) {$this -> titulo = $titulo;

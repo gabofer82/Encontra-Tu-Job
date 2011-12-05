@@ -39,7 +39,7 @@ $_SESSION['user'] = $usrAnon;
 //para eso agregue un nuevo indice al $_SESSION
 $_SESSION['name_user'] = $_SESSION['user']->getNick();
 }*/
-		$this -> view -> show('user-bar.php', $data);
+		$this -> view -> show('user-bar.php');
 		//return $data;
 
 }

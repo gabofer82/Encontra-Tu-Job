@@ -10,7 +10,7 @@
 			</div>
 			<div id="nav-bar">
 					<ul>
-						<li><a href="#">Buscar Empleo</a></li>
+						<li><a href="http://localhost/Encontra-Tu-Job/index.php?controlador=Demandas&accion=ver_demandas">Buscar Empleo</a></li>
 					</ul>
 				</div>
 <?php

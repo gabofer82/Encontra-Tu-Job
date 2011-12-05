@@ -233,12 +233,37 @@ SQL;
 
 			$arrDemandas;
 			while ($dato = mysql_fetch_array($resultado)) {
-				$dem = new Demandas($dato[2], $dato[0], $dato[3], $dato[4], $dato[7], $dato[8], $dato[9], 0);
+				$dem = new Demandas($dato[1], $dato[2], $dato[0], $dato[3], $dato[4], $dato[7], $dato[8], $dato[9], 0);
 				$arrDemandas[] = $dem;
 			}
 
 		}mysql_free_result($resultado);
 		return $arrDemandas;
+
+	}
+
+	public function obtenerDemanda($id) {
+
+		$conexion = DataBase::getInstance();
+
+		$sql = <<<SQL
+SELECT * FROM etj_demandas where dem_id=$id
+SQL;
+
+		echo var_dump($sql);
+
+		$resultado = $conexion -> ejecutarSentencia($sql);
+		if (mysql_num_rows($resultado) > 0) {
+
+			$arrDemandas;
+			while ($dato = mysql_fetch_array($resultado)) {
+			$post =$this->obtenerNumPostulados($dato[1]);
+				$dem = new Demandas($dato[1], $dato[2], $dato[0], $dato[3], $dato[4], $dato[7], $dato[8], $dato[9], $post);
+				$arrDemandas[] = $dem;
+			}
+
+		}mysql_free_result($resultado);
+		return $arrDemandas[0];
 
 	}
 
@@ -252,33 +277,50 @@ SQL;
 
 	}
 
-	public function paginarDemandas($sql, $pagina) {
+	public function obtenerNumPostulados($dem) {
 
-		$tamanoPagina = 10;
+		$conexion = DataBase::getInstance();
 
-		if (!$pagina or $pagina = 0) {
-
-			$inicio = 0;
-			$pagina = 1;
-
-		} else {
-
-			$inicio = ($pagina - 1) * $tamanoPagina;
-
-		}
+		$sql = <<<SQL
+SELECT * FROM etj_postulado where dem_id=$dem
+SQL;
 
 		$resultado = $conexion -> ejecutarSentencia($sql);
-		$numeroResultados = $conexion -> getNumFilas();
 
-		$datos = mysql_fetch_array($resultado);
-
-		$totalPaginas = ceil($numeroResultados / $tamanoPagina);
-
-		$arrayRetorno = array('datos' => &$datos, 'totalPag' => $totalPaginas, 'pagina' => $pagina);
-
-		return $arrayRetorno;
+		return mysql_num_rows($resultado);
+		
 
 	}
+
+
+
+public function paginarDemandas($sql, $pagina) {
+
+$tamanoPagina = 10;
+
+if (!$pagina or $pagina = 0) {
+
+$inicio = 0;
+$pagina = 1;
+
+} else {
+
+$inicio = ($pagina - 1) * $tamanoPagina;
+
+}
+
+$resultado = $conexion -> ejecutarSentencia($sql);
+$numeroResultados = $conexion -> getNumFilas();
+
+$datos = mysql_fetch_array($resultado);
+
+$totalPaginas = ceil($numeroResultados / $tamanoPagina);
+
+$arrayRetorno = array('datos' => &$datos, 'totalPag' => $totalPaginas, 'pagina' => $pagina);
+
+return $arrayRetorno;
+
+}
 
 }
 ?>

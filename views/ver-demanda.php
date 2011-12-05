@@ -13,10 +13,10 @@
 <?php
 
 foreach ($demandas as $dem) {
-	
-	echo $dem->getTitulo();
+	echo"<div>";
+	echo "<a href='http://localhost/Encontra-Tu-Job/index.php?controlador=Demandas&accion=mostrar_demanda&dem=".$dem->getID()."'>".$dem->getTitulo()."</a>";
 	echo "<hr>";
-	
+	echo"</div>";
 }
 
 ?>	

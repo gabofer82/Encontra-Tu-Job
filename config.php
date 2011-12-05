@@ -7,7 +7,7 @@ $config->set('viewsFolder', 'views/');
 $config->set('librerias','libs/');
 
 $config->set('dbhost', 'localhost');
-$config->set('dbname', 'ETJ_BD');
-$config->set('dbuser', 'django');
-$config->set('dbpass', 'django82');
+$config->set('dbname', 'etj_db');
+$config->set('dbuser', 'root');
+$config->set('dbpass', '');
 ?>

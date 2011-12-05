@@ -27,7 +27,7 @@ class EmpresaController extends ControllerBase
 		$listado = $empresa->listarCiudades();
 
 		//Pasamos a la vista toda la informaci�n que se desea representar
-		$data['listadoPaises'] = $listado;
+		$data['listadoCiudades'] = $listado;
 		
   		$this->widgets->add_html_header();
         $this->widgets->add_user_bar();
@@ -36,7 +36,7 @@ class EmpresaController extends ControllerBase
 		$this->widgets->add_footer();
   }
   
-  public function alta_empresa($datos){
+  public function alta_empresa(){
   	/*
 	 * $datos es el array $_POST
 	 */
@@ -47,7 +47,7 @@ class EmpresaController extends ControllerBase
 		$modelo = new EmpresaModel();
 	
 		//Le pedimos al modelo que guarde los datos
-		$idEmp = $modelo->alta($datos);
+		$idEmp = $modelo->alta($_POST);
 		
 		//Obtengo los datos de la nueva empresa
 		$info = $modelo->obtenerDatos($idEmp);
