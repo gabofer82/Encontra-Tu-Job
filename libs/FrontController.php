@@ -6,7 +6,7 @@ class FrontController
 		//Incluimos algunas clases:
 		
 		require 'libs/Config.php'; //de configuracion
-		require 'libs/SPDO.php'; //PDO con singleton
+		require 'libs/DataBase.class.php'; //
 		require 'libs/ControllerBase.php'; //Clase controlador base
 		require 'libs/ModelBase.php'; //Clase modelo base
 		require 'libs/View.php'; //Mini motor de plantillas
@@ -29,10 +29,6 @@ class FrontController
 		      $actionName = "index";
 		
 		$controllerPath = $config->get('controllersFolder') . $controllerName . '.php';
-		
-		//Falta comprobar los datos que hay en $_POST, esos deben pasarse como parametros
-		//dentro de un array, otra es directamente hacer que todas las acciones recivan
-		//un array como parametro sin importar si lo usan o no.
 			
 		//Incluimos el fichero que contiene nuestra clase controladora solicitada	
 		if(is_file($controllerPath))

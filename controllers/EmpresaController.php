@@ -31,7 +31,8 @@ class EmpresaController {
 		//El indice debe llamarse igual que la variable que se va a usar
 		//en el template
 		$data['info'] = $info;
-		
+		session_destroy();
+		session_start();//agregar los datos de la nueva empresa
 		//Finalmente presentamos nuestra plantilla
 		$this->view->show("perfil-empresa.php", $data);
   }

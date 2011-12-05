@@ -15,9 +15,9 @@ class WidgetController extends ControllerBase
 	
 	public function add_user_bar()
     {
-		require 'classes/usuario.class.php';
-		require 'classes/candidato.class.php';
-		require 'classes/empresa.class.php';			
+		require_once 'classes/usuario.class.php';
+		require_once 'classes/candidato.class.php';
+		require_once 'classes/empresa.class.php';			
 		$visitante = TRUE;	
 		if (!isset($_SESSION['user']))
 		{

@@ -6,7 +6,7 @@
 ?>
 		<div id="contenido">
 			<div id="cabecera">
-				<h1><a href="../index.php"><img src="ruta" alt="Encontr&aacute; Tu Job"/></a>Encontr&aacute; Tu Job!</h1>			
+				<h1><a href="http://localhost/Encontra-Tu-Job/index.php?controlador=&accion="><img src="ruta" alt="Encontr&aacute; Tu Job"/></a>Encontr&aacute; Tu Job!</h1>			
 			</div>
 			<div id="nav-bar">
 					<ul>
@@ -19,7 +19,7 @@
 ?>
 		<div id="contenido">
 			<div id="cabecera">
-				<h1><a href="../index.php"><img src="ruta" alt="Encontr&aacute; Tu Job"/></a>Encontr&aacute; Tu Job!</h1>			
+				<h1><a href="http://localhost/Encontra-Tu-Job/index.php?controlador=&accion="><img src="ruta" alt="Encontr&aacute; Tu Job"/></a>Encontr&aacute; Tu Job!</h1>			
 			</div>
 			<div id="nav-bar">
 					<ul>
@@ -33,7 +33,7 @@
 ?>
 		<div id="contenido">
 			<div id="cabecera">
-				<h1><a href="../index.php"><img src="ruta" alt="Encontr&aacute; Tu Job"/></a>Encontr&aacute; Tu Job!</h1>			
+				<h1><a href="http://localhost/Encontra-Tu-Job/index.php?controlador=&accion="><img src="ruta" alt="Encontr&aacute; Tu Job"/></a>Encontr&aacute; Tu Job!</h1>			
 			</div>
 			<div id="nav-bar">
 					<ul>
