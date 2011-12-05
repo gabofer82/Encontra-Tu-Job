@@ -4,7 +4,7 @@
 		
 		echo "Aun no has ingresado tu Curriculum al Sistema.";
 		echo "Hazlo haciendo click"
-?> <a href="alta-curriculum.php">aqui</a><?php
+?> <a href="http://localhost/Encontra-Tu-Job/index.php?controlador=Candidatos&accion=view_alta_curriculum">aqui</a><?php
 } else {
 
 $usr = $usuario;
@@ -13,7 +13,7 @@ $curr = $curriculum;
 ?>
 <div id='cont-variable'>
 	<div>
-		<img src="..\<?php echo $fotoperfil;?>"> <br>
+		<img src="..\<?php echo $curr ->getFoto();?>"> <br>
 		Foto de Perfil
 	</div>
 

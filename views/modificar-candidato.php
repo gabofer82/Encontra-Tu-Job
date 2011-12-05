@@ -10,13 +10,13 @@
 </style>
 <script language="javascript" type="text/javascript" src="./views/js/fechaNac.js"></script>
 <div id="cont-variable">
-	<form action="../controladores/candidato_controller.php?action=modCandidato" method="post" id="AltaCandidato" class="formularios">
+	<form action="http://localhost/Encontra-Tu-Job/index.php?controlador=Candidatos&accion=mod_Candidato" method="post" id="AltaCandidato" class="formularios">
 		<fieldset>
 			<legend>
 				Datos de Perfil
 			</legend>
 			<label>Nombre de Usuario: <?php echo $_SESSION['user']->getNick() ;?></label>
-			<a href="ihttp://localhost/Encontra-Tu-Job/index.php?controlador=Candidatos&accion=ver_curriculum">Ver Curriculum</a>
+			<a href="http://localhost/Encontra-Tu-Job/index.php?controlador=Candidatos&accion=ver_curriculum">Ver Curriculum</a>
 			</fieldset>
 			
 			<fieldset>
@@ -60,7 +60,7 @@
 			<label>Ciudad</label>
 			<select name="slcciudad" id="ciudad">
 				<?php
-				$arr = $objU -> obtenerCiudades();
+				$arr = $ciudades;
 				foreach ($arr as $v) {
 					echo '<option>' . $v . '</option>';
 				}?>

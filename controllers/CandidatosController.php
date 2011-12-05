@@ -64,35 +64,120 @@ class CandidatosController extends ControllerBase {
 
 	}
 
+	public function mod_candidato() {
+
+		$objU = CandidatoAdmin::getInstance();
+
+		session_start();
+		$passVieja = md5($_POST['txtUsrActPass']);
+		if ($_SESSION['user'] -> getPass() == $passVieja) {
+			if ($objU -> validarContrasena($_POST['txtUsrPass'], $_POST['txtUsrRePass'])) {
+
+				$pass = md5($_POST['txtUsrPass']);
+				$fecha = $_POST['anhoNac'] . "" . $_POST['mesNac'] . "" . $_POST['diaNac'];
+				echo "aca llegamos";
+				$retorno = $objU -> modCandidato($pass, $_POST['txtNombre'], $_POST['txtApellido'], $_POST['radioSexo'], $_POST['slcciudad'], $_POST['slcpais'], $fecha);
+
+				if ($retorno) {
+
+					$this -> widgets -> add_html_header();
+					$this -> widgets -> add_user_bar();
+					$this -> widgets -> add_content();
+					$this -> view -> show('modificar-candidato.php', $datos);
+					$this -> widgets -> add_footer();
+
+				}
+			}
+		}
+	}
+
 	public function ver_perfil() {
+
+		$objU = CandidatoAdmin::getInstance();
+
+		$datos['ciudades'] = $objU -> obtenerCiudades();
 
 		$this -> widgets -> add_html_header();
 		$this -> widgets -> add_user_bar();
 		$this -> widgets -> add_content();
-		$this -> view -> show('modificar-candidato.php');
+		$this -> view -> show('modificar-candidato.php', $datos);
 		$this -> widgets -> add_footer();
 
 	}
-
-	public function ver_curriculum() {
-
-	session_start();
-	$curr = unserialize($_SESSION['curr']);
-	$usr = $_SESSION['user'];
-
-		$objU = CandidatoAdmin::getInstance();
-		$datos['ciudad'] = $objU->obtenerNombreCiudad($usr->getCiudad(),$usr->getPais());
-		$datos['curriculum'] = $objU->tieneCurriculum();
-		$datos['fotoperfil'] = $curr->getFoto();
-		$datos['idioma'] =  $objU->obtenerNombreIdioma($idioma);
-		$datos['usuario'] = $usr;
-		$datos['curriculum'] = $curr;
+	
+	public function view_alta_curriculum() {
 		
 		$this -> widgets -> add_html_header();
 		$this -> widgets -> add_user_bar();
 		$this -> widgets -> add_content();
-		$this -> view -> show('ver-curriculum.php',$datos);
+		$this -> view -> show('alta-curriculum.php');
 		$this -> widgets -> add_footer();
+		
+	}
+
+	public function ver_curriculum() {
+		$objU = CandidatoAdmin::getInstance();
+		if (!$objU -> tieneCurriculum()) {
+		$datos['curriculum'] = $objU -> tieneCurriculum();
+		$this -> widgets -> add_html_header();
+		$this -> widgets -> add_user_bar();
+		$this -> widgets -> add_content();
+		echo "<script>alta(\"No se ha encontrado Curriculum. Redirigiendo a formulario de alta.\");</script>";
+		$this -> view -> show('alta-curriculum.php', $datos);
+		$this -> widgets -> add_footer();
+			
+		} else {
+
+		$datos['curriculum'] = $objU -> tieneCurriculum();
+
+		session_start();
+		$curr = $_SESSION['curr'];
+		$usr = $_SESSION['user'];
+
+
+		$datos['ciudad'] = $objU -> obtenerNombreCiudad($usr -> getCiudad(), $usr -> getPais());
+
+		$datos['idioma'] = $objU -> obtenerNombreIdioma($idioma);
+		$datos['usuario'] = $usr;
+		$datos['curriculum'] = $curr;
+
+		$this -> widgets -> add_html_header();
+		$this -> widgets -> add_user_bar();
+		$this -> widgets -> add_content();
+		$this -> view -> show('ver-curriculum.php', $datos);
+		$this -> widgets -> add_footer();
+		}
+	}
+
+	public function alta_curriculum() {
+
+		$retorno = $CanAdmin -> altaCurriculum($_POST['txtDocNum'], $_POST['txtDocTipo'], $_POST['txtMail'], $_POST['txtEdoCivil'], $_POST['txtDir'], $_POST['txtCP'], $_POST['txtTel'], $_POST['fileFoto'], $_POST['txtPuesto'], $_POST['txtEstudios'], $_POST['txtLaborales'], $_POST['slcIdioma'], $_POST['slcNivel'], $_POST['chkSubs']);
+
+		if ($retorno) {
+
+			$this -> widgets -> add_html_header();
+			$this -> widgets -> add_user_bar();
+			$this -> widgets -> add_content();
+			$this -> view -> show('ver-curriculum.php', $datos);
+			$this -> widgets -> add_footer();
+
+		}
+
+	}
+
+	public function mod_curriculum() {
+
+		$retorno = $CanAdmin -> modCurriculum($_POST['txtDocNum'], $_POST['txtDocTipo'], $_POST['txtMail'], $_POST['txtEdoCivil'], $_POST['txtDir'], $_POST['txtCP'], $_POST['txtTel'], $_POST['fileFoto'], $_POST['txtPuesto'], $_POST['txtEstudios'], $_POST['txtLaborales'], $_POST['slcIdioma'], $_POST['slcNivel'], $_POST['chkSubs']);
+
+		if ($retorno) {
+
+			$this -> widgets -> add_html_header();
+			$this -> widgets -> add_user_bar();
+			$this -> widgets -> add_content();
+			$this -> view -> show('ver-curriculum.php', $datos);
+			$this -> widgets -> add_footer();
+
+		}
 
 	}
 

@@ -3,13 +3,15 @@
 /**
  *
  */
+
+include_once __DIR__ . '/../classes/Demandas.class.php';
+
 class DemandaAdmin {
 
 	function __construct() {
 	}
 
-	public function altaDemanda($titulo, $refer, $desc, $perfil, $cargo, $horario, $vacantes, $estudios, 
-	$idioma, $conocimientos, $fechaPubli, $fechaCierre) {
+	public function altaDemanda($titulo, $refer, $desc, $perfil, $cargo, $horario, $vacantes, $estudios, $idioma, $conocimientos, $fechaPubli, $fechaCierre) {
 
 		session_start();
 
@@ -168,21 +170,21 @@ class DemandaAdmin {
 		}
 
 	}
-	
+
 	public function PostularseDemanda($dem) {
-			
-		session_start()	;
-		
+
+		session_start();
+
 		if (!isset($_SESSION['user']) or !$_SESSION['user'] instanceof Candidato) {
 			return false;
 		}
-		
+
 		$can = $_SESSION['user'];
 		$conexion = DataBase::getInstance();
-		
+
 		$sentenciaSql = "insert into etj_postulado
-		values (".$can->getID().",".$dem->getID().",".$dem->getEmpresa().",'".date(Y-m-d)."')";
-		
+		values (" . $can -> getID() . "," . $dem -> getID() . "," . $dem -> getEmpresa() . ",'" . date(Y - m - d) . "')";
+
 		$resultado = $conexion -> ejecutarSentencia($sentenciaSql);
 
 		if ($resultado) {
@@ -190,36 +192,35 @@ class DemandaAdmin {
 			return true;
 
 		}
-		
+
 	}
-	
+
 	public function BajaPostulado($dem) {
-		
-		session_start()	;
-		
+
+		session_start();
+
 		if (!isset($_SESSION['user']) or !$_SESSION['user'] instanceof Candidato) {
 			return false;
 		}
-		
+
 		$can = $_SESSION['user'];
 		$conexion = DataBase::getInstance();
-		
-		$sentenciaSql = "delete from etj_postulado where can_id=".$can->getID();
-		
+
+		$sentenciaSql = "delete from etj_postulado where can_id=" . $can -> getID();
+
 		$resultado = $conexion -> ejecutarSentencia($sentenciaSql);
 
 		if ($resultado) {
-			
+
 			return true;
 
 		}
-		
-		
+
 	}
 
 	public function ObtenerUltimasDemandas() {
 
-		$this -> actualizarDemandas();
+		//$this -> actualizarDemandas();
 
 		$conexion = DataBase::getInstance();
 
@@ -232,8 +233,7 @@ SQL;
 
 			$arrDemandas;
 			while ($dato = mysql_fetch_array($resultado)) {
-
-				$dem = new Demanda($dato[0], $dato[1], $dato[2], $dato[3], $dato[4], $dato[5], $dato[6], $dato[7], $dato[8], $dato[9], $dato[10], $dato[11], $dato[12], $dato[13], $dato[14]);
+				$dem = new Demandas($dato[2], $dato[0], $dato[3], $dato[4], $dato[7], $dato[8], $dato[9], 0);
 				$arrDemandas[] = $dem;
 			}
 
@@ -241,15 +241,15 @@ SQL;
 		return $arrDemandas;
 
 	}
-	
+
 	public function obtenerDemandasPorRubro($rubro) {
-		
+
 		$objU = UsuarioAdmin::getInstance();
-		
-		$rubid = $objU->obtenerRubroId($rubro);
-		
+
+		$rubid = $objU -> obtenerRubroId($rubro);
+
 		$sentenciaSql = "select * from DemandasPorRubro";
-		
+
 	}
 
 	public function paginarDemandas($sql, $pagina) {

@@ -25,7 +25,7 @@
 					<ul>
 						<li><a href="http://localhost/Encontra-Tu-Job/index.php?controlador=Candidatos&accion=ver_perfil">Mi Perfil</a></li>
 						<li><a href="http://localhost/Encontra-Tu-Job/index.php?controlador=Candidatos&accion=ver_curriculum">Mi Curriculum</a></li>						
-						<li><a href="http://localhost/Encontra-Tu-Job/index.php?controlador=Usuarios&accion=ver_demandas">Buscar Empleo</a></li>
+						<li><a href="http://localhost/Encontra-Tu-Job/index.php?controlador=Demandas&accion=ver_demandas">Buscar Empleo</a></li>
 					</ul>
 				</div>
 <?php
@@ -39,7 +39,7 @@
 					<ul>
 						<li><a href="http://localhost/Encontra-Tu-Job/index.php?controlador=Empresa&accion=ver_perfil">Ver Perfil</a></li>
 						<li><a href="http://localhost/Encontra-Tu-Job/index.php?controlador=Empresa&accion=ver_mis_demandas">Mis Demandas </a></li>
-						<li><a href="http://localhost/Encontra-Tu-Job/index.php?controlador=Usuarios&accion=ver_demandas">Buscar</a></li>
+						<li><a href="http://localhost/Encontra-Tu-Job/index.php?controlador=Demandas&accion=ver_demandas">Buscar</a></li>
 					</ul>
 				</div>
 <?php			
