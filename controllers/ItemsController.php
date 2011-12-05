@@ -12,7 +12,7 @@ class ItemsController extends ControllerBase
 		//Le pedimos al modelo todos los items
 		$listado = $items->listadoTotal();
 
-		//Pasamos a la vista toda la información que se desea representar
+		//Pasamos a la vista toda la informaciï¿½n que se desea representar
 		$data['listado'] = $listado;
 		
 		//Finalmente presentamos nuestra plantilla

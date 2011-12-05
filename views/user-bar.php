@@ -2,8 +2,8 @@
 include __DIR__ . '/../dominio/usuario.class.php';
 include __DIR__ . '/../dominio/candidato.class.php';
 include __DIR__ . '/../dominio/empresa.class.php';
-
 include __DIR__ . '/../lang/es.php';
+
 $GLOBALS['visit'] = $visit_bar;
 session_start();
 if (!isset($_SESSION['user'])) {
@@ -27,7 +27,7 @@ $_SESSION['name_user'] = $_SESSION['user']->getNick();
 <label>' . $pass_bar . '</label>
 <input type="password" name="password" />
 <input type="submit" value="' . $submit_bar . '"/>
-<a href="./vistas/usuarios_alta.php" onclick="RegistroMostrar();">' . $reglink_bar . '</a>
+<a href="" onclick="RegistroMostrar();">' . $reglink_bar . '</a>
 </form>';
 	} else {
 		echo '<span id="logout-usr"><a href="controladores/usuario_controller.php?action=logout">' . $logout_bar . '</a></span>';
