@@ -20,6 +20,14 @@ class IndexController extends ControllerBase
         $this->widgets->add_content();		
         $this->view->show('inicio.php');
 		$this->widgets->add_footer();
+		
+		/*$paths[0] = $this->widgets->add_html_header();
+        $data[0] = $this->widgets->add_user_bar();
+		$paths[1] = '';
+        $paths[1] = $this->widgets->add_content();	
+		$paths[2] = 'index.php';	
+		$paths[3] = $this->widgets->add_footer();
+		$this->view->show_all_templates($paths, $data);*/
     }
     
     public function testView()

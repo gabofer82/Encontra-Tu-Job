@@ -2,7 +2,7 @@
 
 
 
-	if ($_SESSION['user'] -> getNick() == $GLOBALS['visit']) {
+	if ($_SESSION['user'] -> getNick() == "Visitante") {
 ?>
 		<div id="contenido">
 			<div id="cabecera">

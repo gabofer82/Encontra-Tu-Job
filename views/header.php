@@ -4,6 +4,6 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>Portal de Ofertas Laborales: Encontr&aacute; Tu Job</title>
-		<link rel="stylesheet" type="text/css" href="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/Encontra-Tu-Job/templates/css/estilos.css'; ?>" media="all"/>
+		<link rel="stylesheet" type="text/css" href="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/Encontra-Tu-Job/views/css/estilos.css'; ?>" media="all"/>
 	</head>
 	
