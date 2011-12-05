@@ -14,7 +14,7 @@ class FrontController
 		require 'config.php'; //Archivo con configuraciones.
 		
 		//Con el objetivo de no repetir nombre de clases, nuestros controladores
-		//terminaran todos en Controller. Por ej, la clase controladora Items, será ItemsController
+		//terminaran todos en Controller. Por ej, la clase controladora Items, serï¿½ ItemsController
 		
 		//Formamos el nombre del Controlador o en su defecto, tomamos que es el IndexController
 		if(! empty($_GET['controlador']))
@@ -44,7 +44,11 @@ class FrontController
 		}
 		//Si todo esta bien, creamos una instancia del controlador y llamamos a la accion
 		$controller = new $controllerName();
-		$controller->$actionName();
+		if (empty($_POST))
+			$controller->$actionName();
+		else
+			$controller->$actionName($_POST);
+		
 	}
 }
 ?>
