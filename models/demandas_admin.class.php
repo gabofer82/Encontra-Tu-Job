@@ -41,7 +41,10 @@ class DemandaAdmin {
 		if (!isset($estudios)) {
 			return false;
 		}
-		$dem = new Demanda($titulo, $emp, $refer, $desc, $horario, $vacantes, $estudios, 0);
+		
+		$id = $this->calcularIDDemanda();
+		
+		$dem = new Demandas($id,$titulo, $emp, $refer, $desc, $horario, $vacantes, $estudios, 0);
 		if (isset($perfil)) {
 			$dem -> setPerfilLaboral($perfil);
 		}
@@ -50,7 +53,7 @@ class DemandaAdmin {
 		}
 		if (isset($idioma)) {
 			$idmId = $objU -> devolverIdmId($idioma);
-			$dem -> set($idmId);
+			$dem -> setIdioma($idmId);
 		}
 		if (isset($conocimientos)) {
 			$dem -> setConocimientos($conocimientos);
@@ -61,10 +64,15 @@ class DemandaAdmin {
 		if (isset($fechaCierre)) {
 			$dem -> setFCierre($fechaCierre);
 		}
+		$idemp =$emp -> getID();
 
 		$sentenciaSql = "insert into etj_demandas (emp_id,dem_titulo,dem_referencia,dem_descripcion,dem_perfil,
 		dem_cargo,dem_horario,dem_vacantes,dem_nivelest,idm_id,dem_conocimientos,dem_fechapubli,dem_fechacierre) 
-		values (" . $emp -> getID() . ",'" . $dem -> getTitulo() . "','" . $dem -> getReferecnia() . "','" . $dem -> getDescripcion() . "','" . $dem -> getPerfil() . "','" . $dem -> getCargo() . "','" . $dem -> getHorario() . "'," . $dem -> getVacantes() . ",'" . $dem -> getNivelEstudio() . "'," . $dem -> getIdioma() . ",'" . $dem -> getConocimientos() . "','" . $dem -> getFechaPublicada() . "','" . $dem -> getFechaCierre . "')";
+		values (" .$idemp. ",'" . $dem -> getTitulo() . "','" . $dem -> getReferecnia() . "','" . 
+		$dem -> getDescripcion() . "','" . $dem -> getPerfil() . "','" . $dem -> getCargo() . "','" . 
+		$dem -> getHorario() . "'," . $dem -> getVacantes() . ",'" . $dem -> getNivelEstudio() . "'," . 
+		$dem -> getIdioma() . ",'" . $dem -> getConocimientos() . "','" . $dem -> getFechaPublicada() . "','" . 
+		$dem -> getFechaCierre() . "')";
 
 		$resultado = $conexion -> ejecutarSentencia($sentenciaSql);
 
@@ -257,7 +265,7 @@ SQL;
 
 			$arrDemandas;
 			while ($dato = mysql_fetch_array($resultado)) {
-			$post =$this->obtenerNumPostulados($dato[1]);
+				$post = $this -> obtenerNumPostulados($dato[1]);
 				$dem = new Demandas($dato[1], $dato[2], $dato[0], $dato[3], $dato[4], $dato[7], $dato[8], $dato[9], $post);
 				$arrDemandas[] = $dem;
 			}
@@ -277,6 +285,34 @@ SQL;
 
 	}
 
+	public function obtenerPostulados($dem) {
+
+		$conexion = DataBase::getInstance();
+		$sql = <<<SQL
+SELECT * FROM etj_candidatos where
+can_id = (select p.can_id from etj_postulado p inner join etj_candidatos c
+on p.can_id = c.can_id
+where dem_id=$dem)
+SQL;
+
+		$resultado = $conexion -> ejecutarSentencia($sql);
+
+		if (mysql_num_rows($restultado) > 0) {
+
+			$arrCiu;
+			while ($dato = mysql_fetch_array($restultado)) {
+
+				$c = new Candidato($id, $nick, $pass, $ciunum, $pa, $nom, $ape, $sexo, $fecha);
+				$arrpostulantes[] = $c;
+
+			}
+
+		} mysql_free_result($restultado);
+		return $arrpostulantes;
+
+
+	}
+
 	public function obtenerNumPostulados($dem) {
 
 		$conexion = DataBase::getInstance();
@@ -288,39 +324,52 @@ SQL;
 		$resultado = $conexion -> ejecutarSentencia($sql);
 
 		return mysql_num_rows($resultado);
-		
 
 	}
 
+	public function paginarDemandas($sql, $pagina) {
 
+		$tamanoPagina = 10;
 
-public function paginarDemandas($sql, $pagina) {
+		if (!$pagina or $pagina = 0) {
 
-$tamanoPagina = 10;
+			$inicio = 0;
+			$pagina = 1;
 
-if (!$pagina or $pagina = 0) {
+		} else {
 
-$inicio = 0;
-$pagina = 1;
+			$inicio = ($pagina - 1) * $tamanoPagina;
 
-} else {
+		}
 
-$inicio = ($pagina - 1) * $tamanoPagina;
+		$resultado = $conexion -> ejecutarSentencia($sql);
+		$numeroResultados = $conexion -> getNumFilas();
 
-}
+		$datos = mysql_fetch_array($resultado);
 
-$resultado = $conexion -> ejecutarSentencia($sql);
-$numeroResultados = $conexion -> getNumFilas();
+		$totalPaginas = ceil($numeroResultados / $tamanoPagina);
 
-$datos = mysql_fetch_array($resultado);
+		$arrayRetorno = array('datos' => &$datos, 'totalPag' => $totalPaginas, 'pagina' => $pagina);
 
-$totalPaginas = ceil($numeroResultados / $tamanoPagina);
+		return $arrayRetorno;
 
-$arrayRetorno = array('datos' => &$datos, 'totalPag' => $totalPaginas, 'pagina' => $pagina);
+	}
+	
+		public function calcularIDDemanda() {
 
-return $arrayRetorno;
+		$conexion = DataBase::getInstance();
 
-}
+		$sql = <<<SQL
+select MAX(dem_id) from etj_demandas		
+SQL;
+
+		$resultado = $conexion -> ejecutarSentencia($sql);
+
+		$dato = mysql_fetch_array($resultado);
+
+		return $dato[0] + 1;
+
+	}
 
 }
 ?>

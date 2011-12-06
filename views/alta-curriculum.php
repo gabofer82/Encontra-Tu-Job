@@ -58,7 +58,7 @@
 			<div>
 			Suscripcion a bolet&iacute;n de ofertas?
 			<input type="checkbox" name="chkSubs" id="chkSubs" value="S" />
-			<input type="submit" value="Enviar" id="btnEnviar" />
+			<input class="submit" type="submit" value="Enviar" id="btnEnviar" />
 			<input type="reset" value="Restablecer" id="btnReset" />
 
 		</form>

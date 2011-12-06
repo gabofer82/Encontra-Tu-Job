@@ -37,7 +37,8 @@
 			</div>
 			<div id="nav-bar">
 					<ul>
-						<li><a href="http://localhost/Encontra-Tu-Job/index.php?controlador=Empresa&accion=ver_perfil">Ver Perfil</a></li>
+						<li><a href="http://localhost/Encontra-Tu-Job/index.php?controlador=Empresa&accion=ver_perfil">Editar Perfil</a></li>
+						<li><a href="http://localhost/Encontra-Tu-Job/index.php?controlador=Demandas&accion=demanda_reg">Nueva Demanda</a></li>
 						<li><a href="http://localhost/Encontra-Tu-Job/index.php?controlador=Empresa&accion=ver_mis_demandas">Mis Demandas </a></li>
 						<li><a href="http://localhost/Encontra-Tu-Job/index.php?controlador=Demandas&accion=ver_demandas">Buscar</a></li>
 					</ul>

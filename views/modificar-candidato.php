@@ -67,7 +67,7 @@
 			</select>
 		<input type="hidden" name="slcpais" id="slcpais" value="1" />
 		</fieldset>
-		<input type="submit" value="Registrarse" id="btnEnviar" />
+		<input class="submit" type="submit" value="Registrarse" id="btnEnviar" />
 		<input type="reset" value="Restablecer" id="btnReset" />
 	</form>
 </div>

@@ -25,7 +25,7 @@ include_once __DIR__ . '/../templates/content.php';
 			<input type="text" name="txtHorarioContacto" id="txtHorarioContacto"/>
 			
 			</fieldset>
-		<input type="submit" value="Registrar" id="btnEnviar" />
+		<input class="submit" type="submit" value="Registrar" id="btnEnviar" />
 		<input type="reset" value="Restablecer" id="btnReset" />
 	</form>
 </div>

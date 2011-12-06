@@ -15,16 +15,22 @@ class Empresa extends Usuario {
 	private $dir;
 	private $sitioweb;
 	private $tel;
+	private $rubro;
 
-	public function __construct($id, $nick, $pass, $nom, $ciu,$pais) {
+	public function __construct($id, $nick, $pass, $nom, $ciu,$pais,$rubro) {
 
 		parent::__construct($id, $nick, $pass, $ciu,$pais);
 
 		$this -> nom = $nom;
+		$this-> rubro = $rubro;
 
 	}
 
 	//Declaración de Getters y Setters
+
+public function getRubro() {
+		return $this -> rubro;
+	}
 
 	public function getNom() {
 		return $this -> nom;
@@ -52,6 +58,9 @@ class Empresa extends Usuario {
 
 	public function getTel() {
 		return $this -> tel;
+	}
+
+	public function setRubro($rubro) {$this -> rubro = $rubro;
 	}
 
 	public function setNom($nom) {$this -> nom = $nom;

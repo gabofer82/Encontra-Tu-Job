@@ -1,7 +1,7 @@
 <?php
 $config = Config::singleton();
 $ruta = $config -> get('librerias');
-include_once $ruta."/DataBase.class.php";
+include_once $ruta . "/DataBase.class.php";
 
 class UsuarioAdmin {
 
@@ -119,6 +119,30 @@ SQL;
 
 	}
 
+	public function validarRubro($rub) {
+
+		$conexion = DataBase::getInstance();
+
+		$sql = <<<SQL
+select rub_id from 
+etj_rubro
+where rub_nom = '$rub'
+SQL;
+
+		$resultado = $conexion -> ejecutarSentencia($sql);
+
+		if (mysql_num_rows($resultado) > 0) {
+
+			$rub = mysql_fetch_array($resultado);
+
+			return $rub[0];
+
+		}
+
+		return false;
+
+	}
+
 	function login_usuario($nick, $pass) {
 		$conexion = DataBase::getInstance();
 
@@ -132,29 +156,33 @@ SQL;
 		$datoUsr = mysql_fetch_assoc($resultado);
 
 		if ($datoUsr) {
-
-			$sql = "SELECT * FROM etj_candidatos WHERE `can_id` = " . $datoUsr['usr_id'];
+			$sql = "SELECT * FROM etj_empresas WHERE `emp_id` = " . $datoUsr['usr_id'];
 			$resultado = $conexion -> ejecutarSentencia($sql);
-			if ($conexion -> getNumFilas() > 0) {
-				include_once __DIR__ . '/../classes/Candidato.class.php';
-				$datoCan = mysql_fetch_assoc($resultado);
-				$can = new Candidato($datoUsr['usr_id'], $datoUsr['usr_nick'], $datoUsr['usr_pass'], $datoUsr['ciu_id'], $datoUsr['pa_id'], $datoCan['can_nom'], $datoCan['can_ape'], $datoCan['can_sexo'], $datoCan['can_fNac']);
-							session_start();
-				$_SESSION['user'] = $can;
+			$datoEmp = mysql_fetch_assoc($resultado);
+				echo var_dump($datoCan);
+				
+			if ($datoEmp) {
+				echo var_dump($resultado);
+				include_once __DIR__ . '/../classes/Empresa.class.php';
+				$emp = new Empresa($datoUsr['usr_id'], $datoUsr['usr_nick'], $datoUsr['usr_pass'], $datoUsr['ciu_id'], $datoUsr['pa_id'], $datoEmp['emp_nom'],$datoEmp['rub_id']);
+				session_start();
+				$_SESSION['user'] = $emp;
 				return true;
 
 			} else {
-
-				$sql = "SELECT * FROM etj_empresas WHERE `emp_id` = " . $datoUsr['usr_id'];
+				$sql = "SELECT * FROM etj_candidatos WHERE `can_id` = " . $datoUsr['usr_id'];
 				$resultado = $conexion -> ejecutarSentencia($sql);
-
-				if ($conexion -> getNumFilas() > 0) {
-					include_once __DIR__ . '/../classes/Empresa.class.php';
 					$datoCan = mysql_fetch_assoc($resultado);
-					$emp = new Empresa($datoUsr['usr_id'], $datoUsr['usr_nick'], $datoUsr['usr_pass'], $datoUsr['ciu_id'], $datoUsr['pa_id'], $datoCan['emp_nom']);
-						session_start();
-					$_SESSION['user'] = $emp;
+				if ($datoCan) {
+
+					include_once __DIR__ . '/../classes/Candidato.class.php';
+
+					$can = new Candidato($datoUsr['usr_id'], $datoUsr['usr_nick'], $datoUsr['usr_pass'], $datoUsr['ciu_id'], $datoUsr['pa_id'], $datoCan['can_nom'], $datoCan['can_ape'], $datoCan['can_sexo'], $datoCan['can_fNac']);
+					session_start();
+					$_SESSION['user'] = $can;
+					echo var_dump($_SESSION['user']);
 					return true;
+
 				}
 			}
 
@@ -224,7 +252,7 @@ SQL;
 		}
 
 		if ($vurl != "") {
-			$tmp_url = __DIR__.'/../user_img/' . basename($vurl);
+			$tmp_url = __DIR__ . '/../user_img/' . basename($vurl);
 			if (move_uploaded_file($_FILES['fileFoto']['tmp_name'], $tmp_url)) {
 				echo '<script>alert ("La imagen ser ha ingresado correctamente");</script>';
 				return $tmp_url;
@@ -236,19 +264,19 @@ SQL;
 		}
 
 	}
-	
-	public function obtenerNombreCiudad($ciudad,$pais) {
-	
+
+	public function obtenerNombreCiudad($ciudad, $pais) {
+
 		$conexion = DataBase::getInstance();
-		
-			$sql = <<<SQL
+
+		$sql = <<<SQL
 select ciu_nom from 
 etj_ciudades
 where ciu_id = $ciudad and pa_id = $pais
 SQL;
 
 		$resultado = $conexion -> ejecutarSentencia($sql);
-		
+
 		if (mysql_num_rows($resultado) > 0) {
 
 			$ciu = mysql_fetch_array($resultado);
@@ -259,20 +287,20 @@ SQL;
 
 		return true;
 
-	}	
-	
+	}
+
 	public function obtenerNombreIdioma($idioma) {
-	
+
 		$conexion = DataBase::getInstance();
-		
-			$sql = <<<SQL
+
+		$sql = <<<SQL
 select idm_nom from 
 etj_idiomas
 where idm_id = $idioma
 SQL;
 
 		$resultado = $conexion -> ejecutarSentencia($sql);
-		
+
 		if (mysql_num_rows($resultado) > 0) {
 
 			$idm = mysql_fetch_array($resultado);
@@ -282,6 +310,33 @@ SQL;
 		}
 
 		return true;
+
+	}
+
+	public function obtenerRubros() {
+
+		$conexion = DataBase::getInstance();
+
+		$sql = <<<SQL
+SELECT rub_nom
+FROM etj_rubro
+SQL;
+
+		$restultado = $conexion -> ejecutarSentencia($sql);
+
+		if (mysql_num_rows($restultado) > 0) {
+
+			$cont = mysql_num_rows($restultado);
+			$arrRub;
+			while ($dato = mysql_fetch_array($restultado)) {
+
+				$arrRub[$cont] = $dato[0];
+				$cont--;
+
+			}
+
+		} mysql_free_result($restultado);
+		return $arrRub;
 
 	}
 

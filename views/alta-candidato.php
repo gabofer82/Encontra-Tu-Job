@@ -19,13 +19,13 @@ div#cont-variable {
 			<legend>Datos de Registro</legend>
 			
 			<label for="txtUsrNom">Nombre de Usuario</label>
-			<input type="text" name="txtUsrNom" id="txtUsrNom"/>
+			<input type="text" name="txtUsrNom" id="txtUsrNom" /><br />
 			
 			<label for="txtUsrPass">Contraseña</label>
-			<input type="password" name="txtUsrPass" id="txtUsrPass" />
+			<input type="password" name="txtUsrPass" id="txtUsrPass" /><br />
 			
 			<label for="txtUsrRePass">Confirmar Contraseña</label>
-			<input type="password" name="txtUsrRePass" id="txtUsrRePass"/>
+			<input type="password" name="txtUsrRePass" id="txtUsrRePass"/><br />
 			
 			</fieldset class="registro">
 			
@@ -33,28 +33,33 @@ div#cont-variable {
 			<legend>Datos de Usuario</legend>
 			
 			<label>Nombre(s)</label>
-			<input type="text" name="txtNombre" id="txtNombre"/>
+			<input type="text" name="txtNombre" id="txtNombre"/><br />
 			
 			<label>Apellido(s)</label>
-			<input type="text" name="txtApellido" id="txtApellido"/>
+			<input type="text" name="txtApellido" id="txtApellido"/><br />
 			
-			<label>Sexo</label>
+			<label>Sexo</label><br />
 <!--aca pasa algo raro Si se seleccionan los radiobutton( cualquiera de ellos) manda a una pagina index.php que no existe-->
-			<label for="rbM">Masculino</label>
-			<input type="radio" name="radioSexo" id="rbM" value="M" />
-			<label for="rbF">Femenino</label>
-			<input type="radio" name="radioSexo" id="rbF" value="F" />
+			<div style="width: 300px;">
+				<label for="rbM" >Masculino</label>
+				<input type="radio" name="radioSexo" id="rbM" value="M" /><br />
+				<label for="rbF" >Femenino</label>
+				<input type="radio" name="radioSexo" id="rbF" value="F" /><br />
+			</div>
 			
-			<label for ="anhoNac">Fecha de Nacimiento</label>
-			<select name="anhoNac" id="anhoNac" onchange="ponerDias()">
-			<script>ponerAnho();</script>
-			</select>
-			<select name="mesNac" id="mesNac" onchange="ponerDias()">
-			<script>ponerMes();</script>
-			</select>
-			<select name="diaNac" id="diaNac">
-			<script>ponerDias();</script>
-			</select>
+			<div>
+				<select name="anhoNac" id="anhoNac" class="anhoNac" onchange="ponerDias()">
+				<script>ponerAnho();</script>
+				</select>
+				<select name="mesNac" id="mesNac" class="mesNac" onchange="ponerDias()">
+				<script>ponerMes();</script>
+				</select>
+				<select name="diaNac" id="diaNac" class="diaNac">
+				<script>ponerDias();</script>
+				</select><br/>
+				<label for ="anhoNac" >Fecha de Nacimiento</label>
+				<hr style="clear: left; visibility: hidden"/>
+			</div>
 					
 			<label>Ciudad</label>
 			
@@ -66,14 +71,14 @@ div#cont-variable {
 				echo '<option>'.$v.'</option>';	
 			}
 			?>
-			</select>
+			</select><br />
 			<!--Este campo por el momento será oculto, en el futuro si se requieren contemplar varios paises 
 				a la hora del registro se cambiará-->
 			<input type="hidden" name="slcpais" id="slcpais" value="1" />
 			</fieldset>
 			
-			<input type="submit" value="Registrarse" id="btnEnviar" />
-			<input type="reset" value="Restablecer" id="btnReset" />
+			<input class="submit" type="submit" value="Registrarse" id="btnEnviar" />
+			<input class="submit" type="reset" value="Restablecer" id="btnReset" />
 			
 		</form>
 	</div>

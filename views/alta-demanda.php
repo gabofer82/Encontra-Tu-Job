@@ -3,16 +3,11 @@
  * Esta funcion configura los select de la fecha de nacimiento no se donde iria aca para
  * que sea importada. O va en Index.html?
  */	
-	include_once __DIR__.'/../templates/header.php';
-	include_once __DIR__.'/../templates/user-bar.php';
-	include_once __DIR__.'/../templates/content.php';
-	include_once __DIR__.'/../modelos/usuario_admin.class.php';
-	$objU = UsuarioAdmin::getInstance() ;
-		
+
 ?>
-<script language="javascript" type="text/javascript" src="../templates/js/fechaNac.js"></script>
+
 	<div id="cont-variable">
-		<form action="../controladores/empresa_controller.php?action=altaDemanda" method="post" 
+		<form action='http://localhost/Encontra-Tu-Job/index.php?controlador=Demandas&accion=alta_demanda' method="post" 
 		id="AltaDemanda" class="formularios">
 			
 			
@@ -47,9 +42,8 @@
 			<label>Idioma</label>
 			<select name="slcIdioma" id="slcIdioma">
 			<?php 
-			$arr = $objU->obtenerIdiomas();
-			echo var_dump($arr);
-			foreach ($arr as $v) {
+			
+			foreach ($idio as $v) {
 				echo '<option>'.$v.'</option>';	
 			}
 			?>
@@ -58,31 +52,31 @@
 			<div>
 			<label>Conocimientos</label>
 			<input type="text" name="txtConocimientos" id="txtConocimientos"/>
-
+<script language="javascript" type="text/javascript" src="./views/js/fechaNac.js"></script>
 			<label>Fecha de Publicada</label>
-			<select name="anhoPubli"  id="anhoPubli" onchange="ponerDias()">
+			<select name="anhoPubli"  id="anhoNac" class="anhoNac" onchange="ponerDias()">
 			<script>ponerAnho();</script>
 			</select>
-			<select name="mesPubli" id="mesPubli" onchange="ponerDias()">
+			<select name="mesPubli" id="mesNac" class="mesNac" onchange="ponerDias()">
 			<script>ponerMes();</script>
 			</select>
-			<select name="diaPubli" id="diaPubli">
+			<select name="diaPubli" id="diaNac" class="diaNac" >
 			<script>ponerDias();</script>
 			</select>
-
+<script language="javascript" type="text/javascript" src="./views/js/fechaNacBis.js"></script>
 			<label>Fecha de Cierre</label>
-			<select name="anhoCierre" id="anhoCierre" onchange="ponerDias()">
+			<select name="anhoCierre" id="anhoNac2" class="anhoNac" onchange="ponerDias()">
 			<script>ponerAnho();</script>
 			</select>
-			<select name="mesCierre" id="mesCierre" onchange="ponerDias()">
+			<select name="mesCierre" id="mesNac2" class="mesNac" onchange="ponerDias()">
 			<script>ponerMes();</script>
 			</select>
-			<select name="diaCierre" id="diaCierre">
+			<select name="diaCierre" id="diaNac2" class="diaNac">
 			<script>ponerDias();</script>
 			</select>
 			</div>	
 		
-			<input type="submit" value="Registrar" id="btnEnviar" />
+			<input class="submit" type="submit" value="Registrar" id="btnEnviar" />
 			<input type="reset" value="Restablecer" id="btnReset" />
 			
 		</form>						
@@ -91,6 +85,4 @@
 	</div>
 </div>
 <?php
-	include_once __DIR__.'/../templates/footer.php';
-?>
 ?>

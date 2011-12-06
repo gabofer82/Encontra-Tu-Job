@@ -4,7 +4,7 @@
 }
 
 body {
-	background: url("../imagenes/bg_sombra_contenedor.jpg") repeat-y center;
+	background: url("../images/bg_sombra_contenedor.jpg") repeat-y center;
 	background-color: #eee;
 }
 
@@ -16,6 +16,9 @@ body {
 }*/
 
 /**********************/
+h1 {
+	visibility: hidden;
+}
 
 ul {
 	list-style: none;
@@ -31,7 +34,7 @@ div#barra-usuario {
 	padding: 4px 30px;
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 	font-size: 14px;
-	height: 22px;
+	height: 36px;
 
 }
 
@@ -56,8 +59,9 @@ div#contenido {
 	height: 560px;
 	/*border-left: 1px solid #333;
 	border-right: 1px solid #333;*/
-	padding: 5px 20px;
-	background-color: white;
+	padding: 160px 24px 5px 24px;
+	background:url("../images/bg_header.jpg") no-repeat center top;
+	border-width: 0px;
 }
 
 div#cabecera {
@@ -67,11 +71,12 @@ div#cabecera {
 
 div#nav-bar {
 	height: 46px;
-	background-color: #333333;
 }
 
 div#nav-bar ul {
 	padding: 14px 10px;
+	background-color: #333333;
+	border: 1px solid #DEDEB9;
 }
 
 div#nav-bar li {
@@ -81,32 +86,62 @@ div#nav-bar li {
 }
 
 div#nav-bar a {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 	text-decoration: none;
 	border-right: 2px dotted #999;
 	padding: 2px 8px 2px 4px;
 	color: #dedeb9;
 }
 
+div#nav-bar a:hover {
+	color:#ffffdb;
+}
+
 div#cont-variable {
 	margin: 18px 0;
-	background-color: #dedeb9;
 	height: 320px;
 	padding: 20px 0;
-	border-top: 6px solid #bcbc98;
-	
+	overflow: scroll;
 }
 
 div#cont-variable div {
+	margin: 10px 0;
+}
 
-margin: 10px 0;
+div.seleccion {
+	width: 700px;
+	margin: auto;
+	padding: 20px;
+	margin: 40px 10px;
+	text-align: center;
+}
 
+div.seleccion a{
+	font-size: 32px;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	
+}
+
+div#categorias {
+	border-top: 6px solid #bcbc98;	
+	background-color: #dedeb9;
+}
+
+.clear {
+	clear: left;
+	/*visibility: hidden;*/
 }
 
 div.secciones {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 	float: left;
 	width: 200px;
 	border-right: 1px solid #333;
 	padding: 16px 0 16px 48px;
+}
+
+div.secciones h3 {
+	text-shadow: #fff 1px 1px;	
 }
 
 div#ultimo {
@@ -134,31 +169,60 @@ div.secciones a {
 	color: #333333;
 }
 
+div.secciones a:hover {
+	color: #9a9a75;
+}
+
 div#pie {
 	clear: left;
 	text-align: center;
+	background:url("../images/siluetas.png") no-repeat center 20px;
 	background-color: #999;
 	border-top: 4px solid #222;
-	height: 220px;
+	height: 280px;
 }
 
 div#pie p{
-	margin-top: 194px;
+	color:#DEDEB9;
+	text-shadow: #000 1px 1px;
+	margin-top: 250px;
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 	padding-bottom: 4px;
 }
 
 /*************** FORMULARIOS DE LA APLICACION **************/
 
+.submit {
+	background: url("../images/submit.png") no-repeat !important;
+	text-shadow: #666 1px 1px;
+}
+
+input{
+	font-size: 18px;
+	border: none;
+	background: url("../images/campo.png") no-repeat;
+	height: 32px;
+	width: 200px;
+}
+
 .formularios {
 	padding: 16px;
-	width: 400px;
+	width: 460px;
 }
 
 .formularios label {
 	width: 200px;
 	padding-right: 8px;
+	margin-left:10px;
 	font-size: 12px;
+	float: left;
+	font-family: Verdana;
+	color: #222222;
+	font-size: 14px;
+}
+
+.formularios select {
+	margin-top: 10px;
 }
 
 .formularios input {
@@ -168,6 +232,10 @@ div#pie p{
 	margin-bottom: 16px;
 	/*float: left;*/
 
+}
+
+legend {
+	padding: 10px;
 }
 
 input.btnSubmit{

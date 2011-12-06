@@ -26,7 +26,7 @@ echo '<form action="http://' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_
 <input type="text" name="user-name"/>
 <label>' . $pass_bar . '</label>
 <input type="password" name="password" />
-<input type="submit" value="' . $submit_bar . '"/>
+<input  class="submit" type="submit" value="' . $submit_bar . '"/>
 <a href="http://' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . '/Encontra-Tu-Job/index.php?controlador=Registro&accion=seleccionar">' . $reglink_bar . '</a>
 </form>';
 } else {
